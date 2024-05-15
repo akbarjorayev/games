@@ -1,2 +1,2 @@
-# game
-Play games with AJ-Game
+# AJ-Games
+Play games with AJ-Games
