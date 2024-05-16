@@ -1,0 +1,6 @@
+*[class*='con'] {
+  background-color: red;
+  padding: var(--pd);
+  border-radius: var(--bd-ra);
+  background-color: var(--bg);
+}
