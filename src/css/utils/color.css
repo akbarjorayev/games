@@ -1,6 +1,8 @@
 :root {
   --theme-color: #000;
   --theme-color-not: #fff;
+  --text-df-color: #ddd;
 
   --bg: #373737;
+  --bg-dark: #252525;
 }
