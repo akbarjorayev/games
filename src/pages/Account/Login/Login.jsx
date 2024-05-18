@@ -1,5 +1,7 @@
 import Button from '../../../components/Button/Button'
 
+import { goToHref } from '../../../js/utils/href'
+
 import '../Account.css'
 
 export default function Login() {
@@ -11,7 +13,7 @@ export default function Login() {
             <b className="fz_medium d_f_ai_ce">Log in</b>
             <Button
               className="btn_cl"
-              onClick={() => (window.location.href = '/account/signup')}
+              onClick={() => goToHref('/account/signup')}
             >
               Sign up
             </Button>
