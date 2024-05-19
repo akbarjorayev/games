@@ -22,7 +22,7 @@ export default function Button({ children, ...props }) {
       key,
     })
 
-    const size = 1.8 * calculateHypotenuse(btn.clientWidth, btn.clientHeight)
+    const size = 2 * calculateHypotenuse(btn.clientWidth, btn.clientHeight)
     btn.style.setProperty('--ripple-max', `${size}px`)
 
     setRipples((prev) => [...prev, ripple])
