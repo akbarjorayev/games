@@ -18,7 +18,7 @@
 .line_x_small {
   width: 0;
   margin: 0 auto;
-  animation: widthTo100 0.3s 0.2s ease forwards;
+  animation: widthTo100 0.3s 0.1s ease forwards;
 }
 
 .line_x {
@@ -33,7 +33,7 @@
 .line_y_small {
   height: 0;
   margin: auto 0;
-  animation: heightTo100 0.3s 0.2s ease forwards;
+  animation: heightTo100 0.3s 0.1s ease forwards;
 }
 
 .line_y {
