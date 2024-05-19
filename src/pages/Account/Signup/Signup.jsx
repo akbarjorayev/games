@@ -70,10 +70,6 @@ export default function Signup() {
     setBtnTexts({ ...btnTexts, verify: BTNTEXTS.verify })
   }
 
-  function edit() {
-    setShowenForm(SHOWENFORM.phone)
-  }
-
   function handleSetVerify(verify) {
     setNumbers({ ...numbers, verify })
   }
@@ -140,7 +136,10 @@ export default function Signup() {
               >
                 <div className="con_bg_dr d_f_jc_sb d_f_ai_ce">
                   <div>{getPhoneNumber(numbers.phone)}</div>
-                  <Button type="button" onClick={edit}>
+                  <Button
+                    type="button"
+                    onClick={() => setShowenForm(SHOWENFORM.phone)}
+                  >
                     Edit
                   </Button>
                 </div>
