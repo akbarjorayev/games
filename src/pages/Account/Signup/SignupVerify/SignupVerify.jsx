@@ -73,15 +73,13 @@ export default function SignupVerify() {
               Edit
             </Button>
           </div>
-          <div className="input_area">
-            <OTPInput
-              amount={6}
-              setVerify={handleSetVerify}
-              pastedWrongOTP={() => toast.error('Pasted wrong OTP')}
-              error={wrongOTP}
-              setError={setWrongOTP}
-            />
-          </div>
+          <OTPInput
+            amount={6}
+            setVerify={handleSetVerify}
+            pastedWrongOTP={() => toast.error('Pasted wrong OTP')}
+            error={wrongOTP}
+            setError={setWrongOTP}
+          />
           <Button
             type="submit"
             className="btn_cl"
