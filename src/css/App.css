@@ -40,3 +40,7 @@ body {
 #root {
   height: 100%;
 }
+
+::selection {
+  background-color: var(--selection-bg);
+}
