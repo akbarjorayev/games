@@ -25,7 +25,7 @@ const SHOWENFORM = {
 }
 
 export default function Signup() {
-  const phoneNumberRef = useRef()
+  const phoneNumberInput = useRef()
   const [phoneNumber, setPhoneNumber] = useState('+998 ')
   const [verifyNumber, setVerifyNumber] = useState('')
   const [wrongOTP, setWrongOTP] = useState(false)
@@ -38,8 +38,8 @@ export default function Signup() {
 
     const validNumber = isValidUzbekMobileNumber(phoneNumber)
     if (!validNumber) {
-      phoneNumberRef.current.focus()
-      phoneNumberRef.current.classList.add('error')
+      phoneNumberInput.current.focus()
+      phoneNumberInput.current.classList.add('error')
       return
     }
 
@@ -114,7 +114,7 @@ export default function Signup() {
                 <div className="input_area">
                   <label htmlFor="phoneNumber">Phone number</label>
                   <input
-                    ref={phoneNumberRef}
+                    ref={phoneNumberInput}
                     type="tel"
                     id="phoneNumber"
                     value={phoneNumber}
