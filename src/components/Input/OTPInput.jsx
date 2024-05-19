@@ -9,6 +9,7 @@ export default function OTPInput({
   pastedWrongOTP,
   error,
   setError,
+  autoFocus,
 }) {
   const inputs = Array(amount).fill(0)
   const inputRefs = useRef([])
@@ -38,10 +39,11 @@ export default function OTPInput({
     const pastedText = e.clipboardData.getData('text')
 
     if (/^\d{6}$/.test(pastedText)) {
-      inputRefs.current.map((inputRef, i) => {
+      for (let i = 0; i < inputRefs.current.length; i++) {
+        const inputRef = inputRefs.current[i]
         inputRef.value = pastedText[i]
-        e.target.blur()
-      })
+      }
+      inputRefs.current.at(-1).focus()
       changeVerify()
       return
     }
@@ -68,6 +70,7 @@ export default function OTPInput({
             onKeyDown={(e) => handleKeyDown(e, i)}
             onChange={(e) => handleChange(e, i)}
             onPaste={paste}
+            autoFocus={autoFocus && i === 0}
           />
         ))}
       </div>

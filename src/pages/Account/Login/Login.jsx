@@ -40,7 +40,7 @@ export default function Login() {
               Sign up
             </Button>
           </div>
-          <div className="line_x line_dark"></div>
+          <div className="line_x line_color"></div>
           <form className="list_y" onSubmit={handleLogin}>
             <div className="input_area">
               <label htmlFor="phoneNumber">Phone number</label>
@@ -56,6 +56,7 @@ export default function Login() {
                   })
                 }
                 maxLength="17"
+                autoFocus
               />
             </div>
             <Input

@@ -20,7 +20,7 @@ function getSignupPage(component) {
               Log in
             </Button>
           </div>
-          <div className="line_x line_dark"></div>
+          <div className="line_x line_color"></div>
           {component}
         </div>
       </div>

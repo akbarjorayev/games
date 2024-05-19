@@ -101,6 +101,7 @@ export default function SignupVerify() {
             pastedWrongOTP={() => toast.error('Pasted wrong OTP')}
             error={wrongOTP}
             setError={setWrongOTP}
+            autoFocus={true}
           />
           <Button
             type="submit"
@@ -130,15 +131,20 @@ export default function SignupVerify() {
           </p>
         )}
         {+timer <= 0 && (
-          <Button
-            onClick={resendSMS}
-            disabled={
-              btnTexts.resend === BTNTEXTS.resending ||
-              btnTexts.verify === BTNTEXTS.verifing
-            }
-          >
-            {btnTexts.resend}
-          </Button>
+          <div className="list_y_small">
+            <p className="fz_small">
+              If you didn't receive an SMS, please resend
+            </p>
+            <Button
+              onClick={resendSMS}
+              disabled={
+                btnTexts.resend === BTNTEXTS.resending ||
+                btnTexts.verify === BTNTEXTS.verifing
+              }
+            >
+              {btnTexts.resend}
+            </Button>
+          </div>
         )}
       </div>
     </>

@@ -77,6 +77,7 @@ export default function SignupPhone() {
               value={number}
               onChange={(e) => setNumber(getPhoneNumber(e.target.value))}
               maxLength="17"
+              autoFocus
             />
           </div>
           <Button
