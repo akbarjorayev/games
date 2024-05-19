@@ -38,3 +38,7 @@ input.error {
 label {
   font-size: 0.9em;
 }
+
+.input_area button {
+  padding: var(--pd-small-very) var(--pd-small);
+}
