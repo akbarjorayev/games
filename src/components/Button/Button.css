@@ -1,7 +1,7 @@
 button {
   position: relative;
   padding: var(--pd-small-very) var(--pd);
-  border-radius: var(--bd-ra);
+  border-radius: var(--bd-ra-big);
   background-color: var(--bg);
   border: 1px solid transparent;
   isolation: isolate;
