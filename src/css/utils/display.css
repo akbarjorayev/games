@@ -4,6 +4,12 @@
   justify-content: center;
 }
 
+.d_f_ce {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .d_f_ai_ce {
   display: flex;
   align-items: center;
