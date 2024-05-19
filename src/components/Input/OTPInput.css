@@ -1,0 +1,11 @@
+.OTP_input {
+  display: flex;
+  justify-content: space-between;
+}
+
+.OTP_input input {
+  max-width: 30px;
+  height: 40px;
+  padding: 0 var(--pd-small);
+  text-align: center;
+}
