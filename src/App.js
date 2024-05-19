@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './css/App.css'
 import 'react-toastify/dist/ReactToastify.css'
 
-const Signup = React.lazy(() => import('./pages/Account/Signup/Signup'))
+import { Signup } from './pages/Account/Signup/Signup'
 const Login = React.lazy(() => import('./pages/Account/Login/Login'))
 
 export default function App() {
@@ -12,7 +12,8 @@ export default function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/account/signup" element={<Signup />} />
+          <Route path="/account/signup/phone" element={Signup.phone} />
+          <Route path="/account/signup/verify" element={Signup.verify} />
           <Route path="/account/login" element={<Login />} />
         </Routes>
       </BrowserRouter>

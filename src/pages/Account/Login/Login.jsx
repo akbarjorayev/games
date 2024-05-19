@@ -35,7 +35,7 @@ export default function Login() {
             <b className="fz_medium d_f_ai_ce">Log in</b>
             <Button
               className="btn_cl"
-              onClick={() => goToHref('/account/signup')}
+              onClick={() => goToHref('/account/signup/phone')}
             >
               Sign up
             </Button>
