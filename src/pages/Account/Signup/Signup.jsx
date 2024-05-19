@@ -36,15 +36,8 @@ export default function Signup() {
   async function next(e) {
     e.preventDefault()
 
-    const validNumber = isValidUzbekMobileNumber(phoneNumber)
-    if (!validNumber) {
-      phoneNumberInput.current.focus()
-      phoneNumberInput.current.classList.add('error')
-      return
-    }
-
     setPhoneBtnText(BTNTEXTS.sending)
-    const sent = await sendSMS(validNumber)
+    const sent = await sendSMS(phoneNumber)
 
     if (!sent) {
       toast.error('Something went wrong')
@@ -55,16 +48,11 @@ export default function Signup() {
     toast.success('SMS sent')
     setPhoneBtnText(BTNTEXTS.phone)
     setShowenForm(SHOWENFORM.verify)
+    setVerifyNumber('')
   }
 
   async function verify(e) {
     e.preventDefault()
-
-    if (!/^\d{6}$/.test(verifyNumber)) {
-      toast.error('Invalid OTP')
-      setWrongOTP(true)
-      return
-    }
 
     setVerifyBtnText(BTNTEXTS.verifing)
     const verified = await verifySMS(phoneNumber, verifyNumber)
@@ -118,14 +106,17 @@ export default function Signup() {
                     type="tel"
                     id="phoneNumber"
                     value={phoneNumber}
-                    onChange={(e) => {
+                    onChange={(e) =>
                       setPhoneNumber(getPhoneNumber(e.target.value))
-                      e.target.classList.remove('error')
-                    }}
+                    }
                     maxLength="17"
                   />
                 </div>
-                <Button type="submit" className="btn_cl">
+                <Button
+                  type="submit"
+                  className="btn_cl"
+                  disabled={!isValidUzbekMobileNumber(phoneNumber)}
+                >
                   {phoneBtnText}
                 </Button>
               </form>
@@ -153,7 +144,12 @@ export default function Signup() {
                     setError={setWrongOTP}
                   />
                 </div>
-                <Button type="submit" className="btn_cl" onClick={verify}>
+                <Button
+                  type="submit"
+                  className="btn_cl"
+                  onClick={verify}
+                  disabled={!/^\d{6}$/.test(verifyNumber)}
+                >
                   {verifyBtnText}
                 </Button>
               </form>
