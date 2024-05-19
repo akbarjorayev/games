@@ -23,10 +23,13 @@ export function isValidUzbekMobileNumber(number) {
   const validOperators = [
     '93', // Ucell
     '94', // Ucell
+    '50', // Ucell
     '90', // Beeline
-    '99', // Beeline
-    '91', // UMS (Universal Mobile Systems)
+    '91', // Beeline
+    '88', // UMS (Universal Mobile Systems)
     '95', // Uzmobile
+    '77', // Uzmobile
+    '99', // Uzmobile
     '97', // Mobiuz
     '98', // Perfectum Mobile
   ]
