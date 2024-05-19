@@ -13,8 +13,8 @@ import '../Account.css'
 import '../../../components/Input/Input.css'
 
 const BTNTEXTS = {
-  phone: 'Next',
-  sending: 'SMS is sending',
+  send: 'Next',
+  sending: 'Sending',
   verify: 'Verify',
   verifing: 'Verifing',
 }
@@ -26,50 +26,56 @@ const SHOWENFORM = {
 
 export default function Signup() {
   const phoneNumberInput = useRef()
-  const [phoneNumber, setPhoneNumber] = useState('+998 ')
-  const [verifyNumber, setVerifyNumber] = useState('')
   const [wrongOTP, setWrongOTP] = useState(false)
-  const [phoneBtnText, setPhoneBtnText] = useState(BTNTEXTS.phone)
-  const [verifyBtnText, setVerifyBtnText] = useState(BTNTEXTS.verify)
   const [showenForm, setShowenForm] = useState(SHOWENFORM.phone)
+  const [numbers, setNumbers] = useState({ phone: '+998 ', verify: '' })
+  const [btnTexts, setBtnTexts] = useState({
+    send: BTNTEXTS.send,
+    verify: BTNTEXTS.verify,
+  })
 
   async function next(e) {
     e.preventDefault()
 
-    setPhoneBtnText(BTNTEXTS.sending)
-    const sent = await sendSMS(phoneNumber)
+    setBtnTexts({ ...btnTexts, send: BTNTEXTS.sending })
+    const sent = await sendSMS(numbers.phone)
 
     if (!sent) {
       toast.error('Something went wrong')
-      setPhoneBtnText(BTNTEXTS.phone)
+      setBtnTexts({ ...btnTexts, send: BTNTEXTS.send })
       return
     }
 
     toast.success('SMS sent')
-    setPhoneBtnText(BTNTEXTS.phone)
     setShowenForm(SHOWENFORM.verify)
-    setVerifyNumber('')
+    setNumbers({ ...numbers, verify: '' })
+    setBtnTexts({ ...btnTexts, send: BTNTEXTS.send })
   }
 
   async function verify(e) {
     e.preventDefault()
 
-    setVerifyBtnText(BTNTEXTS.verifing)
-    const verified = await verifySMS(phoneNumber, verifyNumber)
+    setBtnTexts({ ...btnTexts, verify: BTNTEXTS.verifing })
+    const verified = await verifySMS(numbers.phone, numbers.verify)
 
     if (!verified) {
       toast.error('Wrong OTP')
       setWrongOTP(true)
-      setVerifyBtnText(BTNTEXTS.verify)
+      setNumbers({ ...numbers, verify: '' })
+      setBtnTexts({ ...btnTexts, verify: BTNTEXTS.verify })
       return
     }
 
     toast.success('OTP Verified')
-    setVerifyBtnText(BTNTEXTS.verify)
+    setBtnTexts({ ...btnTexts, verify: BTNTEXTS.verify })
   }
 
   function edit() {
     setShowenForm(SHOWENFORM.phone)
+  }
+
+  function handleSetVerify(verify) {
+    setNumbers({ ...numbers, verify })
   }
 
   return (
@@ -97,7 +103,7 @@ export default function Signup() {
               <form
                 className="list_y"
                 onSubmit={next}
-                disabled={phoneBtnText === BTNTEXTS.sending}
+                disabled={btnTexts.send === BTNTEXTS.sending}
               >
                 <div className="input_area">
                   <label htmlFor="phoneNumber">Phone number</label>
@@ -105,9 +111,12 @@ export default function Signup() {
                     ref={phoneNumberInput}
                     type="tel"
                     id="phoneNumber"
-                    value={phoneNumber}
+                    value={numbers.phone}
                     onChange={(e) =>
-                      setPhoneNumber(getPhoneNumber(e.target.value))
+                      setNumbers({
+                        ...numbers,
+                        phone: getPhoneNumber(e.target.value),
+                      })
                     }
                     maxLength="17"
                   />
@@ -115,9 +124,9 @@ export default function Signup() {
                 <Button
                   type="submit"
                   className="btn_cl"
-                  disabled={!isValidUzbekMobileNumber(phoneNumber)}
+                  disabled={!isValidUzbekMobileNumber(numbers.phone)}
                 >
-                  {phoneBtnText}
+                  {btnTexts.send}
                 </Button>
               </form>
             </div>
@@ -127,10 +136,10 @@ export default function Signup() {
               <form
                 className="list_y"
                 onSubmit={verify}
-                disabled={verifyBtnText === BTNTEXTS.verifing}
+                disabled={btnTexts.verify === BTNTEXTS.verifing}
               >
                 <div className="con_bg_dr d_f_jc_sb d_f_ai_ce">
-                  <div>{getPhoneNumber(phoneNumber)}</div>
+                  <div>{getPhoneNumber(numbers.phone)}</div>
                   <Button type="button" onClick={edit}>
                     Edit
                   </Button>
@@ -138,7 +147,7 @@ export default function Signup() {
                 <div className="input_area">
                   <OTPInput
                     amount={6}
-                    setVerify={setVerifyNumber}
+                    setVerify={handleSetVerify}
                     pastedWrongOTP={() => toast.error('Pasted wrong OTP')}
                     error={wrongOTP}
                     setError={setWrongOTP}
@@ -148,9 +157,9 @@ export default function Signup() {
                   type="submit"
                   className="btn_cl"
                   onClick={verify}
-                  disabled={!/^\d{6}$/.test(verifyNumber)}
+                  disabled={!/^\d{6}$/.test(numbers.verify)}
                 >
-                  {verifyBtnText}
+                  {btnTexts.verify}
                 </Button>
               </form>
             </div>
