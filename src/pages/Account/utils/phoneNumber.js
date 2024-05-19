@@ -19,7 +19,7 @@ export function getPhoneNumber(phoneNumber) {
 }
 
 export function isValidUzbekMobileNumber(number) {
-  number = number.replace('+998', '')
+  number = getCorrectPhoneNumber(number)
   const validOperators = [
     '93', // Ucell
     '94', // Ucell
@@ -35,4 +35,10 @@ export function isValidUzbekMobileNumber(number) {
 
   const operatorCode = number.substring(0, 2)
   return validOperators.includes(operatorCode)
+}
+
+export function getCorrectPhoneNumber(number, countryCode) {
+  number = number.replace('+998', '').replaceAll('-', '').replaceAll(' ', '')
+
+  return countryCode ? `+998${number}` : number
 }
