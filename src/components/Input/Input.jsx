@@ -5,13 +5,16 @@ import Button from '../Button/Button'
 import './Input.css'
 
 const Input = forwardRef(
-  ({ type = 'text', label: inputLabel, value: iValue, ...props }, ref) => {
+  (
+    { type = 'text', label: inputLabel, value: iValue, onChange, ...props },
+    ref
+  ) => {
     const [showPassword, setShowPassword] = useState(false)
     const [value, setValue] = useState(iValue === undefined ? '' : iValue)
 
     function changeInput(e) {
       setValue(e.target.value)
-      if (props.onChange) props.onChange(e)
+      if (onChange) onChange(e)
     }
 
     return (
