@@ -8,6 +8,10 @@
   &.line_dark {
     background-color: var(--bg-dark);
   }
+
+  &.line_color {
+    background-color: var(--main-color-bg);
+  }
 }
 
 .line_x,
@@ -42,4 +46,5 @@
 
 :root {
   --line-size: 3px;
+  --line-color: var(--main-color-bg);
 }
