@@ -6,7 +6,12 @@ import { goToHref } from '../../../js/utils/href'
 
 import '../Account.css'
 
-function getSignupPage(component) {
+const PAGES = {
+  phone: 'phone',
+  verify: 'verify',
+}
+
+function getSignupPage(component, pageName) {
   return (
     <>
       <div className="h_100 d_f_ce">
@@ -20,7 +25,22 @@ function getSignupPage(component) {
               Log in
             </Button>
           </div>
-          <div className="line_x line_color"></div>
+          <div className="list_x" style={{ '--line-anim-duration': '1s' }}>
+            {pageName === PAGES.phone && (
+              <>
+                <div className="line_x line_color"></div>
+                <div className="line_x line_dark"></div>
+                <div className="line_x line_dark"></div>
+              </>
+            )}
+            {pageName === PAGES.verify && (
+              <>
+                <div className="line_x line_color"></div>
+                <div className="line_x line_color"></div>
+                <div className="line_x line_dark"></div>
+              </>
+            )}
+          </div>
           {component}
         </div>
       </div>
@@ -29,6 +49,6 @@ function getSignupPage(component) {
 }
 
 export const Signup = {
-  phone: getSignupPage(<SignupPhone />),
-  verify: getSignupPage(<SignupVerify />),
+  phone: getSignupPage(<SignupPhone />, PAGES.phone),
+  verify: getSignupPage(<SignupVerify />, PAGES.verify),
 }
