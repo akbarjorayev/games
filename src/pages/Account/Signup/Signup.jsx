@@ -36,9 +36,7 @@ export default function Signup() {
   async function next(e) {
     e.preventDefault()
 
-    const userPhoneNumber = phoneNumber.replaceAll('-', '').replaceAll(' ', '')
-    const validNumber = isValidUzbekMobileNumber(userPhoneNumber)
-
+    const validNumber = isValidUzbekMobileNumber(phoneNumber)
     if (!validNumber) {
       phoneNumberRef.current.focus()
       phoneNumberRef.current.classList.add('error')
@@ -46,7 +44,7 @@ export default function Signup() {
     }
 
     setPhoneBtnText(BTNTEXTS.sending)
-    const sent = await sendSMS(userPhoneNumber)
+    const sent = await sendSMS(validNumber)
 
     if (!sent) {
       toast.error('Something went wrong')
@@ -122,7 +120,7 @@ export default function Signup() {
                     value={phoneNumber}
                     onChange={(e) => {
                       setPhoneNumber(getPhoneNumber(e.target.value))
-                      phoneNumberRef.current.classList.remove('error')
+                      e.target.classList.remove('error')
                     }}
                     maxLength="17"
                   />
