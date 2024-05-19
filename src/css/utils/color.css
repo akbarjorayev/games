@@ -9,4 +9,14 @@
 
   --main-color-bg: #116b6e;
   --main-color-bg-hover: #19898d;
+  --main-color-border: #247477;
+  --main-color-border-hover: #219fa3;
+  --main-color-border-focus: #1d5557;
+
+  --error-color: #d08383;
+  --error-color-border: #b91a1a;
+  --error-color-border-hover: #d86464;
+  --error-color-border-focus: #820d0d;
+
+  --selection-bg: #207c6a;
 }
