@@ -44,3 +44,8 @@ body {
 ::selection {
   background-color: var(--selection-bg);
 }
+
+*:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
