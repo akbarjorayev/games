@@ -23,7 +23,6 @@ export default function OTPInput({
   function handleChange(e, i) {
     const value = e.target.value
     if (value.length === 1 && i < amount - 1) inputRefs.current[i + 1].focus()
-    if (i === amount - 1) inputRefs.current[i].blur()
     changeVerify()
   }
 
