@@ -34,7 +34,7 @@ export default function Signup() {
     verify: BTNTEXTS.verify,
   })
 
-  async function next(e) {
+  async function sendOTP(e) {
     e.preventDefault()
 
     setBtnTexts({ ...btnTexts, send: BTNTEXTS.sending })
@@ -98,7 +98,7 @@ export default function Signup() {
             <div className="phone_number_area">
               <form
                 className="list_y"
-                onSubmit={next}
+                onSubmit={sendOTP}
                 disabled={btnTexts.send === BTNTEXTS.sending}
               >
                 <div className="input_area">
