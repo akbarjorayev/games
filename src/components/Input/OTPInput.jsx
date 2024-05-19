@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import './OTPInput.css'
 import './Input.css'
@@ -12,6 +12,13 @@ export default function OTPInput({
 }) {
   const inputs = Array(amount).fill(0)
   const inputRefs = useRef([])
+
+  useEffect(() => {
+    if (error) {
+      inputRefs.current.map((inputRef) => (inputRef.value = ''))
+      inputRefs.current[0].focus()
+    }
+  }, [error])
 
   function handleKeyDown(e, i) {
     if (e.key === 'Backspace' && i > 0) {
