@@ -1,5 +1,6 @@
 import SignupPhone from './SignupPhone/SignupPhone'
 import SignupVerify from './SignupVerify/SignupVerify'
+import SignupUserData from './SignupUserData/SignupUserData'
 import Button from '../../../components/Button/Button'
 
 import { goToHref } from '../../../js/utils/href'
@@ -9,6 +10,7 @@ import '../Account.css'
 const PAGES = {
   phone: 'phone',
   verify: 'verify',
+  userData: 'userData',
 }
 
 function getSignupPage(component, pageName) {
@@ -40,6 +42,13 @@ function getSignupPage(component, pageName) {
                 <div className="line_x line_dark"></div>
               </>
             )}
+            {pageName === PAGES.userData && (
+              <>
+                <div className="line_x line_color"></div>
+                <div className="line_x line_color"></div>
+                <div className="line_x line_color"></div>
+              </>
+            )}
           </div>
           {component}
         </div>
@@ -51,4 +60,5 @@ function getSignupPage(component, pageName) {
 export const Signup = {
   phone: getSignupPage(<SignupPhone />, PAGES.phone),
   verify: getSignupPage(<SignupVerify />, PAGES.verify),
+  userData: getSignupPage(<SignupUserData />, PAGES.userData),
 }
