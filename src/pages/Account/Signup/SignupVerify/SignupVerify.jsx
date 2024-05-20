@@ -55,6 +55,7 @@ export default function SignupVerify() {
 
     toast.success('OTP verified')
     setBtnTexts({ ...btnTexts, verify: BTNTEXTS.verify })
+    goToHref('/account/signup/userdata')
   }
 
   function handleSetVerify(verify) {
