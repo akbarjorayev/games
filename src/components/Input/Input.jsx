@@ -6,7 +6,7 @@ import './Input.css'
 
 const Input = forwardRef(
   (
-    { type = 'text', label: inputLabel, value: iValue, onChange, ...props },
+    { id, type = 'text', label: inputLabel, value: iValue, onChange, ...props },
     ref
   ) => {
     const [showPassword, setShowPassword] = useState(false)
@@ -20,12 +20,12 @@ const Input = forwardRef(
     return (
       <>
         <div className="input_area">
-          <label htmlFor={inputLabel}>{inputLabel}</label>
+          <label htmlFor={id || inputLabel}>{inputLabel}</label>
           <div className="list_x">
             <input
               ref={ref}
               value={value}
-              id={inputLabel}
+              id={id || inputLabel}
               type={
                 type === 'password'
                   ? showPassword
