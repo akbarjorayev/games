@@ -7,11 +7,15 @@
   --bg-dark: #252525;
   --bg-hover: #484848;
 
+  --main-color: #7dcacd;
   --main-color-bg: #116b6e;
   --main-color-bg-hover: #19898d;
   --main-color-border: #247477;
   --main-color-border-hover: #219fa3;
   --main-color-border-focus: #1d5557;
+
+  --red-color: #cb5d5d;
+  --red-color-bg: #a41111;
 
   --error-color: #d08383;
   --error-color-border: #b91a1a;
