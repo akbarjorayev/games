@@ -10,6 +10,11 @@ button {
   &:hover {
     background-color: var(--bg-hover);
   }
+
+  &:focus-visible {
+    border-color: var(--main-color-border-focus-visible);
+    box-shadow: 0 0 0 var(--focus-visible-boxshadow-width) var(--bg) inset;
+  }
 }
 
 button.btn_cl {
@@ -42,4 +47,5 @@ button.btn_cl {
 
 :root {
   --ripple-max: 0;
+  --focus-visible-boxshadow-width: 2px;
 }
