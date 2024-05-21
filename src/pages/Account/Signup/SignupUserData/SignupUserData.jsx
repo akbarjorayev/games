@@ -9,6 +9,7 @@ import {
   saveToSession,
 } from '../../../../js/db/local/sessionStorage'
 import { goToHref } from '../../../../js/utils/href'
+import { generateStrongPassword } from '../../../../js/utils/password'
 
 export default function SignupUserData() {
   const [passwords, setPasswords] = useState({
@@ -70,6 +71,15 @@ export default function SignupUserData() {
 }
 
 function PasswordInputs({ passwords, setPasswords }) {
+  function setStrongPassword() {
+    const strongPassword = generateStrongPassword(8)
+    setPasswords({
+      ...passwords,
+      password: strongPassword,
+      confirmPassword: strongPassword,
+    })
+  }
+
   return (
     <>
       <div className="input_area list_y">
@@ -104,6 +114,9 @@ function PasswordInputs({ passwords, setPasswords }) {
             <span className="material-symbols-outlined">
               visibility{passwords.show ? '_off' : ''}
             </span>
+          </Button>
+          <Button type="button" className="d_f_ce" onClick={setStrongPassword}>
+            <span className="material-symbols-outlined">encrypted</span>
           </Button>
         </div>
       </div>
