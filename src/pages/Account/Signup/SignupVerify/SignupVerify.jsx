@@ -43,7 +43,7 @@ export default function SignupVerify() {
     e.preventDefault()
 
     setBtnTexts({ ...btnTexts, verify: BTNTEXTS.verifing })
-    const verified = await verifySMS(numbers.phone, numbers.verify)
+    const verified = await verifySMS(numbers.verify)
 
     if (!verified) {
       toast.error('Wrong OTP')
