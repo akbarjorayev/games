@@ -51,3 +51,7 @@ body {
   opacity: 0.5;
   pointer-events: none;
 }
+
+#recaptcha-container {
+  display: none !important;
+}
