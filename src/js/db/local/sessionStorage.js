@@ -1,7 +1,7 @@
 export function saveToSession(key, value) {
-  sessionStorage.setItem(key, value)
+  sessionStorage.setItem(key, JSON.stringify(value))
 }
 
 export function loadFromSession(key) {
-  return sessionStorage.getItem(key)
+  return JSON.parse(sessionStorage.getItem(key))
 }
