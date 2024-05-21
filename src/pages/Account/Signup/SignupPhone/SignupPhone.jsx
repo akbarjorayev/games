@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify'
 
 import Button from '../../../../components/Button/Button'
 
-import { sendSMS } from '../../../../js/db/db/SMS'
+import { sendSMS, verifyRecaptcha } from '../../../../js/db/db/SMS'
 import { toastData } from '../../../../components/utils/toast'
 import {
   getPhoneNumber,
@@ -40,6 +40,7 @@ export default function SignupPhone() {
     e.preventDefault()
 
     setBtnTexts(BTNTEXTS.sending)
+    verifyRecaptcha('recaptcha-container')
     const sent = await sendSMS(number)
 
     if (!sent) {
@@ -89,6 +90,7 @@ export default function SignupPhone() {
           </Button>
         </form>
       </div>
+      <div id="recaptcha-container" style={{ display: 'none' }}></div>
     </>
   )
 }
