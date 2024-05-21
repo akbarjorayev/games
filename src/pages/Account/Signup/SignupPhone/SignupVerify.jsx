@@ -20,7 +20,7 @@ const BTNTEXTS = {
   resending: 'Resending SMS',
 }
 
-export default function SignupVerify() {
+export default function SignupVerify({ COMPONENTS, setComponent }) {
   const [wrongOTP, setWrongOTP] = useState(false)
   const [timer, setTimer] = useState(60)
   const [numbers, setNumbers] = useState({
@@ -64,7 +64,7 @@ export default function SignupVerify() {
 
   function editPhoneNumber() {
     saveToSession('editPhoneNumber', true)
-    goToHref('/account/signup/phone')
+    setComponent(COMPONENTS.phone)
   }
 
   async function resendSMS() {

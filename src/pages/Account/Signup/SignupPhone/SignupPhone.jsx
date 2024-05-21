@@ -13,14 +13,13 @@ import {
   loadFromSession,
   saveToSession,
 } from '../../../../js/db/local/sessionStorage'
-import { goToHref } from '../../../../js/utils/href'
 
 const BTNTEXTS = {
   send: 'Next',
   sending: 'Sending',
 }
 
-export default function SignupPhone() {
+export default function SignupPhone({ COMPONENTS, setComponent }) {
   const phoneNumberInput = useRef()
   const [number, setNumber] = useState('+998 ')
   const [btnTexts, setBtnTexts] = useState(BTNTEXTS.send)
@@ -28,7 +27,7 @@ export default function SignupPhone() {
   useEffect(() => {
     const edit = loadFromSession('editPhoneNumber')
 
-    if (edit === 'true') {
+    if (edit) {
       const number = loadFromSession('phoneNumber')
       setNumber(number)
 
@@ -52,7 +51,7 @@ export default function SignupPhone() {
     toast.success('SMS sent')
     setBtnTexts(BTNTEXTS.send)
     saveToSession('phoneNumber', number)
-    goToHref('/account/signup/verify')
+    setComponent(COMPONENTS.verify)
   }
 
   return (
@@ -90,7 +89,7 @@ export default function SignupPhone() {
           </Button>
         </form>
       </div>
-      <div id="recaptcha-container" style={{ display: 'none' }}></div>
+      <div id="recaptcha-container"></div>
     </>
   )
 }
