@@ -30,12 +30,10 @@ function getSignupPage(component, pageName) {
               <>
                 <div className="line_x line_color"></div>
                 <div className="line_x line_dark"></div>
-                <div className="line_x line_dark"></div>
               </>
             )}
             {pageName === PAGES.userData && (
               <>
-                <div className="line_x line_color"></div>
                 <div className="line_x line_color"></div>
                 <div className="line_x line_color"></div>
               </>
