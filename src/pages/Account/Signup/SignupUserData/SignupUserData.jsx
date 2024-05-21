@@ -82,7 +82,7 @@ function PasswordInputs({ passwords, setPasswords }) {
 
   return (
     <>
-      <div className="input_area list_y">
+      <div className="input_area">
         <label className="d_f_jc_sb" htmlFor="password">
           <div>
             Password <span className="txt_red">*</span>
