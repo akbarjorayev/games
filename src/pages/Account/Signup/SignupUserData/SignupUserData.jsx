@@ -13,6 +13,7 @@ import { goToHref } from '../../../../js/utils/href'
 import { generateStrongPassword } from '../../../../js/utils/password'
 import { createAccount } from '../../../../modules/account.module'
 import { toastData } from '../../../../components/utils/toast'
+import { saveToLocalStorage } from '../../../../js/db/local/localStorage'
 
 const SAVEBTNTEXTS = {
   save: 'Save',
@@ -54,8 +55,14 @@ export default function SignupUserData() {
       loadFromSession('phoneNumber'),
       true
     )
+    const accessToken = loadFromSession('accessToken')
+    if (!accessToken) {
+      toast.error('You do not have an access')
+      setSaveBtnText(SAVEBTNTEXTS.save)
+      return
+    }
 
-    const accountCreated = await createAccount(username, {
+    const accountCreated = await createAccount(accessToken, {
       name,
       username,
       phoneNumber,
@@ -68,6 +75,7 @@ export default function SignupUserData() {
       return
     }
 
+    saveToLocalStorage('accessToken', accessToken)
     toast.success(accountCreated.message)
     setSaveBtnText(SAVEBTNTEXTS.save)
   }
