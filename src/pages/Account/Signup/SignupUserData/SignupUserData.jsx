@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
 
 import Button from '../../../../components/Button/Button'
 import Input from '../../../../components/Input/Input'
@@ -10,7 +11,8 @@ import {
 } from '../../../../js/db/local/sessionStorage'
 import { goToHref } from '../../../../js/utils/href'
 import { generateStrongPassword } from '../../../../js/utils/password'
-import { saveFirestore } from '../../../../js/db/db/firestore'
+import { createAccount } from '../../../../modules/account.module'
+import { toastData } from '../../../../components/utils/toast'
 
 const SAVEBTNTEXTS = {
   save: 'Save',
@@ -53,29 +55,31 @@ export default function SignupUserData() {
       true
     )
 
-    const saved = await saveFirestore('accounts', username, {
+    const accountCreated = await createAccount(username, {
       name,
       username,
       phoneNumber,
       password: passwords.password,
     })
 
-    if (!saved) {
-      console.log('cannot save data')
+    if (!accountCreated.ok) {
+      toast.error(accountCreated.message)
       setSaveBtnText(SAVEBTNTEXTS.save)
       return
     }
 
-    console.log('data saved as', {
-      name,
-      username,
-      password: passwords.password,
-    })
+    toast.success(accountCreated.message)
     setSaveBtnText(SAVEBTNTEXTS.save)
   }
 
   return (
     <>
+      <ToastContainer
+        position={toastData.position}
+        autoClose={toastData.autoClose}
+        theme={toastData.theme}
+        draggable
+      />
       <form
         className="list_y"
         onSubmit={save}
