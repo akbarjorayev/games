@@ -4,6 +4,6 @@ import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 
 const app = initializeApp(API.firebase)
-export const firedb = getFirestore(app)
+export const firestoreDB = getFirestore(app)
 export const auth = getAuth(app)
 auth.languageCode = auth.useDeviceLanguage()
