@@ -43,6 +43,7 @@ export function isValidUzbekMobileNumber(number) {
 }
 
 export function getCorrectPhoneNumber(number, countryCode) {
+  if (!number) return ''
   number = number.replace('+998', '').replaceAll('-', '').replaceAll(' ', '')
   return countryCode ? `+998${number}` : number
 }
