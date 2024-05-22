@@ -9,27 +9,28 @@ export async function getAccountAbout() {
   return loadFromFirestore('accounts', '_aboutAccounts')
 }
 
-export async function createAccount(accessToken, data) {
+export async function createAccount(data) {
   const checked = await checkAccount(data)
   if (!checked.ok) return checked
 
   const id = (await getAccountAbout()).amount + 1
-  const saved = await saveFirestore('accounts', accessToken, {
+  const saved = await saveFirestore('accounts', `${id}`, {
     ...data,
     id,
-    accessToken,
   })
 
   if (saved) {
     await incrementField('accounts', '_aboutAccounts', 'amount', 1)
     await saveFirestore('usernames', data.username, {
       password: data.password,
-      accessToken,
+      id,
     })
     await saveFirestore('phoneNumbers', data.phoneNumber, {
       password: data.password,
-      accessToken,
+      id,
     })
+
+    saveToLocalStorage('id', id)
 
     return { ok: true, message: 'Account created' }
   } else {
@@ -68,9 +69,9 @@ export async function loginAccount(phoneOrUsername, password, type) {
     return { ok: false, message: 'Wrong password' }
 
   if (account.password === password) {
-    const { accessToken } = account
+    const { id } = account
 
-    saveToLocalStorage('accessToken', accessToken)
+    saveToLocalStorage('id', id)
     return { ok: true, message: 'Logged in' }
   }
 

@@ -20,8 +20,7 @@ export function sendSMS(phoneNumber) {
 export function verifySMS(code) {
   return window.confirmationResult
     .confirm(code)
-    .then((verificationResult) => {
-      window.verificationResult = verificationResult
+    .then(() => {
       return true
     })
     .catch(() => {
