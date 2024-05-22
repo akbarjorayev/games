@@ -1,4 +1,6 @@
 export function getPhoneNumber(phoneNumber) {
+  if (!phoneNumber) return ''
+
   phoneNumber = phoneNumber.replace('+998', '').replace(/[^0-9]/g, '')
 
   const sections = [2, 6, 9]
