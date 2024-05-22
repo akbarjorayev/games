@@ -53,6 +53,7 @@ export default function SignupVerify({ COMPONENTS, setComponent }) {
       return
     }
 
+    saveToSession('accessToken', window.verificationResult.user.accessToken)
     toast.success('OTP verified')
     setBtnTexts({ ...btnTexts, verify: BTNTEXTS.verify })
     goToHref('/account/signup/userdata')
