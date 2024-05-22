@@ -116,7 +116,7 @@ export default function SignupVerify({ COMPONENTS, setComponent }) {
       </div>
       <div className="con_bg_dr list_y">
         <div className="d_f_jc_sb d_f_ai_ce">
-          <b>{getPhoneNumber(numbers.phone)}</b>
+          <b>{getPhoneNumber(numbers.phone) || 'Unknown'}</b>
           <Button type="button" onClick={editPhoneNumber}>
             Edit
           </Button>
@@ -124,7 +124,7 @@ export default function SignupVerify({ COMPONENTS, setComponent }) {
         <div className="line_x"></div>
         <p className="fz_small">
           We've sent an SMS with a confirmation code to your phone{' '}
-          <b>{getPhoneNumber(numbers.phone)}</b>
+          <b>{getPhoneNumber(numbers.phone) || 'Unknown'}</b>
         </p>
         {+timer > 0 && (
           <p className="fz_small">

@@ -116,7 +116,7 @@ export default function SignupUserData() {
         </Button>
       </form>
       <div className="con_bg_dr d_f_jc_sb d_f_ai_ce">
-        <b>{getPhoneNumber(loadFromSession('phoneNumber'))}</b>
+        <b>{getPhoneNumber(loadFromSession('phoneNumber')) || 'Unknown'}</b>
         <Button type="button" onClick={editPhoneNumber}>
           Edit
         </Button>
