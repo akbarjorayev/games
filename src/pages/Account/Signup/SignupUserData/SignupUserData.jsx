@@ -3,13 +3,19 @@ import { useEffect, useState } from 'react'
 import Button from '../../../../components/Button/Button'
 import Input from '../../../../components/Input/Input'
 
-import { getPhoneNumber } from '../../utils/phoneNumber'
+import { getCorrectPhoneNumber, getPhoneNumber } from '../../utils/phoneNumber'
 import {
   loadFromSession,
   saveToSession,
 } from '../../../../js/db/local/sessionStorage'
 import { goToHref } from '../../../../js/utils/href'
 import { generateStrongPassword } from '../../../../js/utils/password'
+import { saveFirestore } from '../../../../js/db/db/firestore'
+
+const SAVEBTNTEXTS = {
+  save: 'Save',
+  saving: 'Saving',
+}
 
 export default function SignupUserData() {
   const [passwords, setPasswords] = useState({
@@ -18,46 +24,86 @@ export default function SignupUserData() {
     show: false,
   })
   const [name, setName] = useState('')
+  const [username, setUsername] = useState('')
   const [disabled, setDisabled] = useState(true)
+  const [saveBtnText, setSaveBtnText] = useState(SAVEBTNTEXTS.save)
 
   useEffect(() => {
     setDisabled(
       !(
-        name &&
+        username &&
         passwords.password &&
         passwords.password.length >= 6 &&
         passwords.password === passwords.confirmPassword
       )
     )
-  }, [name, passwords.password, passwords.confirmPassword])
+  }, [username, passwords.password, passwords.confirmPassword])
 
   function editPhoneNumber() {
     saveToSession('editPhoneNumber', true)
     goToHref('/account/signup/phone')
   }
 
-  function save(e) {
+  async function save(e) {
     e.preventDefault()
+    setSaveBtnText(SAVEBTNTEXTS.saving)
 
-    console.log(name, passwords)
+    const phoneNumber = getCorrectPhoneNumber(
+      loadFromSession('phoneNumber'),
+      true
+    )
+
+    const saved = await saveFirestore('accounts', username, {
+      name,
+      username,
+      phoneNumber,
+      password: passwords.password,
+    })
+
+    if (!saved) {
+      console.log('cannot save data')
+      setSaveBtnText(SAVEBTNTEXTS.save)
+      return
+    }
+
+    console.log('data saved as', {
+      name,
+      username,
+      password: passwords.password,
+    })
+    setSaveBtnText(SAVEBTNTEXTS.save)
   }
 
   return (
     <>
-      <form className="list_y" onSubmit={save}>
+      <form
+        className="list_y"
+        onSubmit={save}
+        disabled={saveBtnText === SAVEBTNTEXTS.saving}
+      >
         <Input
+          id="name"
           value={name}
+          name="name"
           onChange={(e) => setName(e.target.value)}
+          label="Name"
+          maxLength="20"
+        />
+        <Input
+          id="username"
+          value={username}
+          name="username"
+          onChange={(e) => setUsername(e.target.value)}
           label={
             <>
-              Name <span className="txt_red">*</span>
+              Username <span className="txt_red">*</span>
             </>
           }
           maxLength="20"
         />
         <PasswordInputs passwords={passwords} setPasswords={setPasswords} />
         <Button className="btn_cl" disabled={disabled}>
-          Save
+          {saveBtnText}
         </Button>
       </form>
       <div className="con_bg_dr d_f_jc_sb d_f_ai_ce">
