@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
 
 import Button from '../../../components/Button/Button'
 import Input from '../../../components/Input/Input'
@@ -9,26 +10,90 @@ import {
   isValidUzbekMobileNumber,
 } from '../utils/phoneNumber'
 import { goToHref } from '../../../js/utils/href'
+import { loginAccount } from '../../../modules/account.module'
+import { toastData } from '../../../components/utils/toast'
 
 import '../Account.css'
 import '../../../components/Input/Input.css'
 
+const LOGINBTNTEXTS = {
+  login: 'Login',
+  logging: 'Logging in',
+}
+
 export default function Login() {
-  const phoneNumberInput = useRef()
+  const phoneOrUsernameInput = useRef()
   const [inputsData, setInputsData] = useState({
     password: '',
-    phone: '+998 ',
+    phoneOrUsername: '',
   })
+  const [disabled, setDisabled] = useState(true)
+  const [loginBtnText, setLoginBtnText] = useState(LOGINBTNTEXTS.login)
+
+  useEffect(() => {
+    const numberStatus = willbeNumber(inputsData.phoneOrUsername)
+      ? inputsData.phoneOrUsername.length > 4 &&
+        isValidUzbekMobileNumber(inputsData.phoneOrUsername)
+      : true
+
+    setDisabled(
+      !(inputsData.password && inputsData.phoneOrUsername && numberStatus)
+    )
+  }, [inputsData.password, inputsData.phoneOrUsername])
 
   async function handleLogin(e) {
     e.preventDefault()
-    inputsData.phone = getCorrectPhoneNumber(inputsData.phone, true)
+    setLoginBtnText(LOGINBTNTEXTS.logging)
 
-    console.log(inputsData)
+    const phoneOrUsername = willbeNumber(inputsData.phoneOrUsername)
+      ? 'phoneNumber'
+      : 'username'
+
+    const phoneOrUsernameValue =
+      phoneOrUsername === 'phoneNumber'
+        ? getCorrectPhoneNumber(inputsData.phoneOrUsername, true)
+        : inputsData.phoneOrUsername
+
+    const loggedIn = await loginAccount(
+      phoneOrUsernameValue,
+      inputsData.password,
+      phoneOrUsername
+    )
+
+    if (!loggedIn.ok) {
+      toast.error(loggedIn.message)
+      setLoginBtnText(LOGINBTNTEXTS.login)
+      return
+    }
+
+    toast.success(loggedIn.message)
+    setLoginBtnText(LOGINBTNTEXTS.login)
+  }
+
+  function changePhoneOrUsername(e) {
+    const { value } = e.target
+
+    if (willbeNumber(value)) {
+      setInputsData({
+        ...inputsData,
+        phoneOrUsername: getPhoneNumber(value),
+      })
+    } else {
+      setInputsData({
+        ...inputsData,
+        phoneOrUsername: value,
+      })
+    }
   }
 
   return (
     <>
+      <ToastContainer
+        position={toastData.position}
+        autoClose={toastData.autoClose}
+        theme={toastData.theme}
+        draggable
+      />
       <div className="h_100 d_f_ce">
         <div className="con_bg_df account_con list_y">
           <div className="list_x d_f_ai_ce d_f_jc_sb">
@@ -41,21 +106,20 @@ export default function Login() {
             </Button>
           </div>
           <div className="line_x line_color"></div>
-          <form className="list_y" onSubmit={handleLogin}>
+          <form
+            className="list_y"
+            onSubmit={handleLogin}
+            disabled={loginBtnText === LOGINBTNTEXTS.logging}
+          >
             <div className="input_area">
-              <label htmlFor="phoneNumber">Phone number</label>
+              <label htmlFor="phoneNumber">Phone number or username</label>
               <input
-                ref={phoneNumberInput}
-                type="tel"
+                ref={phoneOrUsernameInput}
+                type="text"
                 id="phoneNumber"
-                value={inputsData.phone}
-                onChange={(e) =>
-                  setInputsData({
-                    ...inputsData,
-                    phone: getPhoneNumber(e.target.value),
-                  })
-                }
-                maxLength="17"
+                value={inputsData.phoneOrUsername}
+                onChange={changePhoneOrUsername}
+                maxLength="20"
                 autoFocus
               />
             </div>
@@ -69,21 +133,19 @@ export default function Login() {
                 })
               }
             />
-            <Button
-              type="submit"
-              className="btn_cl"
-              disabled={
-                !(
-                  inputsData.password &&
-                  isValidUzbekMobileNumber(inputsData.phone)
-                )
-              }
-            >
-              Log in
+            <Button type="submit" className="btn_cl" disabled={disabled}>
+              {loginBtnText}
             </Button>
           </form>
         </div>
       </div>
     </>
+  )
+}
+
+function willbeNumber(string) {
+  if (string === '+') return true
+  return /^\d+$/.test(
+    string.replaceAll('+', '').replaceAll('-', '').replaceAll(' ', '')
   )
 }
