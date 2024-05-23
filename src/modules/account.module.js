@@ -76,8 +76,11 @@ export async function loginAccount(phoneOrUsername, password, type) {
 
   if (account.password === password) {
     const { id } = account
-
     const localData = loadFromLocalStorage('games')
+
+    if (localData.accounts.ids.includes(`${id}`))
+      return { ok: false, message: 'You are already logged in' }
+
     if (!localData.accounts.active) localData.accounts.active = `${id}`
     localData.accounts.ids.push(`${id}`)
 
