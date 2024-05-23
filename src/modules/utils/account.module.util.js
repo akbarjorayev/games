@@ -24,6 +24,8 @@ export async function checkIsAccountFree(username, phoneNumber) {
       message: 'Account with this phone number already exists',
     }
   }
+
+  return { ok: true }
 }
 
 export async function saveAccountToFirestore(data, id) {
@@ -41,6 +43,7 @@ export async function saveAccountToFirestore(data, id) {
 export function saveAccountToLocalStorage(id) {
   const localData = loadFromLocalStorage('games')
   localData.accounts.active = `${id}`
+  localData.accounts.ids.push(`${id}`)
 
   saveToLocalStorage('games', localData)
 }
