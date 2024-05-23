@@ -1,20 +1,21 @@
+import { loadFromFirestore, saveFirestore } from '../js/db/db/firestore'
 import {
-  incrementField,
-  loadFromFirestore,
-  saveFirestore,
-} from '../js/db/db/firestore'
-import {
-  loadFromLocalStorage,
-  saveToLocalStorage,
-} from '../js/db/local/localStorage'
+  checkIsAccountFree,
+  checkLogginAccount,
+  saveAccountToFirestore,
+  saveAccountToLocalStorage,
+  saveLoggedAccountToLocalStorage,
+} from './utils/account.module.util'
 
 export async function getAccountAbout() {
   return loadFromFirestore('accounts', '_aboutAccounts')
 }
 
 export async function createAccount(data) {
-  const checked = await checkAccount(data)
-  if (!checked.ok) return checked
+  const { username, phoneNumber } = data
+
+  const isAccountFree = await checkIsAccountFree(username, phoneNumber)
+  if (!isAccountFree.ok) return isAccountFree
 
   const id = (await getAccountAbout()).amount + 1
   const saved = await saveFirestore('accounts', `${id}`, {
@@ -23,70 +24,21 @@ export async function createAccount(data) {
   })
 
   if (saved) {
-    await incrementField('accounts', '_aboutAccounts', 'amount', 1)
-    await saveFirestore('usernames', data.username, {
-      password: data.password,
-      id,
-    })
-    await saveFirestore('phoneNumbers', data.phoneNumber, {
-      password: data.password,
-      id,
-    })
-
-    const localData = loadFromLocalStorage('games')
-    localData.accounts.active = `${id}`
-
-    saveToLocalStorage('games', localData)
+    await saveAccountToFirestore(data, id)
+    saveAccountToLocalStorage(id)
 
     return { ok: true, message: 'Account created' }
-  } else {
-    return { ok: false, message: 'Something went wrong' }
-  }
-}
-
-async function checkAccount(data) {
-  const { username, phoneNumber } = data
-
-  const usernameIsTaken = await loadFromFirestore('usernames', username)
-  if (usernameIsTaken) {
-    return {
-      ok: false,
-      message: 'Account with this username is already exists',
-    }
-  }
-  const phoneNumberIsTaken = await loadFromFirestore(
-    'phoneNumbers',
-    phoneNumber
-  )
-  if (phoneNumberIsTaken) {
-    return {
-      ok: false,
-      message: 'Account with this phone number is already exists',
-    }
-  }
-
-  return { ok: true }
-}
-
-export async function loginAccount(phoneOrUsername, password, type) {
-  const account = await loadFromFirestore(`${type}s`, phoneOrUsername)
-  if (!account) return { ok: false, message: 'Account not found' }
-  if (account.password !== password)
-    return { ok: false, message: 'Wrong password' }
-
-  if (account.password === password) {
-    const { id } = account
-    const localData = loadFromLocalStorage('games')
-
-    if (localData.accounts.ids.includes(`${id}`))
-      return { ok: false, message: 'You are already logged in' }
-
-    if (!localData.accounts.active) localData.accounts.active = `${id}`
-    localData.accounts.ids.push(`${id}`)
-
-    saveToLocalStorage('games', localData)
-    return { ok: true, message: 'Logged in' }
   }
 
   return { ok: false, message: 'Something went wrong' }
+}
+
+export async function loginAccount(phoneOrUsername, password, type) {
+  const checked = await checkLogginAccount(phoneOrUsername, password, type)
+  if (!checked.ok) return checked
+
+  if (checked.ok) {
+    const loggedIn = saveLoggedAccountToLocalStorage(checked.account.id)
+    return loggedIn
+  }
 }
