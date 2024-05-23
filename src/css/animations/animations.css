@@ -1,0 +1,11 @@
+@keyframes widthTo100 {
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes heightTo100 {
+  to {
+    height: 100%;
+  }
+}
