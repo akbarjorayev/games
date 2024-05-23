@@ -25,6 +25,14 @@ button.btn_cl {
   }
 }
 
+button.btn_bd_cl {
+  border-color: var(--main-color-border);
+
+  &:hover {
+    border-color: var(--main-color-border-hover);
+  }
+}
+
 .ripple {
   position: absolute;
   width: var(--ripple-max);
