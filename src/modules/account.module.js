@@ -3,7 +3,10 @@ import {
   loadFromFirestore,
   saveFirestore,
 } from '../js/db/db/firestore'
-import { saveToLocalStorage } from '../js/db/local/localStorage'
+import {
+  loadFromLocalStorage,
+  saveToLocalStorage,
+} from '../js/db/local/localStorage'
 
 export async function getAccountAbout() {
   return loadFromFirestore('accounts', '_aboutAccounts')
@@ -30,7 +33,10 @@ export async function createAccount(data) {
       id,
     })
 
-    saveToLocalStorage('id', id)
+    const localData = loadFromLocalStorage('games')
+    localData.accounts.active = `${id}`
+
+    saveToLocalStorage('games', localData)
 
     return { ok: true, message: 'Account created' }
   } else {
@@ -71,7 +77,11 @@ export async function loginAccount(phoneOrUsername, password, type) {
   if (account.password === password) {
     const { id } = account
 
-    saveToLocalStorage('id', id)
+    const localData = loadFromLocalStorage('games')
+    if (!localData.accounts.active) localData.accounts.active = `${id}`
+    localData.accounts.ids.push(`${id}`)
+
+    saveToLocalStorage('games', localData)
     return { ok: true, message: 'Logged in' }
   }
 
