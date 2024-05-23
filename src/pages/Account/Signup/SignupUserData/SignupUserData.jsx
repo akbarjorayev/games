@@ -43,6 +43,7 @@ export default function SignupUserData() {
 
   function editPhoneNumber() {
     saveToSession('editPhoneNumber', true)
+    saveToSession('userIsFillingForm', true)
     goToHref('/account/signup/phone')
   }
 

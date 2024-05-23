@@ -13,6 +13,7 @@ import {
   loadFromSession,
   saveToSession,
 } from '../../../../js/db/local/sessionStorage'
+import { goToHref } from '../../../../js/utils/href'
 
 const BTNTEXTS = {
   send: 'Next',
@@ -22,16 +23,22 @@ const BTNTEXTS = {
 export default function SignupPhone({ COMPONENTS, setComponent }) {
   const phoneNumberInput = useRef()
   const [number, setNumber] = useState('+998 ')
+  const [isFillingForm, setIsFillingForm] = useState(false)
   const [btnTexts, setBtnTexts] = useState(BTNTEXTS.send)
 
   useEffect(() => {
     const edit = loadFromSession('editPhoneNumber')
-
     if (edit) {
       const number = loadFromSession('phoneNumber')
       setNumber(number)
 
       saveToSession('editPhoneNumber', false)
+    }
+
+    const userIsFillingForm = loadFromSession('userIsFillingForm')
+    if (userIsFillingForm) {
+      setIsFillingForm(true)
+      saveToSession('userIsFillingForm', false)
     }
   }, [])
 
@@ -80,13 +87,24 @@ export default function SignupPhone({ COMPONENTS, setComponent }) {
               autoFocus
             />
           </div>
-          <Button
-            type="submit"
-            className="btn_cl"
-            disabled={!isValidUzbekMobileNumber(number)}
-          >
-            {btnTexts}
-          </Button>
+          <div className="list_x w_100_child">
+            {isFillingForm && (
+              <Button
+                type="button"
+                className="btn_bd_cl"
+                onClick={() => goToHref('/account/signup/userdata')}
+              >
+                Back to Form
+              </Button>
+            )}
+            <Button
+              type="submit"
+              className="btn_cl"
+              disabled={!isValidUzbekMobileNumber(number)}
+            >
+              {btnTexts}
+            </Button>
+          </div>
         </form>
       </div>
       <div id="recaptcha-container"></div>
