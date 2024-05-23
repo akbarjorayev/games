@@ -139,10 +139,10 @@ function PasswordInputs({ passwords, setPasswords }) {
   return (
     <>
       <div className="input_area">
-        <label className="d_f_jc_sb" htmlFor="password">
-          <div>
+        <div className="d_f_jc_sb">
+          <label htmlFor="password">
             Password <span className="txt_red">*</span>
-          </div>
+          </label>
           <div
             className={`txt_${
               passwords.password.length < 6 ? 'red' : 'cl'
@@ -150,7 +150,7 @@ function PasswordInputs({ passwords, setPasswords }) {
           >
             6 characters minimum
           </div>
-        </label>
+        </div>
         <div className="list_x">
           <input
             id="password"
