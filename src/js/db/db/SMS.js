@@ -18,6 +18,8 @@ export function sendSMS(phoneNumber) {
 }
 
 export function verifySMS(code) {
+  if (!window.confirmationResult) return false
+  
   return window.confirmationResult
     .confirm(code)
     .then(() => {
