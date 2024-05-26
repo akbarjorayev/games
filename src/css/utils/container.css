@@ -1,4 +1,4 @@
-*[class*='con'] {
+*[class^='con'] {
   padding: var(--pd);
   border-radius: var(--bd-ra-big);
   background-color: var(--bg);
@@ -6,4 +6,12 @@
 
 .con_bg_dr {
   background-color: var(--bg-dark);
+}
+
+.con_bg_df {
+  background-color: var(--bg);
+}
+
+.con_bg_none {
+  background-color: transparent;
 }
