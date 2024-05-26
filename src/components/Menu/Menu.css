@@ -4,7 +4,6 @@
   & > * {
     padding-top: var(--pd-small-very);
     padding-bottom: var(--pd-small-very);
-    aspect-ratio: 1;
   }
 
   & .active {
