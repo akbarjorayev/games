@@ -1,0 +1,20 @@
+.blur_ha {
+  &:hover {
+    backdrop-filter: blur(var(--blur-hover));
+  }
+
+  &:active {
+    backdrop-filter: blur(var(--blur-active));
+  }
+}
+
+.blur_theme_bg {
+  background-color: color-mix(in srgb, var(--theme-color), transparent 60%);
+  backdrop-filter: blur(var(--blur-bg));
+}
+
+:root {
+  --blur-bg: 10px;
+  --blur-hover: 5px;
+  --blur-active: 20px;
+}
