@@ -10,6 +10,9 @@
 @import url('./utils/font.css');
 @import url('./utils/txt.css');
 @import url('./utils/toast.css');
+@import url('./utils/blur.css');
+@import url('./utils/bg.css');
+@import url('./utils/position.css');
 
 @import url('./animations/animations.css');
 
