@@ -17,10 +17,10 @@ export default function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<GameArea />} />
           <Route path="/account/signup/phone" element={Signup.phone} />
           <Route path="/account/signup/userdata" element={Signup.userData} />
           <Route path="/account/login" element={<Login />} />
-          <Route path="/games" element={<GameArea />} />
         </Routes>
       </BrowserRouter>
     </>
