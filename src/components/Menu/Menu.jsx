@@ -12,7 +12,7 @@ export default function Menu({ ...style }) {
       <div className="con_bg_none d_f_ce" {...style}>
         <div className="con_bg_none blur_theme_bg menu_icons list_x">
           <div
-            className="con_bg_none blur_ha list_y_small d_f_ce"
+            className="con_bg_none blur_ha list_y_small d_f_ce scale_trns"
             onClick={() => setActivePage(MAIN_PAGES.games)}
           >
             <div
@@ -25,7 +25,7 @@ export default function Menu({ ...style }) {
             <div>Games</div>
           </div>
           <div
-            className="con_bg_none blur_ha list_y_small d_f_ce"
+            className="con_bg_none blur_ha list_y_small d_f_ce scale_trns"
             onClick={() => setActivePage(MAIN_PAGES.accounts)}
           >
             <div
