@@ -13,7 +13,7 @@ const GAMES_PAGES = {
 }
 
 export default function GameArea() {
-  const [activePage, setActivePage] = useState(GAMES_PAGES.games)
+  const [activePage, setActivePage] = useState(GAMES_PAGES.account)
   const gameAreaComponent = {
     [GAMES_PAGES.games]: <GameList />,
     [GAMES_PAGES.account]: 'Account',
