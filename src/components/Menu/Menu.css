@@ -8,7 +8,7 @@
     cursor: pointer;
 
     &:active {
-      scale: 0.9;
+      scale: 0.95;
     }
   }
 
