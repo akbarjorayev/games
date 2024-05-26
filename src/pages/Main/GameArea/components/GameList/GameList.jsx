@@ -14,7 +14,13 @@ export default function GameList() {
 
 function getGameCon(game, i) {
   return (
-    <div className="game d_f_fd_c blur_theme_bg blur_ha" key={i}>
+    <a
+      rel="noreferrer"
+      href={game.link}
+      target="_self"
+      className="game d_f_fd_c blur_theme_bg blur_ha"
+      key={i}
+    >
       <div className="game_icon d_f_1">
         <div className="img d_f_ce">
           <img src={game.icon} alt={game.name} />
@@ -23,6 +29,6 @@ function getGameCon(game, i) {
       <b className="con_bg_none blur_theme_bg bd_none d_f_ce game_name fz_medium">
         {game.name}
       </b>
-    </div>
+    </a>
   )
 }

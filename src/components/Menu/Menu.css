@@ -5,6 +5,7 @@
     padding-top: var(--pd-small-very);
     padding-bottom: var(--pd-small-very);
     transition: scale 0.4s var(--spring-transition);
+    cursor: pointer;
 
     &:active {
       scale: 0.9;
