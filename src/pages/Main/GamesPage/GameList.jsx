@@ -1,4 +1,4 @@
-import { GAMES } from '../../data/gameData'
+import { GAMES } from './data/gameData'
 
 import './GameList.css'
 

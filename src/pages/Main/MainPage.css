@@ -14,7 +14,7 @@
   padding: var(--pd-small);
 }
 
-.game_area_menu {
+.main_page_menu {
   position: fixed;
   bottom: var(--pd-small-very);
   left: 50%;
