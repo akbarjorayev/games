@@ -1,0 +1,30 @@
+.game {
+  --bd-ra: 30px;
+  width: 32%;
+  width: clamp(300px, 30%, 360px);
+  aspect-ratio: 1;
+  border-radius: var(--bd-ra);
+  overflow: hidden;
+}
+
+.game_icon {
+  display: grid;
+  place-items: center;
+  height: 1px;
+
+  & .img {
+    width: min(100%, var(--game-img-size));
+    height: 100%;
+    overflow: hidden;
+
+    & img {
+      width: min(100%, var(--game-img-size));
+      height: min(100%, var(--game-img-size));
+      object-fit: cover;
+    }
+  }
+}
+
+:root {
+  --game-img-size: 250px;
+}
