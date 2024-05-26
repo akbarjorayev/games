@@ -1,7 +1,6 @@
-.d_f_ce {
+.d_f_fd_c {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
 }
 
 .d_f_ce {
@@ -15,7 +14,26 @@
   align-items: center;
 }
 
+.d_f_jc_ce {
+  display: flex;
+  justify-content: center;
+}
+
 .d_f_jc_sb {
   display: flex;
   justify-content: space-between;
+}
+
+.d_f_gap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--d-f-gap);
+}
+
+.d_f_1 {
+  flex: 1;
+}
+
+:root {
+  --d-f-gap: 10px;
 }
