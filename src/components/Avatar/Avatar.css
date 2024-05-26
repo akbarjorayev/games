@@ -1,0 +1,16 @@
+.avatar {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: linear-gradient(#fff -100%, var(--main-color-bg));
+  scale: 0;
+  animation: scaleTo1 0.2s ease forwards;
+}
+
+.avatar_letter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1;
+}
