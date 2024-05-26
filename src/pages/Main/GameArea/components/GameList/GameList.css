@@ -5,6 +5,11 @@
   aspect-ratio: 1;
   border-radius: var(--bd-ra);
   overflow: hidden;
+  transition: scale 0.4s var(--spring-transition);
+
+  &:active {
+    scale: 0.9;
+  }
 }
 
 .game_icon {
