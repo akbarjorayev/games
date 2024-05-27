@@ -1,4 +1,9 @@
-import { loadFromFirestore, saveFirestore } from '../js/db/db/firestore'
+import {
+  saveFirestore,
+  editFirestore,
+  loadFromFirestore,
+  deleteFromFirestore,
+} from '../js/db/db/firestore'
 import {
   checkIsAccountFree,
   checkLogginAccount,
@@ -53,4 +58,19 @@ function getAccountDataToSave(id, data) {
   }
 
   return accountData
+}
+
+export async function editAccountUsername(id, newUsername) {
+  const account = await loadFromFirestore('accounts', id)
+  const oldUsername = account.user.username
+  const usernameIsTaken = await loadFromFirestore('usernames', newUsername)
+
+  if (usernameIsTaken) return { ok: false, message: 'Username is taken' }
+  const usernameData = await loadFromFirestore('usernames', oldUsername)
+
+  await saveFirestore('usernames', newUsername, usernameData)
+  await editFirestore('accounts', id, { user: { username: newUsername } })
+  await deleteFromFirestore('usernames', oldUsername)
+
+  return { ok: true, message: 'Username changed' }
 }
