@@ -1,9 +1,10 @@
 import {
   collection,
-  setDoc,
   doc,
+  setDoc,
   getDoc,
   updateDoc,
+  deleteDoc,
   increment,
 } from 'firebase/firestore'
 import { firestoreDB } from './firebaseDB'
@@ -41,6 +42,17 @@ export async function editFirestore(collectionName, docName, newData) {
       return true
     }
     return false
+  } catch (error) {
+    return false
+  }
+}
+
+export async function deleteFromFirestore(collectionName, docName) {
+  const docRef = doc(firestoreDB, collectionName, docName)
+
+  try {
+    await deleteDoc(docRef)
+    return true
   } catch (error) {
     return false
   }
