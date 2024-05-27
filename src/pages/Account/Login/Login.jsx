@@ -12,6 +12,7 @@ import {
 import { goToHref } from '../../../js/utils/href'
 import { loginAccount } from '../../../modules/account.module'
 import { toastData } from '../../../components/utils/toast'
+import { loadFromLocalStorage } from '../../../js/db/local/localStorage'
 
 import '../Account.css'
 import '../../../components/Input/Input.css'
@@ -29,6 +30,7 @@ export default function Login() {
   })
   const [disabled, setDisabled] = useState(true)
   const [loginBtnText, setLoginBtnText] = useState(LOGINBTNTEXTS.login)
+  const hasAccount = useRef(loadFromLocalStorage('games').accounts.active)
 
   useEffect(() => {
     const numberStatus = willbeNumber(inputsData.phoneOrUsername)
@@ -95,48 +97,55 @@ export default function Login() {
         draggable
       />
       <div className="h_100 d_f_ce">
-        <div className="con_bg_df account_con list_y">
-          <div className="list_x d_f_ai_ce d_f_jc_sb">
-            <b className="fz_medium d_f_ai_ce">Log in</b>
-            <Button
-              className="btn_cl"
-              onClick={() => goToHref('/account/signup/phone')}
-            >
-              Sign up
-            </Button>
-          </div>
-          <div className="line_x line_color"></div>
-          <form
-            className="list_y"
-            onSubmit={handleLogin}
-            disabled={loginBtnText === LOGINBTNTEXTS.logging}
-          >
-            <div className="input_area">
-              <label htmlFor="phoneNumber">Phone number or username</label>
-              <input
-                ref={phoneOrUsernameInput}
-                type="text"
-                id="phoneNumber"
-                value={inputsData.phoneOrUsername}
-                onChange={changePhoneOrUsername}
-                maxLength="20"
-                autoFocus
-              />
+        <div className="account_con list_y">
+          <div className="con_bg_df list_y">
+            <div className="list_x d_f_ai_ce d_f_jc_sb">
+              <b className="fz_medium d_f_ai_ce">Log in</b>
+              <Button
+                className="btn_cl"
+                onClick={() => goToHref('/account/signup/phone')}
+              >
+                Sign up
+              </Button>
             </div>
-            <Input
-              label="Password"
-              type="password"
-              onChange={(e) =>
-                setInputsData({
-                  ...inputsData,
-                  password: e.target.value,
-                })
-              }
-            />
-            <Button type="submit" className="btn_cl" disabled={disabled}>
-              {loginBtnText}
+            <div className="line_x line_color"></div>
+            <form
+              className="list_y"
+              onSubmit={handleLogin}
+              disabled={loginBtnText === LOGINBTNTEXTS.logging}
+            >
+              <div className="input_area">
+                <label htmlFor="phoneNumber">Phone number or username</label>
+                <input
+                  ref={phoneOrUsernameInput}
+                  type="text"
+                  id="phoneNumber"
+                  value={inputsData.phoneOrUsername}
+                  onChange={changePhoneOrUsername}
+                  maxLength="20"
+                  autoFocus
+                />
+              </div>
+              <Input
+                label="Password"
+                type="password"
+                onChange={(e) =>
+                  setInputsData({
+                    ...inputsData,
+                    password: e.target.value,
+                  })
+                }
+              />
+              <Button type="submit" className="btn_cl" disabled={disabled}>
+                {loginBtnText}
+              </Button>
+            </form>
+          </div>
+          {hasAccount.current && (
+            <Button className="btn_cl" onClick={() => goToHref('/')}>
+              Home page
             </Button>
-          </form>
+          )}
         </div>
       </div>
     </>
