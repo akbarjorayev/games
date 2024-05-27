@@ -7,12 +7,14 @@
 @import url('./utils/line.css');
 @import url('./utils/list.css');
 @import url('./utils/display.css');
+@import url('./utils/visibility.css');
 @import url('./utils/font.css');
 @import url('./utils/txt.css');
 @import url('./utils/toast.css');
 @import url('./utils/blur.css');
 @import url('./utils/bg.css');
 @import url('./utils/position.css');
+@import url('./utils/cursor.css');
 
 @import url('./animations/animations.css');
 @import url('./animations/transition.css');

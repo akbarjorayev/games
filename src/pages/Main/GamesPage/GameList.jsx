@@ -1,4 +1,4 @@
-import { GAMES } from '../../data/gameData'
+import { GAMES } from './data/gameData'
 
 import './GameList.css'
 
@@ -18,7 +18,7 @@ function getGameCon(game, i) {
       rel="noreferrer"
       href={game.link}
       target="_self"
-      className="game d_f_fd_c blur_theme_bg blur_ha"
+      className="game d_f_fd_c blur_theme_bg blur_ha scale_trns"
       key={i}
     >
       <div className="game_icon d_f_1">
