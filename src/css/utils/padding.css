@@ -1,3 +1,7 @@
+.pd_small {
+  padding: var(--pd-small) !important;
+}
+
 .pd_tb_small {
   padding-top: var(--pd-small) !important;
   padding-bottom: var(--pd-small) !important;
