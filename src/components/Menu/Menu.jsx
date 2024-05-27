@@ -4,12 +4,12 @@ import { MainPageContext } from '../../pages/Main/MainPageContext'
 
 import './Menu.css'
 
-export default function Menu({ ...style }) {
+export default function Menu({ className }) {
   const { MAIN_PAGES, activePage, setActivePage } = useContext(MainPageContext)
 
   return (
     <>
-      <div className="con_bg_none d_f_ce" {...style}>
+      <div className={`con_bg_none d_f_ce ${className}`}>
         <div className="con_bg_none blur_theme_bg menu_icons list_x">
           <div
             className="con_bg_none blur_ha list_y_small d_f_ce scale_trns"

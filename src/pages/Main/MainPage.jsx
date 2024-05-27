@@ -31,7 +31,7 @@ export default function MainPage() {
           }`}
         >
           <div className="game_list d_f_1">{gameAreaComponent[activePage]}</div>
-          <Menu style={{ visibility: 'hidden' }} />
+          <Menu className="v_hidden" />
           <div className="main_page_menu">
             <Menu />
           </div>
