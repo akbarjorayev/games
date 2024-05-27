@@ -1,3 +1,7 @@
+.bd_50 {
+  border-radius: 50% !important;
+}
+
 .bd_none {
   border-radius: 0 !important;
 }
