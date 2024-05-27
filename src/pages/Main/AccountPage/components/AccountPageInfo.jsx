@@ -186,6 +186,7 @@ function GetEditingItem() {
           value={value}
           onChange={changeInput}
           placeholder={getLabel(accountInfo[editingItem].label)}
+          maxLength="20"
           autoFocus
         />
         <Button
