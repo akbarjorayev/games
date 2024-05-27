@@ -18,10 +18,11 @@ export async function createAccount(data) {
   if (!isAccountFree.ok) return isAccountFree
 
   const id = (await getAccountAbout()).amount + 1
-  const saved = await saveFirestore('accounts', `${id}`, {
-    ...data,
-    id,
-  })
+  const saved = await saveFirestore(
+    'accounts',
+    `${id}`,
+    getAccountDataToSave(id, data)
+  )
 
   if (saved) {
     await saveAccountToFirestore(data, id)
@@ -41,4 +42,15 @@ export async function loginAccount(phoneOrUsername, password, type) {
     const loggedIn = saveLoggedAccountToLocalStorage(checked.account.id)
     return loggedIn
   }
+}
+
+function getAccountDataToSave(id, data) {
+  const accountData = {
+    id,
+    user: {
+      ...data,
+    },
+  }
+
+  return accountData
 }
