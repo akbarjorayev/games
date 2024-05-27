@@ -3,8 +3,6 @@
   aspect-ratio: 1;
   border-radius: 50%;
   background: linear-gradient(#fff -100%, var(--main-color-bg));
-  scale: 0;
-  animation: scaleTo1 0.2s ease forwards;
 }
 
 .avatar_letter {
