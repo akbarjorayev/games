@@ -185,10 +185,13 @@ function GetEditingItem() {
           name={accountInfo[editingItem].label}
           value={value}
           onChange={changeInput}
-          label={getLabel(accountInfo[editingItem].label)}
+          placeholder={getLabel(accountInfo[editingItem].label)}
           autoFocus
         />
-        <Button className="btn_cl" disabled={value === accountInfoValue}>
+        <Button
+          className="btn_cl"
+          disabled={!value || value === accountInfoValue}
+        >
           {saveBtnText}
         </Button>
       </form>
