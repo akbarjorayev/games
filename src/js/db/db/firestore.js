@@ -27,7 +27,7 @@ export async function loadFromFirestore(collectionName, docName) {
 
     if (docSnap.exists()) return docSnap.data()
     return false
-  } catch (error) {
+  } catch {
     return false
   }
 }
@@ -42,7 +42,7 @@ export async function editFirestore(collectionName, docName, newData) {
       return true
     }
     return false
-  } catch (error) {
+  } catch {
     return false
   }
 }
@@ -53,7 +53,7 @@ export async function deleteFromFirestore(collectionName, docName) {
   try {
     await deleteDoc(docRef)
     return true
-  } catch (error) {
+  } catch {
     return false
   }
 }
@@ -71,7 +71,7 @@ export async function incrementField(
       [fieldName]: increment(incrementBy),
     })
     return true
-  } catch (err) {
+  } catch {
     return false
   }
 }
