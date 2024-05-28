@@ -84,3 +84,16 @@ export function switchAccountToId(id) {
   localData.accounts.active = `${id}`
   saveToLocalStorage('games', localData)
 }
+
+export function logoutFromAccount() {
+  const localData = loadFromLocalStorage('games')
+
+  localData.accounts.ids = localData.accounts.ids.filter(
+    (id) => id !== localData.accounts.active
+  )
+
+  localData.accounts.active =
+    localData.accounts.ids.length > 0 ? localData.accounts.ids[0] : ''
+
+  saveToLocalStorage('games', localData)
+}
