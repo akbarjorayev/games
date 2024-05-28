@@ -81,13 +81,17 @@ export default function AccountPageInfo({ account, setAccount }) {
             <div className="line_x"></div>
             {accountInfo[editingItem] ? <GetEditingItem /> : <GetInfoItems />}
           </div>
-          <AccountPageAccountsList />
-          <Button
-            className="bg_none btn_bd_cl"
-            onClick={() => goToHref('/account/signup/phone')}
-          >
-            Add account
-          </Button>
+          {!accountInfo[editingItem] && (
+            <>
+              <AccountPageAccountsList />
+              <Button
+                className="bg_none btn_bd_cl"
+                onClick={() => goToHref('/account/signup/phone')}
+              >
+                Add account
+              </Button>
+            </>
+          )}
         </div>
       </AccountPageInfoContext.Provider>
     </>
@@ -257,20 +261,18 @@ function GetEditingItem() {
 
       setSaveBtnText(SAVE_BTN_TEXTS.save)
       if (!editUsername.ok) return toast.error(editUsername.message)
-
-      setEditingItem(-1)
-      return
+    } else {
+      await editFirestore('accounts', id, {
+        user: { [accountInfo[editingItem].label]: value },
+      })
     }
-
-    await editFirestore('accounts', id, {
-      user: { [accountInfo[editingItem].label]: value },
-    })
 
     setAccount({
       ...account,
       user: { ...account.user, [accountInfo[editingItem].label]: value },
     })
     setEditingItem(-1)
+    toast.success('Changes saved')
   }
 
   function changeInput(e) {
