@@ -1,19 +1,34 @@
-import { useContext, createContext, useState } from 'react'
+import {
+  useContext,
+  createContext,
+  useState,
+  useEffect,
+  useCallback,
+} from 'react'
 import { createPortal } from 'react-dom'
 import { ToastContainer, toast } from 'react-toastify'
 
 import Input from '../../../../components/Input/Input'
 import Button from '../../../../components/Button/Button'
+import Avatar from '../../../../components/Avatar/Avatar'
 
-import { editFirestore } from '../../../../js/db/db/firestore'
+import {
+  editFirestore,
+  loadFromFirestore,
+} from '../../../../js/db/db/firestore'
 import { loadFromLocalStorage } from '../../../../js/db/local/localStorage'
-import { editAccountUsername } from '../../../../modules/account.module'
+import {
+  editAccountUsername,
+  switchAccountToId,
+} from '../../../../modules/account.module'
 import { toastData } from '../../../../components/utils/toast'
+import { goToHref } from '../../../../js/utils/href'
 
 const AccountPageInfoContext = createContext()
 
 export default function AccountPageInfo({ account, setAccount }) {
   const [editingItem, setEditingItem] = useState(-1)
+  const [accountSwitched, setAccountSwitched] = useState(false)
 
   const accountInfo = [
     {
@@ -34,21 +49,45 @@ export default function AccountPageInfo({ account, setAccount }) {
     },
   ]
 
+  const triggerAccountSwitch = useCallback(() => {
+    setAccountSwitched((prev) => !prev)
+  }, [])
+
   return (
     <>
+      {createPortal(
+        <ToastContainer
+          position={toastData.position}
+          autoClose={toastData.autoClose}
+          theme={toastData.theme}
+          draggable
+        />,
+        document.body
+      )}
       <AccountPageInfoContext.Provider
         value={{
           accountInfo,
           account,
           setAccount,
           editingItem,
+          accountSwitched,
           setEditingItem,
+          triggerAccountSwitch,
         }}
       >
-        <div className="con_bg_none account_info_con blur_theme_bg list_y_small">
-          <GetTop />
-          <div className="line_x"></div>
-          {accountInfo[editingItem] ? <GetEditingItem /> : <GetInfoItems />}
+        <div className="account_info_con list_y">
+          <div className="con_bg_none blur_theme_bg list_y_small">
+            <GetTop />
+            <div className="line_x"></div>
+            {accountInfo[editingItem] ? <GetEditingItem /> : <GetInfoItems />}
+          </div>
+          <AccountPageAccountsList />
+          <Button
+            className="bg_none btn_bd_cl"
+            onClick={() => goToHref('/account/signup/phone')}
+          >
+            Add account
+          </Button>
         </div>
       </AccountPageInfoContext.Provider>
     </>
@@ -122,6 +161,80 @@ function GetInfoItems() {
   )
 }
 
+function AccountPageAccountsList() {
+  const { accountSwitched } = useContext(AccountPageInfoContext)
+  const [accounts, setAccounts] = useState(false)
+  const { ids, active } = loadFromLocalStorage('games').accounts
+
+  useEffect(() => {
+    async function loadData() {
+      const accsData = await Promise.all(
+        ids.map(async (id) => {
+          if (id === active) return false
+          return await loadFromFirestore('accounts', id)
+        })
+      )
+
+      setAccounts(accsData)
+    }
+    loadData()
+  }, [accountSwitched])
+
+  if (ids.length < 2) return null
+  if (!accounts)
+    return (
+      <div className="con_bg_none d_f_ce blur_theme_bg">
+        Accounts are loading
+      </div>
+    )
+
+  return (
+    <>
+      <div className="con_bg_none blur_theme_bg list_y_small">
+        {accounts?.map((acc) => {
+          if (!acc) return null
+          return <GetAccount key={acc.id} account={acc} />
+        })}
+      </div>
+    </>
+  )
+
+  function GetAccount({ account }) {
+    const { setAccount, triggerAccountSwitch } = useContext(
+      AccountPageInfoContext
+    )
+
+    async function switchAccount() {
+      const switchedAccount = await loadFromFirestore(
+        'accounts',
+        `${account.id}`
+      )
+      switchAccountToId(account.id)
+      setAccount(switchedAccount)
+      toast.success(
+        <div>
+          Account switched to <b>{switchedAccount.user.name}</b>
+        </div>
+      )
+
+      triggerAccountSwitch()
+    }
+
+    return (
+      <div
+        className="con_bg_none list_x blur_ha scale_trns cur_pointer"
+        onClick={() => switchAccount()}
+      >
+        <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
+        <div className="list_y_small">
+          <b>{account?.user.name}</b>
+          <div className="fz_small">@{account?.user.username}</div>
+        </div>
+      </div>
+    )
+  }
+}
+
 const SAVE_BTN_TEXTS = {
   save: 'Save',
   saving: 'Saving',
@@ -167,15 +280,6 @@ function GetEditingItem() {
 
   return (
     <>
-      {createPortal(
-        <ToastContainer
-          position={toastData.position}
-          autoClose={toastData.autoClose}
-          theme={toastData.theme}
-          draggable
-        />,
-        document.body
-      )}
       <form
         className="list_y"
         onSubmit={save}
