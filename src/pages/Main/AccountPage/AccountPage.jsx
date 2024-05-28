@@ -21,7 +21,12 @@ export default function AccountPage() {
     loadData()
   }, [])
 
-  if (!account) return <div className="d_f_jc_ce">Account is loading</div>
+  if (!account)
+    return (
+      <div className="con_bg_none mar_ce blur_theme_bg w_max">
+        Account is loading
+      </div>
+    )
 
   return (
     <>
