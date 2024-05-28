@@ -75,7 +75,7 @@ export default function AccountPageInfo({ account, setAccount }) {
           triggerAccountSwitch,
         }}
       >
-        <div className="account_info_con list_y">
+        <div className="list_y w_100">
           <div className="con_bg_none blur_theme_bg list_y_small">
             <GetTop />
             <div className="line_x"></div>

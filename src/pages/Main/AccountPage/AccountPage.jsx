@@ -30,11 +30,13 @@ export default function AccountPage() {
 
   return (
     <>
-      <div className="d_f_ai_ce list_y">
-        <Avatar
-          letter={account?.user.name[0]}
-          style={{ fontSize: '50px', width: '100px' }}
-        />
+      <div className="mar_ce d_f_ce list_y account_con">
+        <div className="w_100 d_f_ce">
+          <Avatar
+            letter={account?.user.name[0]}
+            style={{ fontSize: '50px', width: '100px' }}
+          />
+        </div>
         <AccountPageFollow />
         <AccountPageInfo account={account} setAccount={setAccount} />
       </div>
