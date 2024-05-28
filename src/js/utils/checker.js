@@ -8,6 +8,7 @@ export function checkRunApp() {
 }
 
 export function checkInitialLocalStorage() {
+  console.log('a')
   if (!loadFromLocalStorage('games')) {
     saveToLocalStorage('games', getInitialLocalStorage())
   }
@@ -16,7 +17,7 @@ export function checkInitialLocalStorage() {
 export function getInitialLocalStorage() {
   const data = {
     accounts: {
-      active: false,
+      active: '',
       ids: [],
     },
   }
