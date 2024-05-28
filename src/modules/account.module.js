@@ -5,6 +5,10 @@ import {
   deleteFromFirestore,
 } from '../js/db/db/firestore'
 import {
+  loadFromLocalStorage,
+  saveToLocalStorage,
+} from '../js/db/local/localStorage'
+import {
   checkIsAccountFree,
   checkLogginAccount,
   saveAccountToFirestore,
@@ -73,4 +77,10 @@ export async function editAccountUsername(id, newUsername) {
   await deleteFromFirestore('usernames', oldUsername)
 
   return { ok: true, message: 'Username changed' }
+}
+
+export function switchAccountToId(id) {
+  const localData = loadFromLocalStorage('games')
+  localData.accounts.active = `${id}`
+  saveToLocalStorage('games', localData)
 }
