@@ -16,6 +16,12 @@
   }
 }
 
+@keyframes opaTo1 {
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes gradientAnimation {
   0%,
   100% {
