@@ -8,7 +8,6 @@ export function checkRunApp() {
 }
 
 export function checkInitialLocalStorage() {
-  console.log('a')
   if (!loadFromLocalStorage('games')) {
     saveToLocalStorage('games', getInitialLocalStorage())
   }
