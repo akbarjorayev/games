@@ -10,6 +10,12 @@
   }
 }
 
+@keyframes scaleTo1 {
+  to {
+    scale: 1;
+  }
+}
+
 @keyframes gradientAnimation {
   0%,
   100% {
