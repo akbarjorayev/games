@@ -14,7 +14,7 @@ const MAIN_PAGES = {
 }
 
 export default function MainPage() {
-  const [activePage, setActivePage] = useState(MAIN_PAGES.games)
+  const [activePage, setActivePage] = useState(MAIN_PAGES.accounts)
   const gameAreaComponent = {
     [MAIN_PAGES.games]: <GameList />,
     [MAIN_PAGES.accounts]: <AccountPage />,
