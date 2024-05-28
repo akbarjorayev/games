@@ -1,3 +1,9 @@
 .account_con {
   width: min(100%, 400px);
 }
+
+.acc_page_menu {
+  position: absolute;
+  top: var(--pd-small);
+  right: 0;
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import Avatar from '../../../components/Avatar/Avatar'
+import AccountPageMenu from './components/AccountPageMenu'
 import AccountPageFollow from './components/AccountPageFollow'
 import AccountPageInfo from './components/AccountPageInfo'
 
@@ -31,11 +32,12 @@ export default function AccountPage() {
   return (
     <>
       <div className="mar_ce d_f_ce list_y account_con">
-        <div className="w_100 d_f_ce">
+        <div className="w_100 d_f_ce pos_r">
           <Avatar
             letter={account?.user.name[0]}
             style={{ fontSize: '50px', width: '100px' }}
           />
+          <AccountPageMenu />
         </div>
         <AccountPageFollow />
         <AccountPageInfo account={account} setAccount={setAccount} />
