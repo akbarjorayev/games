@@ -70,6 +70,7 @@ export default function Login() {
 
     toast.success(loggedIn.message)
     setLoginBtnText(LOGINBTNTEXTS.login)
+    goToHref('/')
   }
 
   function changePhoneOrUsername(e) {
