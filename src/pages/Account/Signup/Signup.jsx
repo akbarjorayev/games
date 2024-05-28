@@ -13,7 +13,7 @@ const PAGES = {
 }
 
 function GetSignupPage(component, pageName) {
-  const hasAccount = loadFromLocalStorage('games').accounts.active
+  const hasAccount = loadFromLocalStorage('games')?.accounts.active
 
   return (
     <>

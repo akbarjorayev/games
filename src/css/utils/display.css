@@ -3,7 +3,8 @@
   flex-direction: column;
 }
 
-.d_f_ce {
+.d_f_ce,
+.d_f_ce_child > * {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,6 +13,11 @@
 .d_f_ai_ce {
   display: flex;
   align-items: center;
+}
+
+.d_f_ai_fe {
+  display: flex;
+  align-items: flex-end;
 }
 
 .d_f_jc_ce {

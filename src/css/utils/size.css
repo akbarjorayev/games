@@ -2,6 +2,14 @@
   width: 100%;
 }
 
+.w_100 {
+  width: 100%;
+}
+
+.w_max {
+  width: max-content;
+}
+
 .h_100 {
   height: 100%;
 }

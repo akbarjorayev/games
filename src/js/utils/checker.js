@@ -16,7 +16,7 @@ export function checkInitialLocalStorage() {
 export function getInitialLocalStorage() {
   const data = {
     accounts: {
-      active: false,
+      active: '',
       ids: [],
     },
   }

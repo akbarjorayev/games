@@ -76,6 +76,7 @@ export default function SignupUserData() {
 
     toast.success(accountCreated.message)
     setSaveBtnText(SAVEBTNTEXTS.save)
+    goToHref('/')
   }
 
   return (
