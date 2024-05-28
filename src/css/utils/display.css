@@ -3,7 +3,8 @@
   flex-direction: column;
 }
 
-.d_f_ce {
+.d_f_ce,
+.d_f_ce_child > * {
   display: flex;
   align-items: center;
   justify-content: center;
