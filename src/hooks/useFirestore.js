@@ -30,7 +30,7 @@ export const useFirestoreAll = (collectionName, docNames, ...deps) => {
     }
 
     loadData()
-  }, [collectionName, docNames, ...deps])
+  }, [collectionName, docNames.length, ...deps])
 
   return [firestoreData, setFirestoreData]
 }
