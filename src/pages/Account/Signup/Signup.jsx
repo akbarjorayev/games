@@ -1,9 +1,11 @@
 import SignupUserPhone from './SignupPhone/SignupUserPhone'
 import SignupUserData from './SignupUserData/SignupUserData'
 import Button from '../../../components/Button/Button'
+import AccountAtLimit from '../AccountAtLimit'
 
 import { goToHref } from '../../../js/utils/href'
 import { loadFromLocalStorage } from '../../../js/db/local/localStorage'
+import { accountIsAtLimit } from '../../../status/status'
 
 import '../Account.css'
 
@@ -14,6 +16,8 @@ const PAGES = {
 
 function GetSignupPage(component, pageName) {
   const hasAccount = loadFromLocalStorage('games')?.accounts.active
+
+  if (accountIsAtLimit) return <AccountAtLimit />
 
   return (
     <>
