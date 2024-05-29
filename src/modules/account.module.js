@@ -11,6 +11,7 @@ import {
 import {
   checkIsAccountFree,
   checkLogginAccount,
+  logoutFromAccountById,
   saveAccountToFirestore,
   saveAccountToLocalStorage,
   saveLoggedAccountToLocalStorage,
@@ -85,15 +86,9 @@ export function switchAccountToId(id) {
   saveToLocalStorage('games', localData)
 }
 
-export function logoutFromAccount() {
+export function logoutFromAccount(id) {
   const localData = loadFromLocalStorage('games')
+  const newLocalData = logoutFromAccountById(id || localData.accounts.active)
 
-  localData.accounts.ids = localData.accounts.ids.filter(
-    (id) => id !== localData.accounts.active
-  )
-
-  localData.accounts.active =
-    localData.accounts.ids.length > 0 ? localData.accounts.ids[0] : ''
-
-  saveToLocalStorage('games', localData)
+  saveToLocalStorage('games', newLocalData)
 }
