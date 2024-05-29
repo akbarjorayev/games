@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+
 import { loadFromFirestore } from '../js/db/db/firestore'
 
 export const useFirestore = (collectionName, docName, ...deps) => {
