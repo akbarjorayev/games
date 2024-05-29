@@ -18,6 +18,7 @@ import {
 import { toastData } from '../../../../components/utils/toast'
 import { goToHref } from '../../../../js/utils/href'
 import { useFirestoreAll } from '../../../../hooks/useFirestore'
+import { accountIsAtLimit } from '../../../../status/status'
 
 const AccountPageInfoContext = createContext()
 
@@ -79,12 +80,14 @@ export default function AccountPageInfo({ account, setAccount }) {
           {!accountInfo[editingItem] && (
             <>
               <AccountPageAccountsList />
-              <Button
-                className="bg_none btn_bd_cl"
-                onClick={() => goToHref('/account/signup/phone')}
-              >
-                Add account
-              </Button>
+              {!accountIsAtLimit && (
+                <Button
+                  className="bg_none btn_bd_cl"
+                  onClick={() => goToHref('/account/signup/phone')}
+                >
+                  Add account
+                </Button>
+              )}
             </>
           )}
         </div>
