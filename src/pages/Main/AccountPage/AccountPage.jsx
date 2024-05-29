@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 import Avatar from '../../../components/Avatar/Avatar'
 import AccountPageNonAuth from './components/AccountPageNonAuth'
 import AccountPageMenu from './components/AccountPageMenu'
@@ -7,7 +5,7 @@ import AccountPageFollow from './components/AccountPageFollow'
 import AccountPageInfo from './components/AccountPageInfo'
 
 import { loadFromLocalStorage } from '../../../js/db/local/localStorage'
-import { loadFromFirestore } from '../../../js/db/db/firestore'
+import { useFirestore } from '../../../hooks/useFirestore'
 
 import './AccountPage.css'
 
@@ -16,16 +14,10 @@ const ACCOUNT_STATUS = {
 }
 
 export default function AccountPage() {
-  const [account, setAccount] = useState(false)
-
-  useEffect(() => {
-    const id = loadFromLocalStorage('games').accounts.active
-    async function loadData() {
-      const data = await loadFromFirestore('accounts', id)
-      data ? setAccount(data) : setAccount(ACCOUNT_STATUS.nonAuth)
-    }
-    loadData()
-  }, [])
+  const [account, setAccount] = useFirestore(
+    'accounts',
+    loadFromLocalStorage('games')?.accounts.active
+  )
 
   if (!account)
     return (

@@ -1,10 +1,4 @@
-import {
-  useContext,
-  createContext,
-  useState,
-  useEffect,
-  useCallback,
-} from 'react'
+import { useContext, createContext, useState, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -23,6 +17,7 @@ import {
 } from '../../../../modules/account.module'
 import { toastData } from '../../../../components/utils/toast'
 import { goToHref } from '../../../../js/utils/href'
+import { useFirestoreAll } from '../../../../hooks/useFirestore'
 
 const AccountPageInfoContext = createContext()
 
@@ -167,22 +162,13 @@ function GetInfoItems() {
 
 function AccountPageAccountsList() {
   const { accountSwitched } = useContext(AccountPageInfoContext)
-  const [accounts, setAccounts] = useState(false)
   const { ids, active } = loadFromLocalStorage('games').accounts
 
-  useEffect(() => {
-    async function loadData() {
-      const accsData = await Promise.all(
-        ids.map(async (id) => {
-          if (id === active) return false
-          return await loadFromFirestore('accounts', id)
-        })
-      )
-
-      setAccounts(accsData)
-    }
-    loadData()
-  }, [accountSwitched])
+  const [accounts] = useFirestoreAll(
+    'accounts',
+    ids.filter((id) => id !== active),
+    accountSwitched
+  )
 
   if (ids.length < 2) return null
   if (!accounts)
