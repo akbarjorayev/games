@@ -3,6 +3,7 @@ import { ToastContainer, toast } from 'react-toastify'
 
 import Button from '../../../components/Button/Button'
 import Input from '../../../components/Input/Input'
+import AccountAtLimit from '../AccountAtLimit'
 
 import {
   getCorrectPhoneNumber,
@@ -13,6 +14,7 @@ import { goToHref } from '../../../js/utils/href'
 import { loginAccount } from '../../../modules/account.module'
 import { toastData } from '../../../components/utils/toast'
 import { loadFromLocalStorage } from '../../../js/db/local/localStorage'
+import { accountIsAtLimit } from '../../../status/status'
 
 import '../Account.css'
 import '../../../components/Input/Input.css'
@@ -88,6 +90,8 @@ export default function Login() {
       })
     }
   }
+
+  if (accountIsAtLimit) return <AccountAtLimit />
 
   return (
     <>
