@@ -5,6 +5,12 @@
     padding-top: var(--pd-small-very);
     padding-bottom: var(--pd-small-very);
     cursor: pointer;
+
+    &:has(.active):hover {
+      background-color: transparent !important;
+      backdrop-filter: blur(var(--blur));
+      cursor: default;
+    }
   }
 
   & .active {
