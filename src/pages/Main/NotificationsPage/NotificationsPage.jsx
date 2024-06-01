@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 
 import NotificationsNo from './components/NotificationsNo'
 import NotificationsFilter from './components/NotificationsFilter'
@@ -8,6 +8,7 @@ import { useFirestore } from '../../../hooks/useFirestore'
 import { loadFromLocalStorage } from '../../../js/db/local/localStorage'
 import { NOTIFICATIONS_TYPES } from './data/notificationsData'
 import { NotificationsContext } from './NotificationsContext'
+import { loadFromFirestore } from '../../../js/db/db/firestore'
 
 import './NotificationsPage.css'
 
@@ -43,7 +44,7 @@ export default function NotificationsPage() {
   return (
     <>
       <NotificationsContext.Provider
-        value={{ notifications, setNotifications, filter, setFilter }}
+        value={{ id, notifications, setNotifications, filter, setFilter }}
       >
         <div className="h_100 d_f_ai_ce list_y">
           <NotificationsFilter />
@@ -62,11 +63,21 @@ export default function NotificationsPage() {
 }
 
 function NotificationsTop() {
+  const { id, setNotifications } = useContext(NotificationsContext)
+
+  async function loadNotifications() {
+    const data = await loadFromFirestore('notifications', `${id.current}`)
+    setNotifications(data)
+  }
+
   return (
     <>
       <div className="list_x d_f_ai_ce d_f_jc_sb">
         <b className="fz_medium">Notifications</b>
-        <div className="con d_f_ce blur_theme_bg blur_ha cur_pointer scale_trns bd_50 pd_small">
+        <div
+          className="con d_f_ce blur_theme_bg blur_ha cur_pointer scale_trns bd_50 pd_small"
+          onClick={loadNotifications}
+        >
           <span className="material-symbols-outlined fz_small_icon">
             refresh
           </span>
