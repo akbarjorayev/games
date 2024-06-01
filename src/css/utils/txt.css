@@ -5,3 +5,7 @@
 .txt_red {
   color: var(--red-color);
 }
+
+.txt_opa {
+  opacity: 0.5;
+}
