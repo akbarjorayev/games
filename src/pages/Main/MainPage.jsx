@@ -4,6 +4,7 @@ import Menu from '../../components/Menu/Menu'
 import GameList from './GamesPage/GameList'
 import AccountPage from './AccountPage/AccountPage'
 import NotificationsPage from './NotificationsPage/NotificationsPage'
+import Search from './Search/Search'
 
 import { MainPageContext } from './MainPageContext'
 
@@ -13,14 +14,16 @@ const MAIN_PAGES = {
   games: 'games',
   accounts: 'accounts',
   notifications: 'notifications',
+  search: 'search',
 }
 
 export default function MainPage() {
-  const [activePage, setActivePage] = useState(MAIN_PAGES.notifications)
+  const [activePage, setActivePage] = useState(MAIN_PAGES.search)
   const gameAreaComponent = {
     [MAIN_PAGES.games]: <GameList />,
     [MAIN_PAGES.accounts]: <AccountPage />,
     [MAIN_PAGES.notifications]: <NotificationsPage />,
+    [MAIN_PAGES.search]: <Search />,
   }
 
   return (

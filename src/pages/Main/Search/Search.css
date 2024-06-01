@@ -1,0 +1,3 @@
+.search_con {
+  width: min(100%, var(--main-page-con-width));
+}
