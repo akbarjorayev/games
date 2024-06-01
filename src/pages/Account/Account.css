@@ -1,4 +1,4 @@
 .account_con {
-  width: 400px;
+  width: var(--main-page-con-width);
   max-width: 90%;
 }

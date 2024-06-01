@@ -21,10 +21,8 @@ export default function AccountPage() {
 
   if (!account)
     return (
-      <div className="pos_full_page d_f_ce">
-        <div className="con_bg_none mar_ce blur_theme_bg w_max">
-          Account is loading
-        </div>
+      <div className="h_100 d_f_ce">
+        <div className="con mar_ce blur_theme_bg w_max">Account is loading</div>
       </div>
     )
 

@@ -20,7 +20,7 @@ export default function AccountAtLimit() {
     <>
       <div className="h_100 d_f_ce">
         <div className="account_con list_y">
-          <div className="con_bg_none blur_theme_bg list_y">
+          <div className="con blur_theme_bg list_y">
             <div>
               <b className="d_f_ce fz_medium">You have reached your limit</b>
               <div className="line_x"></div>
@@ -32,7 +32,7 @@ export default function AccountAtLimit() {
                 ))}
             </accountAtLimitContext.Provider>
           </div>
-          {accountLen < accounts.length && (
+          {accountLen < accounts?.length && (
             <div className="list_x w_100_child">
               <Button
                 className="btn_bd_cl bg_none"
@@ -68,10 +68,7 @@ function GetAccounts({ account }) {
   }
 
   return (
-    <div
-      className="con_bg_none list_x d_f_jc_sb d_f_ai_ce"
-      disabled={loggedout}
-    >
+    <div className="con list_x d_f_jc_sb d_f_ai_ce" disabled={loggedout}>
       <div className="list_x">
         <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
         <div className="list_y_small">
@@ -81,7 +78,7 @@ function GetAccounts({ account }) {
       </div>
       {!loggedout && (
         <div
-          className="con_bg_none blur_ha bd_50 d_f_ce scale_trns cur_pointer pd_small"
+          className="con blur_ha bd_50 d_f_ce scale_trns cur_pointer pd_small"
           onClick={logout}
           style={{ width: '40px', height: '40px' }}
         >

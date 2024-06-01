@@ -16,7 +16,7 @@ export default function AccountPageMenu() {
     <>
       <div className="acc_page_menu list_y_small d_f_ai_fe">
         <div
-          className="con_bg_none blur_theme_bg blur_ha bd_50 w_max scale_trns cur_pointer d_f_ce"
+          className="con blur_theme_bg blur_ha bd_50 w_max scale_trns cur_pointer d_f_ce"
           onClick={() => setOpened(true)}
         >
           <span className="material-symbols-outlined fz_small_icon">menu</span>
@@ -26,7 +26,7 @@ export default function AccountPageMenu() {
         <Alert onHide={() => setOpened(false)}>
           <div className="d_f_ce_child">
             <div
-              className="con_bg_none blur_theme_bg blur_ha txt_red scale_trns cur_pointer"
+              className="con blur_theme_bg blur_ha txt_red scale_trns cur_pointer"
               onClick={logout}
             >
               Log out

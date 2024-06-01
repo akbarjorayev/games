@@ -1,3 +1,7 @@
 .bg_none {
   background: none;
 }
+
+.bg_main {
+  background: var(--main-color-bg);
+}

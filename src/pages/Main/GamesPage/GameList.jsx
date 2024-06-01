@@ -26,7 +26,7 @@ function getGameCon(game, i) {
           <img src={game.icon} alt={game.name} />
         </div>
       </div>
-      <b className="con_bg_none blur_theme_bg bd_none d_f_ce game_name fz_medium">
+      <b className="con blur_theme_bg bd_none d_f_ce game_name fz_medium">
         {game.name}
       </b>
     </a>
