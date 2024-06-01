@@ -8,8 +8,8 @@ export default function Menu({ className }) {
   const { MAIN_PAGES, activePage, setActivePage } = useContext(MainPageContext)
 
   return (
-    <div className={`con_bg_none d_f_ce ${className}`}>
-      <div className="con_bg_none blur_theme_bg menu_icons list_x">
+    <div className={`con d_f_ce ${className}`}>
+      <div className="con blur_theme_bg menu_icons list_x">
         <MenuIcon
           icon="casino"
           label="Games"
@@ -36,10 +36,10 @@ export default function Menu({ className }) {
 function MenuIcon({ icon, label, isActive, onClick }) {
   return (
     <div
-      className="con_bg_none blur_ha list_y_small d_f_ce scale_trns"
+      className="con blur_ha list_y_small d_f_ce scale_trns"
       onClick={onClick}
     >
-      <div className={`con_bg_none ${isActive ? 'blur_theme_bg active' : ''}`}>
+      <div className={`con ${isActive ? 'blur_theme_bg active' : ''}`}>
         <span className="material-symbols-outlined">{icon}</span>
       </div>
       <div>{label}</div>
