@@ -18,7 +18,7 @@ export default function NotificationsItem({ data }) {
       }
     }
     removeN()
-  }, [remove])
+  }, [remove, data, notifications, setNotifications])
 
   function swipe(e) {
     if (e.deltaX > 50 && !remove) setRemove(true)
