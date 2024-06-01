@@ -10,6 +10,12 @@
   }
 }
 
+@keyframes heightTo0 {
+  to {
+    height: 0;
+  }
+}
+
 @keyframes scaleTo1 {
   to {
     scale: 1;
