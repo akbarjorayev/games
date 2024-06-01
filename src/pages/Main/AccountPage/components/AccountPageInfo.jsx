@@ -72,7 +72,7 @@ export default function AccountPageInfo({ account, setAccount }) {
         }}
       >
         <div className="list_y w_100">
-          <div className="con_bg_none blur_theme_bg list_y_small">
+          <div className="con blur_theme_bg list_y_small">
             <GetTop />
             <div className="line_x"></div>
             {accountInfo[editingItem] ? <GetEditingItem /> : <GetInfoItems />}
@@ -106,7 +106,7 @@ function GetTop() {
       <div className="d_f_jc_sb d_f_ai_ce fz_medium">
         {accountInfo[editingItem] ? (
           <div
-            className="con_bg_none d_f_ce blur_theme_bg blur_ha scale_trns cur_pointer pd_small bd_50"
+            className="con d_f_ce blur_theme_bg blur_ha scale_trns cur_pointer pd_small bd_50"
             onClick={() => setEditingItem(-1)}
           >
             <span className="material-symbols-outlined">arrow_back</span>
@@ -126,7 +126,7 @@ function GetTop() {
 
   function NonVisibleBtn() {
     return (
-      <div className="con_bg_none d_f_ce pd_small v_hidden">
+      <div className="con d_f_ce pd_small v_hidden">
         <span className="material-symbols-outlined">arrow_back</span>
       </div>
     )
@@ -141,7 +141,7 @@ function GetInfoItems() {
       {accountInfo.map((info, i) => (
         <div
           key={i}
-          className={`con_bg_none list_x ${
+          className={`con list_x ${
             info.disabled ? '' : 'blur_ha scale_trns cur_pointer'
           }`}
           onClick={() => {
@@ -175,15 +175,11 @@ function AccountPageAccountsList() {
 
   if (ids.length < 2) return null
   if (!accounts)
-    return (
-      <div className="con_bg_none d_f_ce blur_theme_bg">
-        Accounts are loading
-      </div>
-    )
+    return <div className="con d_f_ce blur_theme_bg">Accounts are loading</div>
 
   return (
     <>
-      <div className="con_bg_none blur_theme_bg list_y_small">
+      <div className="con blur_theme_bg list_y_small">
         {accounts?.map((acc) => {
           if (!acc) return null
           return <GetAccount key={acc.id} account={acc} />
@@ -215,7 +211,7 @@ function AccountPageAccountsList() {
 
     return (
       <div
-        className="con_bg_none list_x blur_ha scale_trns cur_pointer"
+        className="con list_x blur_ha scale_trns cur_pointer"
         onClick={() => switchAccount()}
       >
         <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
