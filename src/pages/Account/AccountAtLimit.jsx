@@ -32,7 +32,7 @@ export default function AccountAtLimit() {
                 ))}
             </accountAtLimitContext.Provider>
           </div>
-          {accountLen < accounts.length && (
+          {accountLen < accounts?.length && (
             <div className="list_x w_100_child">
               <Button
                 className="btn_bd_cl bg_none"
