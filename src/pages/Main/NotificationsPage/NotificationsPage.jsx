@@ -48,6 +48,7 @@ export default function NotificationsPage() {
         <div className="h_100 d_f_ai_ce list_y">
           <NotificationsFilter />
           <div className="con blur_theme_bg notification_con list_y">
+            <NotificationsTop />
             {userNotifications?.length > 0 &&
               userNotifications.map((n, i) => (
                 <NotificationsItem key={i} data={n} />
@@ -56,6 +57,22 @@ export default function NotificationsPage() {
           </div>
         </div>
       </NotificationsContext.Provider>
+    </>
+  )
+}
+
+function NotificationsTop() {
+  return (
+    <>
+      <div className="list_x d_f_ai_ce d_f_jc_sb">
+        <b className="fz_medium">Notifications</b>
+        <div className="con d_f_ce blur_theme_bg blur_ha cur_pointer scale_trns bd_50 pd_small">
+          <span className="material-symbols-outlined fz_small_icon">
+            refresh
+          </span>
+        </div>
+      </div>
+      <div className="line_x"></div>
     </>
   )
 }
