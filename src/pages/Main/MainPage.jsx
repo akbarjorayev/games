@@ -1,8 +1,9 @@
 import { useState } from 'react'
 
+import Menu from '../../components/Menu/Menu'
 import GameList from './GamesPage/GameList'
 import AccountPage from './AccountPage/AccountPage'
-import Menu from '../../components/Menu/Menu'
+import NotificationsPage from './NotificationsPage/NotificationsPage'
 
 import { MainPageContext } from './MainPageContext'
 
@@ -11,13 +12,15 @@ import './MainPage.css'
 const MAIN_PAGES = {
   games: 'games',
   accounts: 'accounts',
+  notifications: 'notifications',
 }
 
 export default function MainPage() {
-  const [activePage, setActivePage] = useState(MAIN_PAGES.accounts)
+  const [activePage, setActivePage] = useState(MAIN_PAGES.notifications)
   const gameAreaComponent = {
     [MAIN_PAGES.games]: <GameList />,
     [MAIN_PAGES.accounts]: <AccountPage />,
+    [MAIN_PAGES.notifications]: <NotificationsPage />,
   }
 
   return (
