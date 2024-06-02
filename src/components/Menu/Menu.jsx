@@ -11,11 +11,11 @@ const MENU_PATHNAMES = {
   account: '/account',
 }
 
-export default function Menu({ className }) {
+export default function Menu() {
   const pathname = useRef(window.location.pathname).current
 
   return (
-    <div className={`con d_f_ce ${className}`}>
+    <div className="d_f_ce">
       <div className="con blur_theme_bg menu_icons list_x">
         <MenuIcon
           icon="casino"
