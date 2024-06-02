@@ -6,8 +6,8 @@ import { checkRunApp } from './js/utils/checker'
 import './css/App.css'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { Signup } from './pages/Account/Signup/Signup'
-const Login = React.lazy(() => import('./pages/Account/Login/Login'))
+import { Signup } from './pages/SignupLogin/Signup/Signup'
+const Login = React.lazy(() => import('./pages/SignupLogin/Login/Login'))
 const MainPage = React.lazy(() => import('./pages/Main/MainPage'))
 
 export default function App() {
@@ -19,7 +19,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/account/signup/phone" element={Signup.phone} />
-          <Route path="/account/signup/userdata" element={Signup.userData} />
+          <Route path="/account/signup/user-data" element={Signup.userData} />
           <Route path="/account/login" element={<Login />} />
         </Routes>
       </BrowserRouter>

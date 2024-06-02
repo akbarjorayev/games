@@ -1,0 +1,8 @@
+.account_con {
+  width: var(--account-page-con-width);
+  max-width: 90%;
+}
+
+:root {
+  --account-page-con-width: 400px;
+}
