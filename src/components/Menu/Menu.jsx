@@ -21,25 +21,21 @@ export default function Menu() {
       <div className="con blur_theme_bg menu_icons list_x">
         <MenuIcon
           icon="casino"
-          label="Games"
           isActive={pathname === MENU_PATHNAMES.games}
           onClick={() => goToHref(MENU_PATHNAMES.games)}
         />
         <MenuIcon
           icon="search"
-          label="Search"
           isActive={pathname === MENU_PATHNAMES.search}
           onClick={() => goToHref(MENU_PATHNAMES.search)}
         />
         <MenuIcon
           icon="notifications"
-          label="Notifications"
           isActive={pathname === MENU_PATHNAMES.notifications}
           onClick={() => goToHref(MENU_PATHNAMES.notifications)}
         />
         <MenuIcon
           icon="account_circle"
-          label="Account"
           isActive={pathname.includes(MENU_PATHNAMES.user)}
           onClick={() => goToHref(`users/${id}`)}
         />
