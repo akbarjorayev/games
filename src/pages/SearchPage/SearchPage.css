@@ -1,0 +1,7 @@
+.search_con {
+  width: min(100%, var(--search-page-con-width));
+}
+
+:root {
+  --search-page-con-width: 400px;
+}

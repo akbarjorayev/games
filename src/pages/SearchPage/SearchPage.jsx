@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 
-import Input from '../../../components/Input/Input'
-import SearchStatus from './components/SearchStatus'
-import SearchResults from './components/SearchResults'
+import Input from '../../components/Input/Input'
+import SearchStatus from '../Main/Search/components/SearchStatus'
+import SearchResults from '../Main/Search/components/SearchResults'
 
-import { useDebounce } from '../../../hooks/useDebounce'
+import { useDebounce } from '../../hooks/useDebounce'
 import { SEARCH_PAGE_STATUS } from './SearchPageStatus'
 
-import './Search.css'
+import './SearchPage.css'
+import Menu from '../../components/Menu/Menu'
 
-export default function Search() {
+export default function SearchPage() {
   const [search, setSearch] = useState('')
   const [searchStatus, setSearchStatus] = useState(SEARCH_PAGE_STATUS.home)
   const [debouncedSearch] = useDebounce(search, 500)
@@ -26,8 +27,8 @@ export default function Search() {
 
   return (
     <>
-      <div className="h_100 d_f_jc_ce">
-        <div className="con search_con blur_theme_bg list_y">
+      <div className="con pos_full_page d_f_ai_ce list_y">
+        <div className="con h_100 search_con blur_theme_bg list_y">
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -41,6 +42,7 @@ export default function Search() {
             <SearchResults value={search} />
           )}
         </div>
+        <Menu />
       </div>
     </>
   )

@@ -1,11 +1,18 @@
-import { useContext } from 'react'
+import { useRef } from 'react'
 
-import { MainPageContext } from '../../pages/Main/MainPageContext'
+import { goToHref } from '../../js/utils/href'
 
 import './Menu.css'
 
+const MENU_PATHNAMES = {
+  search: '/search',
+  notifications: '/notifications',
+  games: '/games',
+  account: '/account',
+}
+
 export default function Menu({ className }) {
-  const { MAIN_PAGES, activePage, setActivePage } = useContext(MainPageContext)
+  const pathname = useRef(window.location.pathname).current
 
   return (
     <div className={`con d_f_ce ${className}`}>
@@ -13,26 +20,26 @@ export default function Menu({ className }) {
         <MenuIcon
           icon="casino"
           label="Games"
-          isActive={activePage === MAIN_PAGES.games}
-          onClick={() => setActivePage(MAIN_PAGES.games)}
+          isActive={pathname === MENU_PATHNAMES.games}
+          onClick={() => goToHref(MENU_PATHNAMES.games)}
         />
         <MenuIcon
           icon="search"
           label="Search"
-          isActive={activePage === MAIN_PAGES.search}
-          onClick={() => setActivePage(MAIN_PAGES.search)}
+          isActive={pathname === MENU_PATHNAMES.search}
+          onClick={() => goToHref(MENU_PATHNAMES.search)}
         />
         <MenuIcon
           icon="notifications"
           label="Notifications"
-          isActive={activePage === MAIN_PAGES.notifications}
-          onClick={() => setActivePage(MAIN_PAGES.notifications)}
+          isActive={pathname === MENU_PATHNAMES.notifications}
+          onClick={() => goToHref(MENU_PATHNAMES.notifications)}
         />
         <MenuIcon
           icon="account_circle"
           label="Account"
-          isActive={activePage === MAIN_PAGES.accounts}
-          onClick={() => setActivePage(MAIN_PAGES.accounts)}
+          isActive={pathname === MENU_PATHNAMES.account}
+          onClick={() => goToHref(MENU_PATHNAMES.account)}
         />
       </div>
     </div>
