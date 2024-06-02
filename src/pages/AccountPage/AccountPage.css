@@ -1,0 +1,9 @@
+.account_con {
+  width: min(100%, var(--main-page-con-width));
+}
+
+.acc_page_menu {
+  position: absolute;
+  top: var(--pd-small);
+  right: 0;
+}

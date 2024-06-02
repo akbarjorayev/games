@@ -1,6 +1,6 @@
 import { signInWithPhoneNumber, RecaptchaVerifier } from 'firebase/auth'
 import { auth } from './firebaseDB'
-import { getCorrectPhoneNumber } from '../../../pages/SignupLogin/utils/phoneNumber'
+import { getCorrectPhoneNumber } from '../../../pages/SignupLoginPage/utils/phoneNumber'
 
 export function sendSMS(phoneNumber) {
   return signInWithPhoneNumber(

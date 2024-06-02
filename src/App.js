@@ -6,8 +6,8 @@ import { checkRunApp } from './js/utils/checker'
 import './css/App.css'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { Signup } from './pages/SignupLogin/Signup/Signup'
-const Login = React.lazy(() => import('./pages/SignupLogin/Login/Login'))
+import { Signup } from './pages/SignupLoginPage/Signup/Signup'
+const Login = React.lazy(() => import('./pages/SignupLoginPage/Login/Login'))
 const MainPage = React.lazy(() => import('./pages/Main/MainPage'))
 const HomePage = React.lazy(() => import('./pages/HomePage/HomePage'))
 
