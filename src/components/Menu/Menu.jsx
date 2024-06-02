@@ -52,7 +52,9 @@ function MenuIcon({ icon, isActive, onClick }) {
   return (
     <div
       className="con blur_ha list_y_small d_f_ce scale_trns"
-      onClick={onClick}
+      onClick={() => {
+        if (!isActive) onClick()
+      }}
     >
       <div className={`con ${isActive ? 'blur_theme_bg active' : ''}`}>
         <span className="material-symbols-outlined">{icon}</span>
