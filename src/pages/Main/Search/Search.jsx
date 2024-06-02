@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 
 import Input from '../../../components/Input/Input'
 import SearchStatus from './components/SearchStatus'
+import SearchResults from './components/SearchResults'
 
 import { useDebounce } from '../../../hooks/useDebounce'
 import { SEARCH_PAGE_STATUS } from './SearchPageStatus'
 
 import './Search.css'
-import SearchResults from './components/SearchResults'
 
 export default function Search() {
   const [search, setSearch] = useState('')
