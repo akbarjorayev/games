@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react'
 import Input from '../../components/Input/Input'
 import SearchStatus from '../Main/Search/components/SearchStatus'
 import SearchResults from '../Main/Search/components/SearchResults'
+import Menu from '../../components/Menu/Menu'
 
 import { useDebounce } from '../../hooks/useDebounce'
 import { SEARCH_PAGE_STATUS } from './SearchPageStatus'
 
 import './SearchPage.css'
-import Menu from '../../components/Menu/Menu'
 
 export default function SearchPage() {
   const [search, setSearch] = useState('')
@@ -28,6 +28,7 @@ export default function SearchPage() {
   return (
     <>
       <div className="con pos_full_page d_f_ai_ce list_y">
+        <Menu />
         <div className="con h_100 search_con blur_theme_bg list_y">
           <Input
             value={search}
@@ -42,7 +43,6 @@ export default function SearchPage() {
             <SearchResults value={search} />
           )}
         </div>
-        <Menu />
       </div>
     </>
   )
