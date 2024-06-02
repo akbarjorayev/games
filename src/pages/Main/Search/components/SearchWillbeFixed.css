@@ -1,0 +1,16 @@
+.search_fix_con {
+  position: absolute;
+  left: var(--pd-small-very);
+  width: calc(100% - 2 * var(--pd-small-very));
+  bottom: 0;
+  border: 1px dashed var(--search-fix-yellow-bd);
+  text-align: center;
+}
+
+.search_status *:has(+ .search_fix_con) {
+  margin-bottom: 0;
+}
+
+:root {
+  --search-fix-yellow-bd: #717112;
+}

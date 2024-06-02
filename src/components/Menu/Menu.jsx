@@ -17,6 +17,12 @@ export default function Menu({ className }) {
           onClick={() => setActivePage(MAIN_PAGES.games)}
         />
         <MenuIcon
+          icon="search"
+          label="Search"
+          isActive={activePage === MAIN_PAGES.search}
+          onClick={() => setActivePage(MAIN_PAGES.search)}
+        />
+        <MenuIcon
           icon="notifications"
           label="Notifications"
           isActive={activePage === MAIN_PAGES.notifications}

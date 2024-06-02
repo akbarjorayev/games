@@ -1,5 +1,5 @@
 .account_con {
-  width: min(100%, 400px);
+  width: min(100%, var(--main-page-con-width));
 }
 
 .acc_page_menu {
