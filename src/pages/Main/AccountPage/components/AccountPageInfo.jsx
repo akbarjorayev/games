@@ -239,7 +239,7 @@ function GetEditingItem() {
   async function save(e) {
     e.preventDefault()
     setSaveBtnText(SAVE_BTN_TEXTS.saving)
-    const id = loadFromLocalStorage('games').accounts.active
+    const id = window.location.pathname.split('users/')[1]
 
     if (accountInfo[editingItem].label === 'username') {
       const editUsername = await editAccountUsername(id, value)

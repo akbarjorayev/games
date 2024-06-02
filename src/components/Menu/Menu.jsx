@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 
 import { goToHref } from '../../js/utils/href'
+import { loadFromLocalStorage } from '../../js/db/local/localStorage'
 
 import './Menu.css'
 
@@ -8,10 +9,11 @@ const MENU_PATHNAMES = {
   search: '/search',
   notifications: '/notifications',
   games: '/games',
-  account: '/account',
+  user: '/users',
 }
 
 export default function Menu() {
+  const id = useRef(loadFromLocalStorage('games').accounts.active).current
   const pathname = useRef(window.location.pathname).current
 
   return (
@@ -38,8 +40,8 @@ export default function Menu() {
         <MenuIcon
           icon="account_circle"
           label="Account"
-          isActive={pathname === MENU_PATHNAMES.account}
-          onClick={() => goToHref(MENU_PATHNAMES.account)}
+          isActive={pathname.includes(MENU_PATHNAMES.user)}
+          onClick={() => goToHref(`users/${id}`)}
         />
       </div>
     </div>

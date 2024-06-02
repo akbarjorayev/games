@@ -1,11 +1,14 @@
-import Avatar from '../../../components/Avatar/Avatar'
+import { useRef } from 'react'
+
+import Avatar from '../../components/Avatar/Avatar'
+import Menu from '../../components/Menu/Menu'
 import AccountPageNonAuth from './components/AccountPageNonAuth'
 import AccountPageMenu from './components/AccountPageMenu'
 import AccountPageFollow from './components/AccountPageFollow'
 import AccountPageInfo from './components/AccountPageInfo'
 
-import { loadFromLocalStorage } from '../../../js/db/local/localStorage'
-import { useFirestore } from '../../../hooks/useFirestore'
+import { useFirestore } from '../../hooks/useFirestore'
+import { loadFromLocalStorage } from '../../js/db/local/localStorage'
 
 import './AccountPage.css'
 
@@ -14,14 +17,21 @@ const ACCOUNT_STATUS = {
 }
 
 export default function AccountPage() {
+  const pathname = useRef(window.location.pathname).current
   const [account, setAccount] = useFirestore(
     'accounts',
-    loadFromLocalStorage('games')?.accounts.active
+    pathname.split('users/')[1]
   )
+  const editable = useRef(
+    loadFromLocalStorage('games').accounts.ids.includes(
+      pathname.split('users/')[1]
+    )
+  ).current
 
   if (!account)
     return (
-      <div className="h_100 d_f_ce">
+      <div className="con pos_full_page list_y">
+        <Menu />
         <div className="con mar_ce blur_theme_bg w_max">Account is loading</div>
       </div>
     )
@@ -30,16 +40,23 @@ export default function AccountPage() {
 
   return (
     <>
-      <div className="mar_ce d_f_ce list_y account_con">
-        <div className="w_100 d_f_ce pos_r">
-          <Avatar
-            letter={account?.user.name[0]}
-            style={{ fontSize: '50px', width: '100px' }}
+      <div className="con pos_full_page list_y">
+        <Menu />
+        <div className="mar_ce d_f_ce list_y account_con">
+          <div className="w_100 d_f_ce pos_r">
+            <Avatar
+              letter={account?.user.name[0]}
+              style={{ fontSize: '50px', width: '100px' }}
+            />
+            {editable && <AccountPageMenu />}
+          </div>
+          <AccountPageFollow />
+          <AccountPageInfo
+            editable={editable}
+            account={account}
+            setAccount={setAccount}
           />
-          <AccountPageMenu />
         </div>
-        <AccountPageFollow />
-        <AccountPageInfo account={account} setAccount={setAccount} />
       </div>
     </>
   )

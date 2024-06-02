@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import Alert from '../../../../components/Alert/Alert'
+import Alert from '../../../components/Alert/Alert'
 
-import { logoutFromAccount } from '../../../../modules/account.module'
+import { logoutFromAccount } from '../../../modules/account.module'
 
 export default function AccountPageMenu() {
   const [opened, setOpened] = useState(false)

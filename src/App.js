@@ -11,7 +11,10 @@ const Login = React.lazy(() => import('./pages/SignupLoginPage/Login/Login'))
 const HomePage = React.lazy(() => import('./pages/HomePage/HomePage'))
 const GamePage = React.lazy(() => import('./pages/GamesPage/GamePage'))
 const SearchPage = React.lazy(() => import('./pages/SearchPage/SearchPage'))
-const NotificationsPage = React.lazy(() => import('./pages/NotificationsPage/NotificationsPage'))
+const NotificationsPage = React.lazy(() =>
+  import('./pages/NotificationsPage/NotificationsPage')
+)
+const AccountPage = React.lazy(() => import('./pages/AccountPage/AccountPage'))
 
 export default function App() {
   checkRunApp()
@@ -27,6 +30,7 @@ export default function App() {
           <Route path="/games" element={<GamePage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
+          <Route path="/users/*" element={<AccountPage />} />
         </Routes>
       </BrowserRouter>
     </>
