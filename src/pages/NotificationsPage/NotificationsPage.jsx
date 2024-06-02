@@ -1,14 +1,15 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 
+import Menu from '../../components/Menu/Menu'
 import NotificationsNo from './components/NotificationsNo'
 import NotificationsFilter from './components/NotificationsFilter'
 import NotificationsItem from './components/NotificationsItem'
 
-import { useFirestore } from '../../../hooks/useFirestore'
-import { loadFromLocalStorage } from '../../../js/db/local/localStorage'
+import { useFirestore } from '../../hooks/useFirestore'
+import { loadFromLocalStorage } from '../../js/db/local/localStorage'
 import { NOTIFICATIONS_TYPES } from './data/notificationsData'
 import { NotificationsContext } from './NotificationsContext'
-import { loadFromFirestore } from '../../../js/db/db/firestore'
+import { loadFromFirestore } from '../../js/db/db/firestore'
 
 import './NotificationsPage.css'
 
@@ -32,7 +33,8 @@ export default function NotificationsPage() {
 
   if (!notifications)
     return (
-      <div className="h_100 d_f_ce">
+      <div className="con h_100 list_y">
+        <Menu />
         <div className="con mar_ce blur_theme_bg w_max">
           Notifications are loading
         </div>
@@ -46,7 +48,8 @@ export default function NotificationsPage() {
       <NotificationsContext.Provider
         value={{ id, notifications, setNotifications, filter, setFilter }}
       >
-        <div className="h_100 d_f_ai_ce list_y">
+        <div className="con pos_full_page d_f_ai_ce list_y">
+          <Menu />
           <NotificationsFilter />
           <div className="con blur_theme_bg notification_con list_y">
             <NotificationsTop />
