@@ -1,0 +1,16 @@
+.home_page img {
+  --bd-ra: 30px;
+
+  width: 300px;
+  aspect-ratio: 1;
+  border-radius: var(--bd-ra);
+  scale: 0.9;
+  animation: scaleTo1 0.5s var(--spring-transition) forwards;
+}
+
+.home_page_play_btn {
+  text-align: center;
+  background-color: var(--main-color-bg);
+  font-family: monospace;
+  border-radius: 2em;
+}
