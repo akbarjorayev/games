@@ -1,38 +1,47 @@
-import { useContext } from 'react'
+import { useRef } from 'react'
 
-import { MainPageContext } from '../../pages/Main/MainPageContext'
+import { goToHref } from '../../js/utils/href'
+import { loadFromLocalStorage } from '../../js/db/local/localStorage'
 
 import './Menu.css'
 
-export default function Menu({ className }) {
-  const { MAIN_PAGES, activePage, setActivePage } = useContext(MainPageContext)
+const MENU_PATHNAMES = {
+  search: '/search',
+  notifications: '/notifications',
+  games: '/games',
+  user: '/users',
+}
+
+export default function Menu() {
+  const id = useRef(loadFromLocalStorage('games').accounts.active).current
+  const pathname = useRef(window.location.pathname).current
 
   return (
-    <div className={`con d_f_ce ${className}`}>
+    <div className="d_f_ce">
       <div className="con blur_theme_bg menu_icons list_x">
         <MenuIcon
           icon="casino"
           label="Games"
-          isActive={activePage === MAIN_PAGES.games}
-          onClick={() => setActivePage(MAIN_PAGES.games)}
+          isActive={pathname === MENU_PATHNAMES.games}
+          onClick={() => goToHref(MENU_PATHNAMES.games)}
         />
         <MenuIcon
           icon="search"
           label="Search"
-          isActive={activePage === MAIN_PAGES.search}
-          onClick={() => setActivePage(MAIN_PAGES.search)}
+          isActive={pathname === MENU_PATHNAMES.search}
+          onClick={() => goToHref(MENU_PATHNAMES.search)}
         />
         <MenuIcon
           icon="notifications"
           label="Notifications"
-          isActive={activePage === MAIN_PAGES.notifications}
-          onClick={() => setActivePage(MAIN_PAGES.notifications)}
+          isActive={pathname === MENU_PATHNAMES.notifications}
+          onClick={() => goToHref(MENU_PATHNAMES.notifications)}
         />
         <MenuIcon
           icon="account_circle"
           label="Account"
-          isActive={activePage === MAIN_PAGES.accounts}
-          onClick={() => setActivePage(MAIN_PAGES.accounts)}
+          isActive={pathname.includes(MENU_PATHNAMES.user)}
+          onClick={() => goToHref(`users/${id}`)}
         />
       </div>
     </div>

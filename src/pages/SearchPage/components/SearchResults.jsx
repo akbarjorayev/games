@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 
-import Avatar from '../../../../components/Avatar/Avatar'
+import Avatar from '../../../components/Avatar/Avatar'
 
-import { useFirestore } from '../../../../hooks/useFirestore'
-import { loadFromFirestore } from '../../../../js/db/db/firestore'
+import { useFirestore } from '../../../hooks/useFirestore'
+import { loadFromFirestore } from '../../../js/db/db/firestore'
 
 export default function SearchResults({ value }) {
   const [accounts] = useFirestore('usernames', value.trim())

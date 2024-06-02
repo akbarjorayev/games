@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 
 import { NotificationsContext } from '../NotificationsContext'
-import { removeNotification } from '../../../../modules/notifications.module'
+import { removeNotification } from '../../../modules/notifications.module'
 
 export default function NotificationsItem({ data }) {
   const { notifications, setNotifications } = useContext(NotificationsContext)

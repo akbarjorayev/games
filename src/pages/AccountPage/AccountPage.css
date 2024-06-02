@@ -1,0 +1,13 @@
+.account_con {
+  width: min(100%, var(--account-page-con-width));
+}
+
+.acc_page_menu {
+  position: absolute;
+  top: var(--pd-small);
+  right: 0;
+}
+
+:root {
+  --account-page-con-width: 400px;
+}

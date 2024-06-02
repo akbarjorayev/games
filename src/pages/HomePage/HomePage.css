@@ -1,0 +1,36 @@
+.home_page_logo_con {
+  width: 300px;
+}
+
+.home_page img {
+  --bd-ra: 30px;
+
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--bd-ra);
+  scale: 0.8;
+  box-shadow: 0 0 200px 0 #021131, 0 0 100px 0 #014f84;
+  animation: scaleTo1 1s var(--spring-transition) forwards;
+}
+
+.home_page_play_btn {
+  text-align: center;
+  background-color: var(--main-color-bg);
+  font-family: monospace;
+  border-radius: 2em;
+  width: 0;
+  overflow: hidden;
+  padding: var(--pd) 0;
+  opacity: 0;
+  isolation: isolate;
+  animation: homePagePlayBtnAnim 1.5s var(--spring-transition) forwards;
+}
+
+@keyframes homePagePlayBtnAnim {
+  to {
+    width: 100%;
+    overflow: visible;
+    padding: var(--pd);
+    opacity: 1;
+  }
+}

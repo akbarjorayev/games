@@ -1,3 +1,25 @@
+.game_page {
+  border-radius: 0;
+}
+
+.game_area_bg_anim {
+  background-image: linear-gradient(
+      141deg,
+      rgba(104, 129, 57, 0.3) 0%,
+      rgba(94, 203, 171, 0.3) 100%
+    ),
+    linear-gradient(231deg, rgb(68, 123, 128), rgb(102, 221, 138)),
+    linear-gradient(231deg, rgb(18, 116, 125), rgb(20, 216, 80));
+  background-size: 300% 300%;
+  animation: gradientAnimation 10s ease infinite;
+}
+
+.game_page_menu {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
 .game {
   --bd-ra: 30px;
   width: 32%;

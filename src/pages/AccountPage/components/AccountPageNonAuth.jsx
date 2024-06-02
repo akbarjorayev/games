@@ -1,8 +1,8 @@
 import React from 'react'
 
-import Button from '../../../../components/Button/Button'
+import Button from '../../../components/Button/Button'
 
-import { goToHref } from '../../../../js/utils/href'
+import { goToHref } from '../../../js/utils/href'
 
 export default function AccountPageNonAuth() {
   return (

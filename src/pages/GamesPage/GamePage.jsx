@@ -1,12 +1,23 @@
+import Menu from '../../components/Menu/Menu'
+
 import { GAMES } from './data/gameData'
 
-import './GameList.css'
+import './GamePage.css'
 
-export default function GameList() {
+export default function GamePage() {
   return (
     <>
-      <div className="d_f_gap d_f_jc_ce" style={{ '--d-f-gap': '10px' }}>
-        {GAMES.map((game, i) => getGameCon(game, i))}
+      <div className="con pos_full_page list_y game_page game_area_bg_anim">
+        <div className="game_page_menu">
+          <Menu />
+        </div>
+        <div className="pd_small d_f_1">
+          {
+            <div className="d_f_gap d_f_jc_ce" style={{ '--d-f-gap': '10px' }}>
+              {GAMES.map((game, i) => getGameCon(game, i))}
+            </div>
+          }
+        </div>
       </div>
     </>
   )

@@ -1,7 +1,6 @@
 import { editFirestore, incrementField } from '../js/db/db/firestore'
-import { loadFromLocalStorage } from '../js/db/local/localStorage'
 
-const lId = loadFromLocalStorage('games').accounts.active
+const lId = window.location.pathname.split('users/')[1]
 
 export async function removeNotification(id, ns) {
   const newNs = ns.notifications.filter((n) => n.id !== id)

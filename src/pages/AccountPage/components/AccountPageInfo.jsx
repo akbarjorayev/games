@@ -2,27 +2,24 @@ import { useContext, createContext, useState, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { ToastContainer, toast } from 'react-toastify'
 
-import Input from '../../../../components/Input/Input'
-import Button from '../../../../components/Button/Button'
-import Avatar from '../../../../components/Avatar/Avatar'
+import Button from '../../../components/Button/Button'
+import Avatar from '../../../components/Avatar/Avatar'
+import Input from '../../../components/Input/Input'
 
-import {
-  editFirestore,
-  loadFromFirestore,
-} from '../../../../js/db/db/firestore'
-import { loadFromLocalStorage } from '../../../../js/db/local/localStorage'
+import { editFirestore, loadFromFirestore } from '../../../js/db/db/firestore'
+import { loadFromLocalStorage } from '../../../js/db/local/localStorage'
 import {
   editAccountUsername,
   switchAccountToId,
-} from '../../../../modules/account.module'
-import { toastData } from '../../../../components/utils/toast'
-import { goToHref } from '../../../../js/utils/href'
-import { useFirestoreAll } from '../../../../hooks/useFirestore'
-import { accountIsAtLimit } from '../../../../status/status'
+} from '../../../modules/account.module'
+import { toastData } from '../../../components/utils/toast'
+import { goToHref } from '../../../js/utils/href'
+import { useFirestoreAll } from '../../../hooks/useFirestore'
+import { accountIsAtLimit } from '../../../status/status'
 
 const AccountPageInfoContext = createContext()
 
-export default function AccountPageInfo({ account, setAccount }) {
+export default function AccountPageInfo({ editable, account, setAccount }) {
   const [editingItem, setEditingItem] = useState(-1)
   const [accountSwitched, setAccountSwitched] = useState(false)
 
@@ -62,6 +59,7 @@ export default function AccountPageInfo({ account, setAccount }) {
       )}
       <AccountPageInfoContext.Provider
         value={{
+          editable,
           accountInfo,
           account,
           setAccount,
@@ -75,9 +73,13 @@ export default function AccountPageInfo({ account, setAccount }) {
           <div className="con blur_theme_bg list_y_small">
             <GetTop />
             <div className="line_x"></div>
-            {accountInfo[editingItem] ? <GetEditingItem /> : <GetInfoItems />}
+            {accountInfo[editingItem] && editable ? (
+              <GetEditingItem />
+            ) : (
+              <GetInfoItems />
+            )}
           </div>
-          {!accountInfo[editingItem] && (
+          {!accountInfo[editingItem] && editable && (
             <>
               <AccountPageAccountsList />
               {!accountIsAtLimit && (
@@ -97,14 +99,14 @@ export default function AccountPageInfo({ account, setAccount }) {
 }
 
 function GetTop() {
-  const { accountInfo, editingItem, setEditingItem } = useContext(
+  const { editable, accountInfo, editingItem, setEditingItem } = useContext(
     AccountPageInfoContext
   )
 
   return (
     <>
       <div className="d_f_jc_sb d_f_ai_ce fz_medium">
-        {accountInfo[editingItem] ? (
+        {accountInfo[editingItem] && editable ? (
           <div
             className="con d_f_ce blur_theme_bg blur_ha scale_trns cur_pointer pd_small bd_50"
             onClick={() => setEditingItem(-1)}
@@ -115,7 +117,7 @@ function GetTop() {
           <NonVisibleBtn />
         )}
         <b>
-          {accountInfo[editingItem]
+          {accountInfo[editingItem] && editable
             ? getLabel(accountInfo[editingItem].label)
             : 'Account info'}
         </b>
@@ -134,7 +136,9 @@ function GetTop() {
 }
 
 function GetInfoItems() {
-  const { accountInfo, setEditingItem } = useContext(AccountPageInfoContext)
+  const { editable, accountInfo, setEditingItem } = useContext(
+    AccountPageInfoContext
+  )
 
   return (
     <>
@@ -142,7 +146,7 @@ function GetInfoItems() {
         <div
           key={i}
           className={`con list_x ${
-            info.disabled ? '' : 'blur_ha scale_trns cur_pointer'
+            info.disabled || !editable ? '' : 'blur_ha scale_trns cur_pointer'
           }`}
           onClick={() => {
             if (!info.disabled) setEditingItem(i)
@@ -239,7 +243,7 @@ function GetEditingItem() {
   async function save(e) {
     e.preventDefault()
     setSaveBtnText(SAVE_BTN_TEXTS.saving)
-    const id = loadFromLocalStorage('games').accounts.active
+    const id = window.location.pathname.split('users/')[1]
 
     if (accountInfo[editingItem].label === 'username') {
       const editUsername = await editAccountUsername(id, value)
