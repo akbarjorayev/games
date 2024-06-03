@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 
 import Input from '../../components/Input/Input'
 import Menu from '../../components/Menu/Menu'
+import SearchStatus from './components/SearchStatus'
+import SearchResults from './components/SearchResults'
 
 import { useDebounce } from '../../hooks/useDebounce'
 import { SEARCH_PAGE_STATUS } from './SearchPageStatus'
 
 import './SearchPage.css'
-import SearchStatus from './components/SearchStatus'
-import SearchResults from './components/SearchResults'
 
 export default function SearchPage() {
   const [search, setSearch] = useState('')
