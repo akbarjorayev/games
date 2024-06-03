@@ -4,6 +4,7 @@ import Menu from '../../components/Menu/Menu'
 import NotificationsNo from './components/NotificationsNo'
 import NotificationsFilter from './components/NotificationsFilter'
 import NotificationsItem from './components/NotificationsItem'
+import NotificationsWillbeFixed from './components/NotificationsWillbeFixed'
 
 import { useFirestore } from '../../hooks/useFirestore'
 import { loadFromLocalStorage } from '../../js/db/local/localStorage'
@@ -57,6 +58,7 @@ export default function NotificationsPage() {
       >
         <div className="con pos_full_page d_f_ai_ce list_y">
           <Menu />
+          <NotificationsWillbeFixed />
           <NotificationsFilter />
           <div className="con blur_theme_bg notification_con list_y">
             <NotificationsTop />
