@@ -10,6 +10,7 @@ import { loadFromLocalStorage } from '../../js/db/local/localStorage'
 import { NOTIFICATIONS_TYPES } from './data/notificationsData'
 import { NotificationsContext } from './NotificationsContext'
 import { loadFromFirestore } from '../../js/db/db/firestore'
+import { readAllNotifications } from '../../modules/notifications.module'
 
 import './NotificationsPage.css'
 
@@ -23,6 +24,7 @@ export default function NotificationsPage() {
     notifications?.notifications
   )
   const [filter, setFilter] = useState(NOTIFICATIONS_TYPES.all)
+  const [readAll, setReadAll] = useState(false)
 
   useEffect(() => {
     const ns = notifications.notifications?.filter(
@@ -30,6 +32,13 @@ export default function NotificationsPage() {
     )
     setUserNotifications(ns)
   }, [filter, notifications])
+
+  useEffect(() => {
+    if (userNotifications?.length > 0 && !readAll) {
+      readAllNotifications(id, notifications)
+      setReadAll(true)
+    }
+  }, [readAll, userNotifications?.length, notifications])
 
   if (!notifications)
     return (
@@ -70,6 +79,7 @@ function NotificationsTop() {
 
   async function loadNotifications() {
     const data = await loadFromFirestore('notifications', `${id.current}`)
+    readAllNotifications(id.current, data)
     setNotifications(data)
   }
 

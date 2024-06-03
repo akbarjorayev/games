@@ -36,3 +36,14 @@ export async function sendNotification(id, ns) {
   )
   await incrementField('notifications', `${id}`, 'amount', 1)
 }
+
+export async function readAllNotifications(id, notifications) {
+  const ns =
+    notifications || (await loadFromFirestore('notifications', `${id}`))
+
+  const readNs = ns.notifications.map((n) => {
+    return { ...n, new: false }
+  })
+
+  await editFirestore('notifications', `${id}`, { notifications: readNs })
+}
