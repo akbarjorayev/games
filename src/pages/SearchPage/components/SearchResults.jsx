@@ -2,16 +2,23 @@ import { useEffect, useState } from 'react'
 
 import Avatar from '../../../components/Avatar/Avatar'
 
-import { useFirestore } from '../../../hooks/useFirestore'
-import { loadFromFirestore } from '../../../js/db/db/firestore'
+import { searchForAccounts } from '../utils/searchPage'
 
 export default function SearchResults({ value }) {
-  const [accounts] = useFirestore('usernames', value.trim())
+  const [accounts, setAccounts] = useState(false)
+
+  useEffect(() => {
+    async function loadData() {
+      const data = await searchForAccounts(value)
+      setAccounts([data])
+    }
+    loadData()
+  }, [])
 
   return (
     <>
       {!accounts && <NoResult />}
-      {accounts.id && <ShowResult accounts={accounts} />}
+      {accounts?.length > 0 && <ShowResult accounts={accounts} />}
     </>
   )
 }
@@ -30,24 +37,10 @@ function NoResult() {
 }
 
 function ShowResult({ accounts }) {
-  const [accountsRes, setAccountsRes] = useState([])
-
-  useEffect(() => {
-    async function loadData() {
-      const data = await Promise.all(
-        [accounts].map((account) =>
-          loadFromFirestore('accounts', `${account.id}`)
-        )
-      )
-      setAccountsRes(data)
-    }
-    loadData()
-  }, [accounts])
-
   return (
     <>
       <div className="list_y">
-        {accountsRes?.map((acc) => {
+        {accounts?.map((acc) => {
           if (!acc) return null
           return <GetAccount key={acc.id} account={acc} />
         })}
