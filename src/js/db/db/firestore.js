@@ -6,6 +6,7 @@ import {
   updateDoc,
   deleteDoc,
   increment,
+  arrayUnion,
 } from 'firebase/firestore'
 import { firestoreDB } from './firebaseDB'
 
@@ -74,4 +75,16 @@ export async function incrementField(
   } catch {
     return false
   }
+}
+
+export async function addToArrayFirestore(
+  collectionName,
+  docName,
+  arrayName,
+  data
+) {
+  const docRef = doc(firestoreDB, collectionName, docName)
+  await updateDoc(docRef, {
+    [arrayName]: arrayUnion(data),
+  })
 }
