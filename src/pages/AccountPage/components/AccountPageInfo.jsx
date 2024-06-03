@@ -16,6 +16,7 @@ import { toastData } from '../../../components/utils/toast'
 import { goToHref } from '../../../js/utils/href'
 import { useFirestoreAll } from '../../../hooks/useFirestore'
 import { accountIsAtLimit } from '../../../status/status'
+import { copyText } from '../../../js/utils/copy'
 
 const AccountPageInfoContext = createContext()
 
@@ -33,6 +34,12 @@ export default function AccountPageInfo({ editable, account, setAccount }) {
       label: 'username',
       value: account?.user.username,
       icon: 'alternate_email',
+    },
+    {
+      label: 'id',
+      value: account?.id,
+      icon: 'verified_user',
+      disabled: true,
     },
     {
       label: 'phone_number',
@@ -145,22 +152,37 @@ function GetInfoItems() {
       {accountInfo.map((info, i) => (
         <div
           key={i}
-          className={`con list_x ${
+          className={`con d_f_jc_sb ${
             info.disabled || !editable ? '' : 'blur_ha scale_trns cur_pointer'
           }`}
           onClick={() => {
             if (!info.disabled) setEditingItem(i)
           }}
         >
-          <div className="d_f_ce">
-            <span className="material-symbols-outlined fz_medium_icon">
-              {info.icon}
-            </span>
+          <div className="list_x">
+            <div className="d_f_ce">
+              <span className="material-symbols-outlined fz_medium_icon">
+                {info.icon}
+              </span>
+            </div>
+            <div className="list_y_small">
+              <b>{info.value}</b>
+              <div>{getLabel(info.label)}</div>
+            </div>
           </div>
-          <div className="list_y_small">
-            <b>{info.value}</b>
-            <div>{getLabel(info.label)}</div>
-          </div>
+          {info.label === 'id' && (
+            <div
+              className="con d_f_ce blur_ha scale_trns cur_pointer"
+              onClick={() => {
+                copyText(info.value)
+                toast.success('Id copied to clipboard')
+              }}
+            >
+              <span className="material-symbols-outlined fz_small_icon">
+                content_copy
+              </span>
+            </div>
+          )}
         </div>
       ))}
     </>
