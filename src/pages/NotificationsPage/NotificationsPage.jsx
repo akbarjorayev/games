@@ -4,12 +4,14 @@ import Menu from '../../components/Menu/Menu'
 import NotificationsNo from './components/NotificationsNo'
 import NotificationsFilter from './components/NotificationsFilter'
 import NotificationsItem from './components/NotificationsItem'
+import NotificationsWillbeFixed from './components/NotificationsWillbeFixed'
 
 import { useFirestore } from '../../hooks/useFirestore'
 import { loadFromLocalStorage } from '../../js/db/local/localStorage'
 import { NOTIFICATIONS_TYPES } from './data/notificationsData'
 import { NotificationsContext } from './NotificationsContext'
 import { loadFromFirestore } from '../../js/db/db/firestore'
+import { readAllNotifications } from '../../modules/notifications.module'
 
 import './NotificationsPage.css'
 
@@ -23,13 +25,21 @@ export default function NotificationsPage() {
     notifications?.notifications
   )
   const [filter, setFilter] = useState(NOTIFICATIONS_TYPES.all)
+  const [readAll, setReadAll] = useState(false)
 
   useEffect(() => {
     const ns = notifications.notifications?.filter(
-      (n) => n.type === filter || filter === NOTIFICATIONS_TYPES.all
+      (n) => n?.type === filter || filter === NOTIFICATIONS_TYPES.all
     )
     setUserNotifications(ns)
   }, [filter, notifications])
+
+  useEffect(() => {
+    if (userNotifications?.length > 0 && !readAll) {
+      readAllNotifications(id, notifications)
+      setReadAll(true)
+    }
+  }, [readAll, userNotifications?.length, notifications])
 
   if (!notifications)
     return (
@@ -41,8 +51,6 @@ export default function NotificationsPage() {
       </div>
     )
 
-  if (notifications.notifications.length === 0) return <NotificationsNo />
-
   return (
     <>
       <NotificationsContext.Provider
@@ -50,6 +58,7 @@ export default function NotificationsPage() {
       >
         <div className="con pos_full_page d_f_ai_ce list_y">
           <Menu />
+          <NotificationsWillbeFixed />
           <NotificationsFilter />
           <div className="con blur_theme_bg notification_con list_y">
             <NotificationsTop />
@@ -57,7 +66,9 @@ export default function NotificationsPage() {
               userNotifications.map((n, i) => (
                 <NotificationsItem key={i} data={n} />
               ))}
-            {userNotifications?.length === 0 && <NotificationsNo />}
+            {(userNotifications?.length === 0 ||
+              notifications.notifications?.length === 0 ||
+              !notifications.notifications) && <NotificationsNo />}
           </div>
         </div>
       </NotificationsContext.Provider>
@@ -70,6 +81,7 @@ function NotificationsTop() {
 
   async function loadNotifications() {
     const data = await loadFromFirestore('notifications', `${id.current}`)
+    readAllNotifications(id.current, data)
     setNotifications(data)
   }
 

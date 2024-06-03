@@ -2,12 +2,17 @@
   width: min(var(--notifications-page-con-width), 100%);
 }
 
+.notification_item[new='new'] {
+  border: 1px dashed var(--main-color-bg);
+}
+
 .notification_item[removed='removed'] {
   padding: 0;
   margin: 0;
   transform: translateX(-100%);
   background-color: var(--red-color-bg);
   overflow: hidden;
+  border: none;
   transition: padding 0.5s var(--spring-transition),
     transform 0.5s var(--spring-transition);
   animation: heightTo0 0.5s var(--spring-transition) forwards;

@@ -1,0 +1,8 @@
+.notifications_fix_con {
+  border: 1px dashed var(--notifications-fix-yellow-bd);
+  text-align: center;
+}
+
+:root {
+  --notifications-fix-yellow-bd: #717112;
+}
