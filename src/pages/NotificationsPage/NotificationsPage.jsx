@@ -26,7 +26,7 @@ export default function NotificationsPage() {
 
   useEffect(() => {
     const ns = notifications.notifications?.filter(
-      (n) => n.type === filter || filter === NOTIFICATIONS_TYPES.all
+      (n) => n?.type === filter || filter === NOTIFICATIONS_TYPES.all
     )
     setUserNotifications(ns)
   }, [filter, notifications])
@@ -40,8 +40,6 @@ export default function NotificationsPage() {
         </div>
       </div>
     )
-
-  if (notifications.notifications.length === 0) return <NotificationsNo />
 
   return (
     <>
@@ -57,7 +55,9 @@ export default function NotificationsPage() {
               userNotifications.map((n, i) => (
                 <NotificationsItem key={i} data={n} />
               ))}
-            {userNotifications?.length === 0 && <NotificationsNo />}
+            {(userNotifications?.length === 0 ||
+              notifications.notifications?.length === 0 ||
+              !notifications.notifications) && <NotificationsNo />}
           </div>
         </div>
       </NotificationsContext.Provider>

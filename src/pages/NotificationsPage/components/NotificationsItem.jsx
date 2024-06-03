@@ -11,10 +11,11 @@ export default function NotificationsItem({ data }) {
   useEffect(() => {
     async function removeN() {
       if (remove) {
-        const newNs = await removeNotification(data.id, notifications)
+        const newNs = await removeNotification(data.id)
         setNotifications({ ...notifications, notifications: newNs })
 
         data.removed = true
+        setRemove(false)
       }
     }
     removeN()
@@ -33,8 +34,8 @@ export default function NotificationsItem({ data }) {
       >
         <div className="d_f_jc_sb">
           <div>
-            <b>{data.title}</b>
-            <div className="fz_small">{data.description}</div>
+            <b>{data?.title}</b>
+            <div className="fz_small">{data?.description}</div>
           </div>
           <div className="fz_small txt_opa">
             {date.current.getHours()}:{date.current.getMinutes()}
