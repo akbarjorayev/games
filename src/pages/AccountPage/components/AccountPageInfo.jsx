@@ -6,12 +6,12 @@ import Button from '../../../components/Button/Button'
 import Avatar from '../../../components/Avatar/Avatar'
 import Input from '../../../components/Input/Input'
 
-import { editFirestore, loadFromFirestore } from '../../../js/db/db/firestore'
-import { loadFromLocalStorage } from '../../../js/db/local/localStorage'
+import { editFirestore } from '../../../js/db/db/firestore'
 import {
-  editAccountUsername,
-  switchAccountToId,
-} from '../../../modules/account.module'
+  loadFromLocalStorage,
+  saveToLocalStorage,
+} from '../../../js/db/local/localStorage'
+import { editAccountUsername } from '../../../modules/account.module'
 import { toastData } from '../../../components/utils/toast'
 import { goToHref } from '../../../js/utils/href'
 import { useFirestoreAll } from '../../../hooks/useFirestore'
@@ -22,7 +22,6 @@ const AccountPageInfoContext = createContext()
 
 export default function AccountPageInfo({ editable, account, setAccount }) {
   const [editingItem, setEditingItem] = useState(-1)
-  const [accountSwitched, setAccountSwitched] = useState(false)
 
   const accountInfo = [
     {
@@ -49,10 +48,6 @@ export default function AccountPageInfo({ editable, account, setAccount }) {
     },
   ]
 
-  const triggerAccountSwitch = useCallback(() => {
-    setAccountSwitched((prev) => !prev)
-  }, [])
-
   return (
     <>
       {createPortal(
@@ -71,9 +66,7 @@ export default function AccountPageInfo({ editable, account, setAccount }) {
           account,
           setAccount,
           editingItem,
-          accountSwitched,
           setEditingItem,
-          triggerAccountSwitch,
         }}
       >
         <div className="list_y w_100">
@@ -190,13 +183,12 @@ function GetInfoItems() {
 }
 
 function AccountPageAccountsList() {
-  const { accountSwitched } = useContext(AccountPageInfoContext)
-  const { ids, active } = loadFromLocalStorage('games').accounts
+  const { ids } = loadFromLocalStorage('games').accounts
+  const active = window.location.pathname.split('users/')[1]
 
   const [accounts] = useFirestoreAll(
     'accounts',
-    ids.filter((id) => id !== active),
-    accountSwitched
+    ids.filter((id) => `${id}` !== `${active}`)
   )
 
   if (ids.length < 2) return null
@@ -215,30 +207,18 @@ function AccountPageAccountsList() {
   )
 
   function GetAccount({ account }) {
-    const { setAccount, triggerAccountSwitch } = useContext(
-      AccountPageInfoContext
-    )
+    function switchAccount() {
+      goToHref(`/users/${account?.id}`)
+      const localData = loadFromLocalStorage('games')
+      localData.accounts.active = account?.id
 
-    async function switchAccount() {
-      const switchedAccount = await loadFromFirestore(
-        'accounts',
-        `${account.id}`
-      )
-      switchAccountToId(account.id)
-      setAccount(switchedAccount)
-      toast.success(
-        <div>
-          Account switched to <b>{switchedAccount.user.name}</b>
-        </div>
-      )
-
-      triggerAccountSwitch()
+      saveToLocalStorage('games', localData)
     }
 
     return (
       <div
         className="con list_x blur_ha scale_trns cur_pointer"
-        onClick={() => switchAccount()}
+        onClick={switchAccount}
       >
         <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
         <div className="list_y_small">
