@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Avatar from '../../../components/Avatar/Avatar'
 
 import { searchForAccounts } from '../utils/searchPage'
+import { goToHref } from '../../../js/utils/href'
 
 export default function SearchResults({ value }) {
   const [accounts, setAccounts] = useState(false)
@@ -51,7 +52,10 @@ function ShowResult({ accounts }) {
 
 function GetAccount({ account }) {
   return (
-    <div className="con list_x blur_ha scale_trns cur_pointer">
+    <div
+      className="con list_x blur_ha scale_trns cur_pointer"
+      onClick={() => goToHref(`/users/${account?.id}`)}
+    >
       <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
       <div className="list_y_small">
         <b>{account?.user.name}</b>
