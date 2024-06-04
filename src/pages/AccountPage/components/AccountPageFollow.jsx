@@ -39,7 +39,11 @@ export default function AccountPageFollow({ editable }) {
       setFollowed(FOLLOW_STATUS.following)
       await addFollowing(localID, userID)
       await addFollowers(userID, localID)
-      setFriends({ ...friends, followers: [...friends?.followers, localID] })
+
+      setFriends({
+        ...friends,
+        followers: [...(friends?.followers || []), localID],
+      })
       setFollowed(FOLLOW_STATUS.followed)
     }
 
@@ -47,10 +51,11 @@ export default function AccountPageFollow({ editable }) {
       setFollowed(FOLLOW_STATUS.unfollowing)
       await removeFollowing(localID, userID)
       await removeFollowers(userID, localID)
+
       setFriends({
         ...friends,
         followers: friends?.followers.filter(
-          (follower) => follower !== localID
+          (follower) => `${follower}` !== `${localID}`
         ),
       })
       setFollowed(FOLLOW_STATUS.notFollowed)
