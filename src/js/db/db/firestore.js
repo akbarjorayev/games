@@ -83,6 +83,13 @@ export async function addToArrayFirestore(
   arrayName,
   data
 ) {
+  const exists = await loadFromFirestore(collectionName, docName)
+
+  if (!exists) {
+    await saveFirestore(collectionName, docName, { [arrayName]: [data] })
+    return
+  }
+
   const docRef = doc(firestoreDB, collectionName, docName)
   await updateDoc(docRef, {
     [arrayName]: arrayUnion(data),
