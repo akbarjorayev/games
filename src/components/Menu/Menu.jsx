@@ -15,6 +15,8 @@ const MENU_PATHNAMES = {
 export default function Menu() {
   const id = useRef(loadFromLocalStorage('games').accounts.active).current
   const pathname = useRef(window.location.pathname).current
+  const ids = useRef(loadFromLocalStorage('games').accounts.ids).current
+  const pathnameID = useRef(pathname.split('users/')[1]).current
 
   return (
     <div className="d_f_ce">
@@ -36,8 +38,8 @@ export default function Menu() {
         />
         <MenuIcon
           icon="account_circle"
-          isActive={pathname.includes(MENU_PATHNAMES.user)}
-          onClick={() => goToHref(`users/${id}`)}
+          isActive={ids.includes(pathnameID)}
+          onClick={() => goToHref(`/users/${id}`)}
         />
       </div>
     </div>
