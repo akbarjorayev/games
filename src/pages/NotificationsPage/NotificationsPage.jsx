@@ -45,6 +45,9 @@ export default function NotificationsPage() {
     return (
       <div className="con h_100 list_y">
         <Menu />
+        <div className="w_100 d_f_ce">
+          <NotificationsWillbeFixed />
+        </div>
         <div className="con mar_ce blur_theme_bg w_max">
           Notifications are loading
         </div>
