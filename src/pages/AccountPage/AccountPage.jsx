@@ -50,7 +50,7 @@ export default function AccountPage() {
             />
             {editable && <AccountPageMenu />}
           </div>
-          <AccountPageFollow />
+          <AccountPageFollow editable={editable} />
           <AccountPageInfo
             editable={editable}
             account={account}

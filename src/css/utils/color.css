@@ -26,4 +26,7 @@
   --error-color-border-focus: #820d0d;
 
   --selection-bg: #207c6a;
+
+  --scrollbar-bg: #132424;
+  --scrollbar-thumb-bg: #024245;
 }

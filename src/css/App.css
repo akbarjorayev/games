@@ -15,6 +15,7 @@
 @import url('./utils/bg.css');
 @import url('./utils/position.css');
 @import url('./utils/cursor.css');
+@import url('./utils/scroll.css');
 
 @import url('./animations/animations.css');
 @import url('./animations/transition.css');
