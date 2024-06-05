@@ -91,4 +91,5 @@ export function logoutFromAccount(id) {
   const newLocalData = logoutFromAccountById(id || localData.accounts.active)
 
   saveToLocalStorage('games', newLocalData)
+  window.location.reload()
 }
