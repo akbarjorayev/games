@@ -57,7 +57,7 @@ function GetAccount({ account }) {
       onClick={() => goToHref(`/users/${account?.id}`)}
     >
       <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
-      <div className="list_y_small">
+      <div className="list_y_small d_f_ai_start">
         <b>{account?.user.name}</b>
         <div className="fz_small">@{account?.user.username}</div>
       </div>
