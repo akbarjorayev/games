@@ -1,6 +1,7 @@
 import {
   addToArrayFirestore,
   editFirestore,
+  incrementField,
   loadFromFirestore,
 } from '../js/db/db/firestore'
 
@@ -11,6 +12,7 @@ export async function addFollowing(userID, followingID) {
     'following',
     `${followingID}`
   )
+  await incrementField('friends', `${followingID}`, 'followersAmount', 1)
 }
 
 export async function removeFollowing(userID, followingID) {
@@ -19,6 +21,7 @@ export async function removeFollowing(userID, followingID) {
 
   const newFollowing = following.filter((fID) => `${fID}` !== `${followingID}`)
   await editFirestore('friends', `${userID}`, { following: newFollowing })
+  await incrementField('friends', `${followingID}`, 'followersAmount', -1)
 }
 
 export async function addFollowers(userID, followersID) {
@@ -28,6 +31,7 @@ export async function addFollowers(userID, followersID) {
     'followers',
     `${followersID}`
   )
+  await incrementField('friends', `${followersID}`, 'followingAmount', 1)
 }
 
 export async function removeFollowers(userID, followersID) {
@@ -36,6 +40,7 @@ export async function removeFollowers(userID, followersID) {
 
   const newFollowers = followers.filter((fID) => `${fID}` !== `${followersID}`)
   await editFirestore('friends', `${userID}`, { followers: newFollowers })
+  await incrementField('friends', `${followersID}`, 'followingAmount', -1)
 }
 
 export async function isFollowed(userID, friendID) {
