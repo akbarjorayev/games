@@ -8,7 +8,7 @@ export default function Alert({
   children,
   title,
   conClassName,
-  onHide: handeHide,
+  onHide: handleHide,
   bgNone,
 }) {
   const [show, setShow] = useState(true)
@@ -16,7 +16,7 @@ export default function Alert({
 
   function hide() {
     setShow(false)
-    if (handeHide) handeHide()
+    if (handleHide) handleHide()
   }
 
   return (
