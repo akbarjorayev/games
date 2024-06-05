@@ -20,6 +20,11 @@
   align-items: flex-end;
 }
 
+.d_f_ai_start {
+  display: flex;
+  align-items: flex-start;
+}
+
 .d_f_jc_ce {
   display: flex;
   justify-content: center;
