@@ -8,6 +8,7 @@ import {
   loadFromLocalStorage,
   saveToLocalStorage,
 } from '../js/db/local/localStorage'
+import { goToHref } from '../js/utils/href'
 import {
   checkIsAccountFree,
   checkLogginAccount,
@@ -91,5 +92,5 @@ export function logoutFromAccount(id) {
   const newLocalData = logoutFromAccountById(id || localData.accounts.active)
 
   saveToLocalStorage('games', newLocalData)
-  window.location.reload()
+  goToHref(`/users/${newLocalData.accounts.active}`)
 }
