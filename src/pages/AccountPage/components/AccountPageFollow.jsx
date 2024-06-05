@@ -47,7 +47,7 @@ export default function AccountPageFollow({ editable }) {
 
       setFriends((prev) => ({
         ...prev,
-        followersAmount: prev?.followersAmount + 1,
+        followersAmount: (prev?.followersAmount || 0) + 1,
       }))
       setFollowed(FOLLOW_STATUS.followed)
     }
