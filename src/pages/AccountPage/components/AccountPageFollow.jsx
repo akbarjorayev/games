@@ -88,7 +88,7 @@ export default function AccountPageFollow({ editable }) {
           {friends?.followingAmount || '0'} following
         </div>
       </div>
-      {!editable && (
+      {!editable && localID && (
         <>
           {(followed === FOLLOW_STATUS.loading ||
             followed === FOLLOW_STATUS.following ||
