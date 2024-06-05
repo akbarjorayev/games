@@ -4,7 +4,13 @@ import Button from '../Button/Button'
 
 import './Alert.css'
 
-export default function Alert({ children, title, onHide: handeHide, bgNone }) {
+export default function Alert({
+  children,
+  title,
+  conClassName,
+  onHide: handeHide,
+  bgNone,
+}) {
   const [show, setShow] = useState(true)
   if (!show) return null
 
@@ -19,7 +25,11 @@ export default function Alert({ children, title, onHide: handeHide, bgNone }) {
         className="pos_full_page alert_bg blur_theme_bg"
         onClick={hide}
       ></div>
-      <div className={`alert_con list_y ${bgNone ? 'bg_none' : ''}`}>
+      <div
+        className={`alert_con list_y ${conClassName} ${
+          bgNone ? 'bg_none' : ''
+        }`}
+      >
         {title && (
           <div className="list_y_small">
             <div className="alert_con_top d_f_ai_ce d_f_jc_sb list_x">
