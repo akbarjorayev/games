@@ -2,7 +2,7 @@ button {
   position: relative;
   padding: var(--pd-small-very) var(--pd);
   border-radius: var(--bd-ra-big);
-  background-color: var(--bg);
+  background-color: transparent;
   border: 1px solid transparent;
   isolation: isolate;
   overflow: hidden;
