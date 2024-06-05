@@ -11,12 +11,12 @@ export default function HomePage() {
         <div className="home_page_logo_con">
           <img src={logo} alt="Logo" />
           <div className="d_f_ce">
-            <div
+            <button
               className="con home_page_play_btn fz_medium scale_trns cur_pointer"
               onClick={() => goToHref('/games')}
             >
               Play
-            </div>
+            </button>
           </div>
         </div>
       </div>
