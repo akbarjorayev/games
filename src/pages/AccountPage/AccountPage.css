@@ -8,6 +8,14 @@
   right: 0;
 }
 
+.acc_page_friends_alert {
+  width: min(100%, var(--account-page-con-width));
+}
+
+.acc_page_friends_alert_con {
+  max-height: 300px;
+}
+
 :root {
   --account-page-con-width: 400px;
 }

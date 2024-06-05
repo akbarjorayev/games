@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 
 import Button from '../../../components/Button/Button'
+import AccountPageFriendsAlert from './AccountPageFriendsAlert'
 
 import {
   addFollowing,
@@ -21,10 +22,14 @@ const FOLLOW_STATUS = {
 }
 
 export default function AccountPageFollow({ editable }) {
-  const [followed, setFollowed] = useState(FOLLOW_STATUS.loading)
   const userID = useRef(window.location.pathname.split('users/')[1]).current
   const localID = useRef(loadFromLocalStorage('games').accounts.active).current
   const [friends, setFriends] = useFirestore('friends', `${userID}`)
+  const [friendsAlert, setFriendsAlert] = useState({
+    show: false,
+    showenFriends: '',
+  })
+  const [followed, setFollowed] = useState(FOLLOW_STATUS.loading)
 
   useEffect(() => {
     async function check() {
@@ -40,10 +45,10 @@ export default function AccountPageFollow({ editable }) {
       await addFollowing(localID, userID)
       await addFollowers(userID, localID)
 
-      setFriends({
-        ...friends,
-        followersAmount: friends.followersAmount + 1,
-      })
+      setFriends((prev) => ({
+        ...prev,
+        followersAmount: prev?.followersAmount + 1,
+      }))
       setFollowed(FOLLOW_STATUS.followed)
     }
 
@@ -52,21 +57,34 @@ export default function AccountPageFollow({ editable }) {
       await removeFollowing(localID, userID)
       await removeFollowers(userID, localID)
 
-      setFriends({
-        ...friends,
-        followersAmount: friends.followersAmount - 1,
-      })
+      setFriends((prev) => ({
+        ...prev,
+        followersAmount: prev?.followersAmount - 1,
+      }))
       setFollowed(FOLLOW_STATUS.notFollowed)
     }
+  }
+
+  function openFriendsAlert(e) {
+    const type = e.target.getAttribute('type').trim()
+    setFriendsAlert({ ...friendsAlert, show: true, showenFriends: type })
   }
 
   return (
     <div className="list_y">
       <div className="list_x">
-        <div className="con blur_theme_bg blur_ha pd_tb_small scale_trns cur_pointer">
+        <div
+          className="con blur_theme_bg blur_ha pd_tb_small scale_trns cur_pointer"
+          type="followers"
+          onClick={openFriendsAlert}
+        >
           {friends?.followersAmount || '0'} followers
         </div>
-        <div className="con blur_theme_bg blur_ha pd_tb_small scale_trns cur_pointer">
+        <div
+          className="con blur_theme_bg blur_ha pd_tb_small scale_trns cur_pointer"
+          type="following"
+          onClick={openFriendsAlert}
+        >
           {friends?.followingAmount || '0'} following
         </div>
       </div>
@@ -88,6 +106,14 @@ export default function AccountPageFollow({ editable }) {
             </Button>
           )}
         </>
+      )}
+      {friendsAlert.show && (
+        <AccountPageFriendsAlert
+          showenFriends={friendsAlert.showenFriends}
+          onHide={() => {
+            setFriendsAlert({ ...friendsAlert, show: false })
+          }}
+        />
       )}
     </div>
   )
