@@ -12,7 +12,7 @@ button {
   }
 
   &:focus-visible {
-    border-color: var(--main-color-border-focus-visible);
+    border-color: currentColor !important;
     box-shadow: 0 0 0 var(--focus-visible-boxshadow-width) var(--bg) inset;
   }
 }
