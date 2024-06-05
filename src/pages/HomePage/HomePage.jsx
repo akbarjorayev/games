@@ -12,7 +12,7 @@ export default function HomePage() {
           <img src={logo} alt="Logo" />
           <div className="d_f_ce">
             <button
-              className="con home_page_play_btn fz_medium scale_trns cur_pointer"
+              className="con btn_cl home_page_play_btn fz_medium scale_trns cur_pointer"
               onClick={() => goToHref('/games')}
             >
               Play
