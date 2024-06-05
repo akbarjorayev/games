@@ -4,6 +4,7 @@ import Alert from '../../../components/Alert/Alert'
 import Avatar from '../../../components/Avatar/Avatar'
 
 import { useFirestore } from '../../../hooks/useFirestore'
+import { goToHref } from '../../../js/utils/href'
 
 export default function AccountPageFriendsAlert({
   showenFriends = 'following',
@@ -44,7 +45,10 @@ function GetAccount({ id }) {
   if (!account) return null
 
   return (
-    <div className="con list_x con_ha scale_trns cur_pointer">
+    <div
+      className="con list_x con_ha scale_trns cur_pointer"
+      onClick={() => goToHref(`/users/${id}`)}
+    >
       <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
       <div className="list_y_small">
         <b>{account?.user.name}</b>
