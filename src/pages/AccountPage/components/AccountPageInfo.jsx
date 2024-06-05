@@ -141,18 +141,25 @@ function GetInfoItems() {
     AccountPageInfoContext
   )
 
+  function copy(e, text) {
+    e.preventDefault()
+    e.stopPropagation()
+    copyText(text)
+    toast.success('Id copied to clipboard')
+  }
+
   return (
     <>
       {accountInfo.map((info, i) => (
-        <div
+        <button
           key={i}
-          className={`con d_f_jc_sb ${
+          className={`con _ha d_f_jc_sb ${
             info.disabled || !editable ? '' : 'blur_ha scale_trns cur_pointer'
           }`}
           onClick={() => {
             if (!info.disabled) setEditingItem(i)
           }}
-          tabIndex={!info.disabled && editable ? '0' : undefined}
+          tabIndex={!info.disabled && editable ? '0' : '-1'}
         >
           <div className="list_x">
             <div className="d_f_ce">
@@ -160,25 +167,26 @@ function GetInfoItems() {
                 {info.icon}
               </span>
             </div>
-            <div className="list_y_small">
+            <div className="list_y_small d_f_ai_start">
               <b>{info.value}</b>
               <div>{getLabel(info.label)}</div>
             </div>
           </div>
           {info.label === 'id' && (
-            <button
+            <div
               className="con d_f_ce blur_ha scale_trns cur_pointer"
-              onClick={() => {
-                copyText(info.value)
-                toast.success('Id copied to clipboard')
+              tabIndex="0"
+              onClick={(e) => copy(e, info.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') copy(e, info.value)
               }}
             >
               <span className="material-symbols-outlined fz_small_icon">
                 content_copy
               </span>
-            </button>
+            </div>
           )}
-        </div>
+        </button>
       ))}
     </>
   )
