@@ -65,11 +65,20 @@ export async function incrementField(
   fieldName,
   incrementBy
 ) {
-  const data = await loadFromFirestore(collectionName, docName)
+  const existsData = await loadFromFirestore(collectionName, docName)
 
-  if (!data[fieldName]) {
-    await editFirestore(collectionName, docName, { [fieldName]: incrementBy })
-    return
+  if (!existsData) {
+    const saved = await saveFirestore(collectionName, docName, {
+      [fieldName]: incrementBy,
+    })
+    return saved
+  }
+
+  if (!existsData[fieldName]) {
+    const edited = await editFirestore(collectionName, docName, {
+      [fieldName]: incrementBy,
+    })
+    return edited
   }
 
   const docRef = doc(firestoreDB, collectionName, docName)
@@ -92,9 +101,18 @@ export async function addToArrayFirestore(
 ) {
   const existsData = await loadFromFirestore(collectionName, docName)
 
-  if (existsData[arrayName]?.length === 0) {
-    await editFirestore(collectionName, docName, { [arrayName]: [data] })
-    return
+  if (!existsData) {
+    const saved = await saveFirestore(collectionName, docName, {
+      [arrayName]: [data],
+    })
+    return saved
+  }
+
+  if (existsData[arrayName]?.length === 0 || !existsData[arrayName]) {
+    const edited = await editFirestore(collectionName, docName, {
+      [arrayName]: [data],
+    })
+    return edited
   }
 
   const docRef = doc(firestoreDB, collectionName, docName)
