@@ -107,12 +107,13 @@ function GetTop() {
     <>
       <div className="d_f_jc_sb d_f_ai_ce fz_medium">
         {accountInfo[editingItem] && editable ? (
-          <div
+          <button
             className="con d_f_ce blur_theme_bg blur_ha scale_trns cur_pointer pd_small bd_50"
             onClick={() => setEditingItem(-1)}
+            tabIndex="0"
           >
             <span className="material-symbols-outlined">arrow_back</span>
-          </div>
+          </button>
         ) : (
           <NonVisibleBtn />
         )}
@@ -151,6 +152,7 @@ function GetInfoItems() {
           onClick={() => {
             if (!info.disabled) setEditingItem(i)
           }}
+          tabIndex={!info.disabled && editable ? '0' : undefined}
         >
           <div className="list_x">
             <div className="d_f_ce">
@@ -164,7 +166,7 @@ function GetInfoItems() {
             </div>
           </div>
           {info.label === 'id' && (
-            <div
+            <button
               className="con d_f_ce blur_ha scale_trns cur_pointer"
               onClick={() => {
                 copyText(info.value)
@@ -174,7 +176,7 @@ function GetInfoItems() {
               <span className="material-symbols-outlined fz_small_icon">
                 content_copy
               </span>
-            </div>
+            </button>
           )}
         </div>
       ))}
@@ -216,16 +218,17 @@ function AccountPageAccountsList() {
     }
 
     return (
-      <div
+      <button
         className="con list_x blur_ha scale_trns cur_pointer"
         onClick={switchAccount}
+        tabIndex="0"
       >
         <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
         <div className="list_y_small">
           <b>{account?.user.name}</b>
           <div className="fz_small">@{account?.user.username}</div>
         </div>
-      </div>
+      </button>
     )
   }
 }

@@ -45,16 +45,17 @@ function GetAccount({ id }) {
   if (!account) return null
 
   return (
-    <div
+    <button
       className="con list_x con_ha scale_trns cur_pointer"
       onClick={() => goToHref(`/users/${id}`)}
+      tabIndex="0"
     >
       <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
-      <div className="list_y_small">
+      <div className="list_y_small d_f_ai_start">
         <b>{account?.user.name}</b>
         <div className="fz_small">@{account?.user.username}</div>
       </div>
-    </div>
+    </button>
   )
 }
 
