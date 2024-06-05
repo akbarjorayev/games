@@ -73,35 +73,37 @@ export default function AccountPageFollow({ editable }) {
   return (
     <div className="list_y">
       <div className="list_x">
-        <div
+        <button
           className="con blur_theme_bg blur_ha pd_tb_small scale_trns cur_pointer"
           type="followers"
           onClick={openFriendsAlert}
         >
           {friends?.followersAmount || '0'} followers
-        </div>
-        <div
+        </button>
+        <button
           className="con blur_theme_bg blur_ha pd_tb_small scale_trns cur_pointer"
           type="following"
           onClick={openFriendsAlert}
         >
           {friends?.followingAmount || '0'} following
-        </div>
+        </button>
       </div>
       {!editable && localID && (
         <>
           {(followed === FOLLOW_STATUS.loading ||
             followed === FOLLOW_STATUS.following ||
             followed === FOLLOW_STATUS.unfollowing) && (
-            <Button disabled>{followed}</Button>
+            <Button className="btn_bd" disabled>
+              {followed}
+            </Button>
           )}
           {followed === FOLLOW_STATUS.notFollowed && (
-            <Button className="btn_cl" onClick={followAction}>
+            <Button className="btn_bd bd_cl_none btn_cl" onClick={followAction}>
               Follow
             </Button>
           )}
           {followed === FOLLOW_STATUS.followed && (
-            <Button className="txt_red" onClick={followAction}>
+            <Button className="btn_bd _ha txt_red" onClick={followAction}>
               Unfollow
             </Button>
           )}

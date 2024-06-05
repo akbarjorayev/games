@@ -6,6 +6,10 @@
   border-radius: 0 !important;
 }
 
+.bd_cl_none {
+  border-color: transparent !important;
+}
+
 :root {
   --bd-ra: 12px;
   --bd-ra-big: 16px;

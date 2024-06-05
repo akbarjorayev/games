@@ -107,12 +107,13 @@ function GetTop() {
     <>
       <div className="d_f_jc_sb d_f_ai_ce fz_medium">
         {accountInfo[editingItem] && editable ? (
-          <div
+          <button
             className="con d_f_ce blur_theme_bg blur_ha scale_trns cur_pointer pd_small bd_50"
             onClick={() => setEditingItem(-1)}
+            tabIndex="0"
           >
             <span className="material-symbols-outlined">arrow_back</span>
-          </div>
+          </button>
         ) : (
           <NonVisibleBtn />
         )}
@@ -140,17 +141,25 @@ function GetInfoItems() {
     AccountPageInfoContext
   )
 
+  function copy(e, text) {
+    e.preventDefault()
+    e.stopPropagation()
+    copyText(text)
+    toast.success('Id copied to clipboard')
+  }
+
   return (
     <>
       {accountInfo.map((info, i) => (
-        <div
+        <button
           key={i}
-          className={`con d_f_jc_sb ${
+          className={`con _ha d_f_jc_sb ${
             info.disabled || !editable ? '' : 'blur_ha scale_trns cur_pointer'
           }`}
           onClick={() => {
             if (!info.disabled) setEditingItem(i)
           }}
+          tabIndex={!info.disabled && editable ? '0' : '-1'}
         >
           <div className="list_x">
             <div className="d_f_ce">
@@ -158,7 +167,7 @@ function GetInfoItems() {
                 {info.icon}
               </span>
             </div>
-            <div className="list_y_small">
+            <div className="list_y_small d_f_ai_start">
               <b>{info.value}</b>
               <div>{getLabel(info.label)}</div>
             </div>
@@ -166,9 +175,10 @@ function GetInfoItems() {
           {info.label === 'id' && (
             <div
               className="con d_f_ce blur_ha scale_trns cur_pointer"
-              onClick={() => {
-                copyText(info.value)
-                toast.success('Id copied to clipboard')
+              tabIndex="0"
+              onClick={(e) => copy(e, info.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') copy(e, info.value)
               }}
             >
               <span className="material-symbols-outlined fz_small_icon">
@@ -176,7 +186,7 @@ function GetInfoItems() {
               </span>
             </div>
           )}
-        </div>
+        </button>
       ))}
     </>
   )
@@ -216,16 +226,17 @@ function AccountPageAccountsList() {
     }
 
     return (
-      <div
+      <button
         className="con list_x blur_ha scale_trns cur_pointer"
         onClick={switchAccount}
+        tabIndex="0"
       >
         <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
         <div className="list_y_small">
           <b>{account?.user.name}</b>
           <div className="fz_small">@{account?.user.username}</div>
         </div>
-      </div>
+      </button>
     )
   }
 }
