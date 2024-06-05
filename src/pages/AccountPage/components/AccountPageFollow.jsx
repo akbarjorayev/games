@@ -42,7 +42,7 @@ export default function AccountPageFollow({ editable }) {
 
       setFriends({
         ...friends,
-        followers: [...(friends?.followers || []), localID],
+        followersAmount: friends.followersAmount + 1,
       })
       setFollowed(FOLLOW_STATUS.followed)
     }
@@ -54,9 +54,7 @@ export default function AccountPageFollow({ editable }) {
 
       setFriends({
         ...friends,
-        followers: friends?.followers.filter(
-          (follower) => `${follower}` !== `${localID}`
-        ),
+        followersAmount: friends.followersAmount - 1,
       })
       setFollowed(FOLLOW_STATUS.notFollowed)
     }
@@ -66,10 +64,10 @@ export default function AccountPageFollow({ editable }) {
     <div className="list_y">
       <div className="list_x">
         <div className="con blur_theme_bg blur_ha pd_tb_small scale_trns cur_pointer">
-          {friends?.followers?.length || '0'} followers
+          {friends?.followersAmount || '0'} followers
         </div>
         <div className="con blur_theme_bg blur_ha pd_tb_small scale_trns cur_pointer">
-          {friends?.following?.length || '0'} following
+          {friends?.followingAmount || '0'} following
         </div>
       </div>
       {!editable && (
