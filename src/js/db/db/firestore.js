@@ -67,7 +67,7 @@ export async function incrementField(
 ) {
   const data = await loadFromFirestore(collectionName, docName)
 
-  if (!data.fieldName) {
+  if (!data[fieldName]) {
     await editFirestore(collectionName, docName, { [fieldName]: incrementBy })
     return
   }
@@ -90,9 +90,9 @@ export async function addToArrayFirestore(
   arrayName,
   data
 ) {
-  const exists = await loadFromFirestore(collectionName, docName)
+  const existsData = await loadFromFirestore(collectionName, docName)
 
-  if (!exists) {
+  if (existsData[arrayName]?.length === 0) {
     await editFirestore(collectionName, docName, { [arrayName]: [data] })
     return
   }
