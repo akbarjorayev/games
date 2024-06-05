@@ -52,7 +52,7 @@ function ShowResult({ accounts }) {
 
 function GetAccount({ account }) {
   return (
-    <div
+    <button
       className="con list_x blur_ha scale_trns cur_pointer"
       onClick={() => goToHref(`/users/${account?.id}`)}
     >
@@ -61,6 +61,6 @@ function GetAccount({ account }) {
         <b>{account?.user.name}</b>
         <div className="fz_small">@{account?.user.username}</div>
       </div>
-    </div>
+    </button>
   )
 }
