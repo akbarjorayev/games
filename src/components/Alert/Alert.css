@@ -41,6 +41,6 @@
 }
 
 :root {
-  --alert-con-min-size: 200px;
+  --alert-con-min-size: 300px;
   --alert-con-max-size: 400px;
 }
