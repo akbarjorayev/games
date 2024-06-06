@@ -1,3 +1,7 @@
+.txt_ce {
+  text-align: center;
+}
+
 .txt_cl {
   color: var(--main-color);
 }
