@@ -24,7 +24,7 @@ export async function sendNotification(id, ns) {
   const notification = {
     ...ns,
     new: true,
-    id: amount + 1,
+    id: (amount || 0) + 1,
     date: new Date().getTime(),
   }
 
