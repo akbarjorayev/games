@@ -15,11 +15,7 @@ export default function AccountPageFriendsAlert({
 
   return (
     <>
-      <Alert
-        title={getTitle(showenFriends)}
-        onHide={onHide}
-        conClassName="acc_page_friends_alert"
-      >
+      <Alert title={getTitle(showenFriends)} onHide={onHide}>
         {!friends && <div className="con d_f_ce blur_theme_bg">Loading</div>}
         {friends && friends[showenFriends]?.length > 0 && (
           <div className="list_y_small acc_page_friends_alert_con scroll_y">
