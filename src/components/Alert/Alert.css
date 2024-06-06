@@ -21,8 +21,7 @@
   position: relative;
   background-color: var(--bg);
   border-radius: var(--bd-ra);
-  min-width: var(--alert-con-min-size);
-  max-width: var(--alert-con-max-size);
+  width: min(var(--alert-con-max-size), calc(100% - 2 * var(--pd-small)));
   padding: var(--pd-small);
   text-decoration: balance;
   scale: 1.05;
@@ -41,6 +40,5 @@
 }
 
 :root {
-  --alert-con-min-size: 300px;
   --alert-con-max-size: 400px;
 }
