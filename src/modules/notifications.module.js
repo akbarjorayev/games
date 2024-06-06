@@ -41,7 +41,7 @@ export async function readAllNotifications(id, notifications) {
   const ns =
     notifications || (await loadFromFirestore('notifications', `${id}`))
 
-  const readNs = ns.notifications.map((n) => {
+  const readNs = ns.notifications?.map((n) => {
     return { ...n, new: false }
   })
 
