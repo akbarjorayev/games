@@ -1,4 +1,4 @@
-import { useContext, createContext, useState, useCallback } from 'react'
+import { useContext, createContext, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -57,7 +57,7 @@ export default function AccountPageInfo({ editable, account, setAccount }) {
           theme={toastData.theme}
           draggable
         />,
-        document.body
+        document.getElementById('root')
       )}
       <AccountPageInfoContext.Provider
         value={{
