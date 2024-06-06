@@ -12,8 +12,6 @@ export default function GamePageFriendsAlert({ link, onHide }) {
   const [friends] = useFirestore('friends', `${userID}`)
   const sortedFriends = sortFriends(friends.followers, friends.following)
 
-  console.log(sortedFriends)
-
   return (
     <>
       <Alert title="Choose friend to play with" onHide={onHide}>
