@@ -8,14 +8,13 @@ import {
   loadFromSession,
 } from '../../../js/db/local/sessionStorage'
 import { endGame } from '../../../modules/game.module'
-import { useGameIsPlaying } from '../hooks/useGameIsPlaying'
-import { useGameIsDenied } from '../hooks/useGameIsDenied'
 import { goToHref } from '../../../js/utils/href'
+import { useFirebaseRealtime } from '../../../hooks/useFirebaseRealtime'
 
 export default function GamePageWaitingForRes({ name, link, onHide }) {
   const gameToken = loadFromSession('gameToken')
-  const isPlaying = useGameIsPlaying(gameToken)
-  const isDenied = useGameIsDenied(gameToken)
+  const isPlaying = useFirebaseRealtime(`games/playing/${gameToken}/playing`)
+  const isDenied = useFirebaseRealtime(`games/playing/${gameToken}/denied`)
 
   useEffect(() => {
     if (isPlaying) goToHref(link)
