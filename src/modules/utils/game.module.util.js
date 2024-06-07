@@ -1,10 +1,6 @@
 import { sendNotification } from '../notifications.module'
 import { NOTIFICATIONS_TYPES } from '../../pages/NotificationsPage/data/notificationsData'
-import {
-  incrementField,
-  loadFromFirestore,
-  saveFirestore,
-} from '../../js/db/db/firestore'
+import { editFirestore, loadFromFirestore } from '../../js/db/db/firestore'
 import { loadFromLocalStorage } from '../../js/db/local/localStorage'
 import { gameTokenGenerator } from '../../pages/GamesPage/utils/gameGenerator'
 import {
@@ -63,6 +59,5 @@ export async function deleteGuestNotification(gameToken) {
   if (!guest) return
   const ns = await loadFromFirestore('notifications', `${guest}`)
   const newNs = ns?.notifications?.filter((n) => n.gameToken !== gameToken)
-  await saveFirestore('notifications', `${guest}`, { notifications: newNs })
-  await incrementField('notifications', `${guest}`, 'amount', -1)
+  await editFirestore('notifications', `${guest}`, { notifications: newNs })
 }
