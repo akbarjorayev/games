@@ -5,6 +5,8 @@ import Button from '../../../components/Button/Button'
 import { NotificationsContext } from '../NotificationsContext'
 import { removeNotification } from '../../../modules/notifications.module'
 import { NOTIFICATIONS_TYPES } from '../data/notificationsData'
+import { acceptGame, endGame } from '../../../modules/game.module'
+import { goToHref } from '../../../js/utils/href'
 
 export default function NotificationsItem({ data }) {
   const { notifications, setNotifications } = useContext(NotificationsContext)
@@ -26,6 +28,21 @@ export default function NotificationsItem({ data }) {
 
   function swipe(e) {
     if (e.deltaX > 50 && !remove) setRemove(true)
+  }
+
+  async function deny() {
+    if (data?.type === NOTIFICATIONS_TYPES.playReqs) {
+      setRemove(true)
+      await endGame(data.gameToken)
+    }
+  }
+
+  async function accept() {
+    if (data?.type === NOTIFICATIONS_TYPES.playReqs) {
+      setRemove(true)
+      await acceptGame(data.gameToken)
+      goToHref(data.gameLink)
+    }
   }
 
   return (
@@ -50,8 +67,12 @@ export default function NotificationsItem({ data }) {
           <>
             <div className="line_x"></div>
             <div className="list_x w_100_child">
-              <Button className="txt_red">Deny</Button>
-              <Button className="btn_cl">Accept</Button>
+              <Button className="txt_red" onClick={deny}>
+                Deny
+              </Button>
+              <Button className="btn_cl" onClick={accept}>
+                Accept
+              </Button>
             </div>
           </>
         )}
