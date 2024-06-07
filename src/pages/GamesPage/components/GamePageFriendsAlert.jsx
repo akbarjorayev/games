@@ -6,8 +6,13 @@ import Avatar from '../../../components/Avatar/Avatar'
 import { useFirestore } from '../../../hooks/useFirestore'
 import { loadFromLocalStorage } from '../../../js/db/local/localStorage'
 import { sortFriends } from '../../../modules/friends.module'
+import { prepareGame } from '../../../modules/game.module'
 
-export default function GamePageFriendsAlert({ link, onHide }) {
+export default function GamePageFriendsAlert({
+  link,
+  onHide,
+  setWaitingForRes,
+}) {
   const userID = useRef(loadFromLocalStorage('games').accounts.active).current
   const [friends] = useFirestore('friends', `${userID}`)
   const sortedFriends = sortFriends(friends.followers, friends.following)
@@ -22,28 +27,46 @@ export default function GamePageFriendsAlert({ link, onHide }) {
         <div className="game_page_friends_alert_con">
           {friends &&
             (sortedFriends || sortedFriends?.length > 0) &&
-            sortedFriends.map((f, i) => <GetAccount key={i} fID={f} />)}
+            sortedFriends.map((f, i) => (
+              <GetAccount
+                key={i}
+                fID={f}
+                link={link}
+                onHide={onHide}
+                setWaitingForRes={setWaitingForRes}
+              />
+            ))}
         </div>
       </Alert>
     </>
   )
 }
 
-function GetAccount({ fID }) {
+function GetAccount({ fID, link, onHide, setWaitingForRes }) {
   const [account] = useFirestore('accounts', `${fID}`)
 
   if (!account) return null
 
+  async function startingGame() {
+    await prepareGame(fID, link)
+
+    onHide()
+    setWaitingForRes({ name: account?.user.name })
+  }
+
   return (
-    <button
-      className="con list_x blur_ha scale_trns cur_pointer w_100"
-      tabIndex="0"
-    >
-      <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
-      <div className="list_y_small d_f_ai_start">
-        <b>{account?.user.name}</b>
-        <div className="fz_small">@{account?.user.username}</div>
-      </div>
-    </button>
+    <>
+      <button
+        className="con list_x blur_ha scale_trns cur_pointer w_100"
+        tabIndex="0"
+        onClick={startingGame}
+      >
+        <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
+        <div className="list_y_small d_f_ai_start">
+          <b>{account?.user.name}</b>
+          <div className="fz_small">@{account?.user.username}</div>
+        </div>
+      </button>
+    </>
   )
 }

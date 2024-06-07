@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import Menu from '../../components/Menu/Menu'
 import GamePageFriendsAlert from './components/GamePageFriendsAlert'
+import GamePageWaitingForRes from './components/GamePageWaitingForRes'
 
 import { GAMES } from './data/gameData'
 
@@ -9,6 +10,7 @@ import './GamePage.css'
 
 export default function GamePage() {
   const [friendsAlert, setFriendsAlert] = useState({ link: '', show: false })
+  const [waitingForRes, setWaitingForRes] = useState({ name: '' })
 
   return (
     <>
@@ -34,6 +36,14 @@ export default function GamePage() {
         <GamePageFriendsAlert
           link={friendsAlert.link}
           onHide={() => setFriendsAlert({ ...friendsAlert, show: false })}
+          setWaitingForRes={setWaitingForRes}
+        />
+      )}
+      {waitingForRes.name && (
+        <GamePageWaitingForRes
+          name={waitingForRes.name}
+          link={friendsAlert.link}
+          onHide={() => setWaitingForRes({ name: '' })}
         />
       )}
     </>
