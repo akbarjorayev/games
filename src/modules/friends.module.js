@@ -49,3 +49,11 @@ export async function isFollowed(userID, friendID) {
   if (following?.length === 0) return false
   return following?.includes(`${friendID}`)
 }
+
+export function sortFriends(followers, following) {
+  const followersSet = new Set(followers)
+  const followingSet = new Set(following)
+
+  const friends = [...followersSet].filter((user) => followingSet.has(user))
+  return friends
+}

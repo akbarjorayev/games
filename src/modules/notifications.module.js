@@ -24,7 +24,7 @@ export async function sendNotification(id, ns) {
   const notification = {
     ...ns,
     new: true,
-    id: amount + 1,
+    id: (amount || 0) + 1,
     date: new Date().getTime(),
   }
 
@@ -41,7 +41,7 @@ export async function readAllNotifications(id, notifications) {
   const ns =
     notifications || (await loadFromFirestore('notifications', `${id}`))
 
-  const readNs = ns.notifications.map((n) => {
+  const readNs = ns.notifications?.map((n) => {
     return { ...n, new: false }
   })
 

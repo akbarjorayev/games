@@ -1,4 +1,4 @@
-import { useContext, createContext, useState, useCallback } from 'react'
+import { useContext, createContext, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -57,7 +57,7 @@ export default function AccountPageInfo({ editable, account, setAccount }) {
           theme={toastData.theme}
           draggable
         />,
-        document.body
+        document.getElementById('root')
       )}
       <AccountPageInfoContext.Provider
         value={{
@@ -232,7 +232,7 @@ function AccountPageAccountsList() {
         tabIndex="0"
       >
         <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
-        <div className="list_y_small">
+        <div className="list_y_small d_f_ai_start">
           <b>{account?.user.name}</b>
           <div className="fz_small">@{account?.user.username}</div>
         </div>

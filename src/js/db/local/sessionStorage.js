@@ -5,3 +5,7 @@ export function saveToSession(key, value) {
 export function loadFromSession(key) {
   return JSON.parse(sessionStorage.getItem(key))
 }
+
+export function deleteFromSession(key) {
+  sessionStorage.removeItem(key)
+}

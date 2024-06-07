@@ -73,10 +73,12 @@ export async function checkLogginAccount(phoneOrUsername, password, type) {
 export function logoutFromAccountById(id) {
   const localData = loadFromLocalStorage('games')
 
-  localData.accounts.ids = localData.accounts.ids.filter((lId) => lId !== id)
-  if (localData.accounts.active === id) {
+  localData.accounts.ids = localData.accounts.ids.filter(
+    (lId) => `${lId}` !== `${id}`
+  )
+  if (`${localData.accounts.active}` === `${id}`) {
     localData.accounts.active =
-      localData.accounts.ids.length > 0 ? localData.accounts.ids[0] : ''
+      localData.accounts.ids.length > 0 ? `${localData.accounts.ids[0]}` : ''
   }
 
   return localData
