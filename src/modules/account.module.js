@@ -92,5 +92,8 @@ export function logoutFromAccount(id) {
   const newLocalData = logoutFromAccountById(id || localData.accounts.active)
 
   saveToLocalStorage('games', newLocalData)
-  goToHref(`/users/${newLocalData.accounts.active}`)
+
+  if (newLocalData.accounts.active)
+    goToHref(`/users/${newLocalData.accounts.active}`)
+  else goToHref('/')
 }
