@@ -146,6 +146,7 @@ export default function SignupVerify({ COMPONENTS, setComponent }) {
                 btnTexts.resend === BTNTEXTS.resending ||
                 btnTexts.verify === BTNTEXTS.verifing
               }
+              className="btn_bd"
             >
               {btnTexts.resend}
             </Button>
