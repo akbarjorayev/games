@@ -18,10 +18,10 @@ export default function AccountPageFriendsAlert({
       <Alert title={getTitle(showenFriends)} onHide={onHide}>
         {!friends && <div className="con d_f_ce blur_theme_bg">Loading</div>}
         {friends && friends[showenFriends]?.length > 0 && (
-          <div className="list_y_small acc_page_friends_alert_con scroll_y">
-            {friends[showenFriends].map((id) => {
-              return <GetAccount key={id} id={id} />
-            })}
+          <div className="acc_page_friends_alert_con scroll_y">
+            {friends[showenFriends].map((id) => (
+              <GetAccount key={id} id={id} />
+            ))}
           </div>
         )}
         {friends &&
@@ -42,7 +42,7 @@ function GetAccount({ id }) {
 
   return (
     <button
-      className="con list_x con_ha scale_trns cur_pointer"
+      className="con list_x con_ha w_100 scale_trns cur_pointer"
       onClick={() => goToHref(`/users/${id}`)}
       tabIndex="0"
     >

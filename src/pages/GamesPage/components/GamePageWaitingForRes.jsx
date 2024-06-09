@@ -46,7 +46,8 @@ export default function GamePageWaitingForRes({ name, link, onHide }) {
     <Alert onHide={stopGame}>
       <div className="list_y">
         <div className="txt_ce">
-          You're waiting for <b>{name}</b> response for {count} seconds
+          You're waiting for <b>{name}</b> response for {count}{' '}
+          {count > 1 ? 'seconds' : 'second'}
         </div>
         <Button className="btn_bd txt_red" onClick={stopGame}>
           Stop waiting

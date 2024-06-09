@@ -128,7 +128,11 @@ export default function SignupVerify({ COMPONENTS, setComponent }) {
         </p>
         {+timer > 0 && (
           <p className="fz_small">
-            If you didn't receive an SMS, please try again after <b>{timer}s</b>
+            If you didn't receive an SMS, please try again after{' '}
+            <b>
+              {timer}
+              {timer > 1 ? ' seconds' : ' second'}
+            </b>
           </p>
         )}
         {+timer <= 0 && (
@@ -142,6 +146,7 @@ export default function SignupVerify({ COMPONENTS, setComponent }) {
                 btnTexts.resend === BTNTEXTS.resending ||
                 btnTexts.verify === BTNTEXTS.verifing
               }
+              className="btn_bd"
             >
               {btnTexts.resend}
             </Button>
