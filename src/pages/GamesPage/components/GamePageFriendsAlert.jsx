@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { createContext, useContext, useRef, useState } from 'react'
 
 import Alert from '../../../components/Alert/Alert'
 import Avatar from '../../../components/Avatar/Avatar'
@@ -13,6 +13,8 @@ const FRIENDS_STATUS = {
   preparing: 'preparing',
 }
 
+const gamePageFriendsContext = createContext()
+
 export default function GamePageFriendsAlert({
   link,
   onHide,
@@ -25,43 +27,33 @@ export default function GamePageFriendsAlert({
 
   return (
     <>
-      <Alert title="Choose friend to play with" onHide={onHide}>
-        {!friends && <div className="con blur_theme_bg d_f_ce">Loading</div>}
-        {friends && (!sortedFriends || sortedFriends?.length === 0) && (
-          <div className="con blur_theme_bg d_f_ce">No friends</div>
-        )}
-        <div
-          className="game_page_friends_alert_con scroll_y"
-          disabled={status === FRIENDS_STATUS.preparing}
-        >
-          {friends &&
-            (sortedFriends || sortedFriends?.length > 0) &&
-            sortedFriends.map((f, i) => (
-              <GetAccount
-                key={i}
-                fID={f}
-                link={link}
-                onHide={onHide}
-                setWaitingForRes={setWaitingForRes}
-                status={status}
-                setStatus={setStatus}
-              />
-            ))}
-        </div>
-      </Alert>
+      <gamePageFriendsContext.Provider
+        value={{ link, onHide, setWaitingForRes, status, setStatus }}
+      >
+        <Alert title="Choose friend to play with" onHide={onHide}>
+          {!friends && <div className="con blur_theme_bg d_f_ce">Loading</div>}
+          {friends && (!sortedFriends || sortedFriends?.length === 0) && (
+            <div className="con blur_theme_bg d_f_ce">No friends</div>
+          )}
+          <div
+            className="game_page_friends_alert_con scroll_y"
+            disabled={status === FRIENDS_STATUS.preparing}
+          >
+            {friends &&
+              (sortedFriends || sortedFriends?.length > 0) &&
+              sortedFriends.map((f, i) => <GetAccount key={i} fID={f} />)}
+          </div>
+        </Alert>
+      </gamePageFriendsContext.Provider>
     </>
   )
 }
 
-function GetAccount({
-  fID,
-  link,
-  onHide,
-  setWaitingForRes,
-  status,
-  setStatus,
-}) {
+function GetAccount({ fID }) {
   const [account] = useFirestore('accounts', `${fID}`)
+  const { link, onHide, setWaitingForRes, status, setStatus } = useContext(
+    gamePageFriendsContext
+  )
 
   if (!account) return null
 
