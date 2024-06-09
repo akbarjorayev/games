@@ -92,7 +92,7 @@ export default function SignupPhone({ COMPONENTS, setComponent }) {
               <Button
                 type="button"
                 className="btn_bd_cl"
-                onClick={() => goToHref('/account/signup/userdata')}
+                onClick={() => goToHref('/account/signup/user-data')}
               >
                 Back to Form
               </Button>
