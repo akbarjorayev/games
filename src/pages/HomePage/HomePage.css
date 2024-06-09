@@ -34,3 +34,7 @@
     opacity: 1;
   }
 }
+
+.home_page_play_btn span {
+  text-wrap: nowrap;
+}
