@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 import Alert from '../../../components/Alert/Alert'
 import Avatar from '../../../components/Avatar/Avatar'
@@ -8,6 +8,11 @@ import { loadFromLocalStorage } from '../../../js/db/local/localStorage'
 import { sortFriends } from '../../../modules/friends.module'
 import { prepareGame } from '../../../modules/game.module'
 
+const FRIENDS_STATUS = {
+  default: 'default',
+  preparing: 'preparing',
+}
+
 export default function GamePageFriendsAlert({
   link,
   onHide,
@@ -15,6 +20,7 @@ export default function GamePageFriendsAlert({
 }) {
   const userID = useRef(loadFromLocalStorage('games').accounts.active).current
   const [friends] = useFirestore('friends', `${userID}`)
+  const [status, setStatus] = useState(FRIENDS_STATUS.default)
   const sortedFriends = sortFriends(friends.followers, friends.following)
 
   return (
@@ -24,7 +30,10 @@ export default function GamePageFriendsAlert({
         {friends && (!sortedFriends || sortedFriends?.length === 0) && (
           <div className="con blur_theme_bg d_f_ce">No friends</div>
         )}
-        <div className="game_page_friends_alert_con">
+        <div
+          className="game_page_friends_alert_con scroll_y"
+          disabled={status === FRIENDS_STATUS.preparing}
+        >
           {friends &&
             (sortedFriends || sortedFriends?.length > 0) &&
             sortedFriends.map((f, i) => (
@@ -34,6 +43,8 @@ export default function GamePageFriendsAlert({
                 link={link}
                 onHide={onHide}
                 setWaitingForRes={setWaitingForRes}
+                status={status}
+                setStatus={setStatus}
               />
             ))}
         </div>
@@ -42,12 +53,20 @@ export default function GamePageFriendsAlert({
   )
 }
 
-function GetAccount({ fID, link, onHide, setWaitingForRes }) {
+function GetAccount({
+  fID,
+  link,
+  onHide,
+  setWaitingForRes,
+  status,
+  setStatus,
+}) {
   const [account] = useFirestore('accounts', `${fID}`)
 
   if (!account) return null
 
   async function startingGame() {
+    setStatus(FRIENDS_STATUS.preparing)
     await prepareGame(fID, link)
 
     onHide()
@@ -60,6 +79,7 @@ function GetAccount({ fID, link, onHide, setWaitingForRes }) {
         className="con list_x blur_ha scale_trns cur_pointer w_100"
         tabIndex="0"
         onClick={startingGame}
+        status={status}
       >
         <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
         <div className="list_y_small d_f_ai_start">
