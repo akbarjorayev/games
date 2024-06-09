@@ -47,6 +47,10 @@
   }
 }
 
+.game_page_friends_alert_con {
+  max-height: 300px;
+}
+
 :root {
   --game-img-size: 250px;
 }
