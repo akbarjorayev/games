@@ -144,8 +144,10 @@ function GetInfoItems() {
   function copy(e, text) {
     e.preventDefault()
     e.stopPropagation()
-    copyText(text)
-    toast.success('Id copied to clipboard')
+    const copied = copyText(text)
+
+    if (copied.ok) toast.success('Id copied to clipboard')
+    if (!copied.ok) toast.error(copied.msg)
   }
 
   return (
