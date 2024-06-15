@@ -2,6 +2,7 @@
   position: relative;
   aspect-ratio: 1;
   border-radius: 50%;
+  border: 1px solid var(--main-color-border);
   background: linear-gradient(#fff -100%, var(--main-color-bg));
 }
 
