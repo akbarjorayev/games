@@ -23,3 +23,7 @@
   aspect-ratio: 1;
   border-radius: inherit;
 }
+
+.avatar:has(.avatar_img) {
+  background: none;
+}
