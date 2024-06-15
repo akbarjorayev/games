@@ -1,11 +1,30 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import AvatarEditAlert from './AvatarEditAlert'
 
+import { downloadAvatar } from '../../modules/avatar.module'
+
 import './Avatar.css'
 
-export default function Avatar({ style, letter, img, editable = false }) {
+export default function Avatar({
+  style,
+  letter,
+  img: iImg,
+  id,
+  editable = false,
+}) {
   const [edit, setEdit] = useState(false)
+  const [img, setImg] = useState(iImg)
+
+  useEffect(() => {
+    if (img) return
+
+    async function loadData() {
+      const storeImg = await downloadAvatar(id)
+      setImg(storeImg)
+    }
+    loadData()
+  }, [])
 
   return (
     <>
