@@ -57,7 +57,14 @@ export default function NotificationsPage() {
   return (
     <>
       <NotificationsContext.Provider
-        value={{ id, notifications, setNotifications, filter, setFilter }}
+        value={{
+          id,
+          userNotifications,
+          notifications,
+          setNotifications,
+          filter,
+          setFilter,
+        }}
       >
         <div className="con pos_full_page d_f_ai_ce list_y">
           <Menu />
@@ -80,7 +87,7 @@ export default function NotificationsPage() {
 }
 
 function NotificationsTop() {
-  const { id, notifications, setNotifications } =
+  const { id, userNotifications, setNotifications } =
     useContext(NotificationsContext)
 
   async function loadNotifications() {
@@ -92,7 +99,7 @@ function NotificationsTop() {
   return (
     <>
       <div className="list_x d_f_ai_ce d_f_jc_sb">
-        <b className="fz_medium">Notifications ({notifications?.amount})</b>
+        <b className="fz_medium">Notifications ({userNotifications?.length})</b>
         <div
           className="con d_f_ce blur_theme_bg blur_ha cur_pointer scale_trns bd_50 pd_small"
           onClick={loadNotifications}
