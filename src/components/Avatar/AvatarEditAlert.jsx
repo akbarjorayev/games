@@ -143,7 +143,7 @@ function SaveButton() {
 
   return (
     <>
-      <div
+      <button
         className={`con w_100 txt_ce blur_theme_bg blur_ha fz_medium pd_tb_small ${
           !disabled ? 'scale_trns cur_pointer' : ''
         }`}
@@ -151,7 +151,7 @@ function SaveButton() {
         disabled={disabled}
       >
         {saveBtnText}
-      </div>
+      </button>
     </>
   )
 }

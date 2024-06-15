@@ -32,6 +32,10 @@ export default function Avatar({
         className={`avatar ${editable ? 'scale_trns cur_pointer' : ''}`}
         style={style}
         onClick={() => editable && setEdit(true)}
+        tabIndex={editable ? '0' : '-1'}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && editable) setEdit(true)
+        }}
       >
         <AvatarImgLetter letter={letter} img={img} />
       </div>
