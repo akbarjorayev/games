@@ -1,7 +1,6 @@
-import { loadFromFirestore } from '../../../js/db/db/firestore'
+import { loadFromFirestoreWhere } from '../../../js/db/db/firestore'
 
 const VALUE_TYPES = {
-  account: 'account',
   username: 'username',
 }
 
@@ -10,9 +9,7 @@ export async function searchForAccounts(value) {
   const valueType = getValueType(value)
   const accData = await getAccount(valueType, value)
 
-  return valueType === VALUE_TYPES.account
-    ? accData
-    : await getAccount(VALUE_TYPES.account, accData?.id)
+  return accData
 }
 
 function getValueType(value) {
@@ -20,7 +17,11 @@ function getValueType(value) {
   return VALUE_TYPES.username
 }
 
-async function getAccount(type, id) {
-  const data = await loadFromFirestore(`${type}s`, `${id}`)
+async function getAccount(type, value) {
+  const data = await loadFromFirestoreWhere('accounts', [
+    `user.${type}`,
+    '==',
+    value,
+  ])
   return data
 }
