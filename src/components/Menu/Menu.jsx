@@ -55,6 +55,7 @@ function MenuIcon({ icon, isActive, onClick }) {
       onClick={() => {
         if (!isActive) onClick()
       }}
+      tabIndex={isActive ? '-1' : '0'}
     >
       <div className={`con ${isActive ? 'blur_theme_bg active' : ''}`}>
         <span className="material-symbols-outlined">{icon}</span>
@@ -71,6 +72,7 @@ function AccountMenuIcon({ isActive, onClick }) {
         onClick={() => {
           if (!isActive) onClick()
         }}
+        tabIndex={isActive ? '-1' : '0'}
       >
         <div className={`con ${isActive ? 'blur_theme_bg active' : ''}`}>
           <Avatar style={{ height: '30px', fontSize: '16px' }}></Avatar>
