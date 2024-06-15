@@ -25,6 +25,9 @@ export default function AvatarEditAlert({ onHide, letter, img: iImg }) {
 
     const file = e.dataTransfer.files[0]
     if (file && file.type.startsWith('image/')) {
+      const checkedSize = checkSize(file.size)
+      if (!checkedSize.ok) return toast.error(checkedSize.msg)
+
       const reader = new FileReader()
       reader.onload = () => {
         setImgs({ ...imgs, img: reader.result, imgFile: file })
@@ -80,6 +83,9 @@ function UploadButton() {
   function upload(e) {
     const file = e.target.files[0]
     if (!file) return
+
+    const checkedSize = checkSize(file.size)
+    if (!checkedSize.ok) return toast.error(checkedSize.msg)
 
     const reader = new FileReader()
 
@@ -185,4 +191,9 @@ function SaveButton() {
       </button>
     </>
   )
+}
+
+function checkSize(size) {
+  const maxSize = 2 * 1024 * 1024
+  return { ok: size <= maxSize, msg: 'Max size is 2MB' }
 }
