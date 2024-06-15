@@ -20,7 +20,7 @@ export default function Avatar({
   const [letter, setLetter] = useState(iLetter)
   const id = useRef(
     iID || loadFromLocalStorage('games').accounts.active
-  ).current
+  ).current.toString()
 
   useEffect(() => {
     if (iImg || iImg === '') return setImg(iImg)
