@@ -62,7 +62,7 @@ function GetAccounts({ account }) {
   const [loggedout, setLoggedout] = useState(false)
 
   function logout() {
-    logoutFromAccount(`${account.id}`)
+    logoutFromAccount(`${account.id}`, false)
     setLoggedout(true)
     setAccountLen((cur) => cur - 1)
   }

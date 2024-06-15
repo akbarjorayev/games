@@ -1,20 +1,26 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import AvatarEditAlert from './AvatarEditAlert'
 
 import { downloadAvatar } from '../../modules/avatar.module'
+import { loadFromFirestore } from '../../js/db/db/firestore'
+import { loadFromLocalStorage } from '../../js/db/local/localStorage'
 
 import './Avatar.css'
 
 export default function Avatar({
   style,
-  letter,
+  letter: iLetter,
   img: iImg,
-  id,
+  id: iID,
   editable = false,
 }) {
   const [edit, setEdit] = useState(false)
   const [img, setImg] = useState(iImg)
+  const [letter, setLetter] = useState(iLetter)
+  const id = useRef(
+    iID || loadFromLocalStorage('games').accounts.active
+  ).current.toString()
 
   useEffect(() => {
     if (iImg || iImg === '') return setImg(iImg)
@@ -25,6 +31,17 @@ export default function Avatar({
     }
     loadData()
   }, [iImg, edit])
+
+  useEffect(() => {
+    if (iLetter) return setLetter(iLetter)
+
+    async function loadData() {
+      const storeLetter = (await loadFromFirestore('accounts', id))?.user
+        .name[0]
+      setLetter(storeLetter)
+    }
+    loadData()
+  }, [])
 
   return (
     <>

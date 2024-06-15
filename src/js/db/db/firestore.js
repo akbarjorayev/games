@@ -7,6 +7,9 @@ import {
   deleteDoc,
   increment,
   arrayUnion,
+  query,
+  getDocs,
+  where,
 } from 'firebase/firestore'
 import { firestoreDB } from './firebaseDB'
 
@@ -28,6 +31,21 @@ export async function loadFromFirestore(collectionName, docName) {
 
     if (docSnap.exists()) return docSnap.data()
     return false
+  } catch {
+    return false
+  }
+}
+
+export async function loadFromFirestoreWhere(collectionName, myWhere) {
+  try {
+    const data = []
+    const q = query(collection(firestoreDB, collectionName), where(...myWhere))
+
+    const querySnapshot = await getDocs(q)
+    querySnapshot.forEach((doc) => {
+      data.push(doc.data())
+    })
+    return data
   } catch {
     return false
   }

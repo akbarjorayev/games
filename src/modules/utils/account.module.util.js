@@ -1,8 +1,4 @@
-import {
-  incrementField,
-  loadFromFirestore,
-  saveFirestore,
-} from '../../js/db/db/firestore'
+import { loadFromFirestoreWhere } from '../../js/db/db/firestore'
 import {
   loadFromLocalStorage,
   saveToLocalStorage,
@@ -10,15 +6,15 @@ import {
 
 export async function checkIsAccountFree(username, phoneNumber) {
   const [usernameIsTaken, phoneNumberIsTaken] = await Promise.all([
-    loadFromFirestore('usernames', username),
-    loadFromFirestore('phoneNumbers', phoneNumber),
+    loadFromFirestoreWhere('accounts', ['user.username', '==', username]),
+    loadFromFirestoreWhere('accounts', ['user.phoneNumber', '==', phoneNumber]),
   ])
 
-  if (usernameIsTaken) {
+  if (usernameIsTaken?.length > 0) {
     return { ok: false, message: 'Account with this username already exists' }
   }
 
-  if (phoneNumberIsTaken) {
+  if (phoneNumberIsTaken?.length > 0) {
     return {
       ok: false,
       message: 'Account with this phone number already exists',
@@ -26,18 +22,6 @@ export async function checkIsAccountFree(username, phoneNumber) {
   }
 
   return { ok: true }
-}
-
-export async function saveAccountToFirestore(data, id) {
-  const { username, phoneNumber, password } = data
-  const dataToSave = {
-    password: password,
-    id,
-  }
-
-  await incrementField('accounts', '_aboutAccounts', 'amount', 1)
-  await saveFirestore('usernames', username, dataToSave)
-  await saveFirestore('phoneNumbers', phoneNumber, dataToSave)
 }
 
 export function saveAccountToLocalStorage(id) {
@@ -62,12 +46,16 @@ export function saveLoggedAccountToLocalStorage(id) {
 }
 
 export async function checkLogginAccount(phoneOrUsername, password, type) {
-  const account = await loadFromFirestore(`${type}s`, phoneOrUsername)
-  if (!account) return { ok: false, message: 'Account not found' }
-  if (account.password !== password)
+  const account = await loadFromFirestoreWhere('accounts', [
+    `user.${type}`,
+    '==',
+    phoneOrUsername,
+  ])
+  if (account?.length === 0) return { ok: false, message: 'Account not found' }
+  if (account[0]?.user.password !== password)
     return { ok: false, message: 'Wrong password' }
 
-  return { ok: true, account }
+  return { ok: true, account: account[0] }
 }
 
 export function logoutFromAccountById(id) {

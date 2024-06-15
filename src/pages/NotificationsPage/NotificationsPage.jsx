@@ -80,7 +80,8 @@ export default function NotificationsPage() {
 }
 
 function NotificationsTop() {
-  const { id, setNotifications } = useContext(NotificationsContext)
+  const { id, notifications, setNotifications } =
+    useContext(NotificationsContext)
 
   async function loadNotifications() {
     const data = await loadFromFirestore('notifications', `${id.current}`)
@@ -91,7 +92,7 @@ function NotificationsTop() {
   return (
     <>
       <div className="list_x d_f_ai_ce d_f_jc_sb">
-        <b className="fz_medium">Notifications</b>
+        <b className="fz_medium">Notifications ({notifications?.amount})</b>
         <div
           className="con d_f_ce blur_theme_bg blur_ha cur_pointer scale_trns bd_50 pd_small"
           onClick={loadNotifications}

@@ -11,7 +11,7 @@ export default function SearchResults({ value }) {
   useEffect(() => {
     async function loadData() {
       const data = await searchForAccounts(value)
-      setAccounts([data])
+      setAccounts(data)
     }
     loadData()
   }, [])
