@@ -16,11 +16,10 @@ import { readAllNotifications } from '../../modules/notifications.module'
 import './NotificationsPage.css'
 
 export default function NotificationsPage() {
-  const id = useRef(loadFromLocalStorage('games').accounts.active)
-  const [notifications, setNotifications] = useFirestore(
-    'notifications',
-    id.current
-  )
+  const id = useRef(
+    loadFromLocalStorage('games').accounts.active
+  ).current.toString()
+  const [notifications, setNotifications] = useFirestore('notifications', id)
   const [userNotifications, setUserNotifications] = useState(
     notifications?.notifications
   )
@@ -91,7 +90,7 @@ function NotificationsTop() {
     useContext(NotificationsContext)
 
   async function loadNotifications() {
-    const data = await loadFromFirestore('notifications', `${id.current}`)
+    const data = await loadFromFirestore('notifications', id)
     readAllNotifications(id.current, data)
     setNotifications(data)
   }
