@@ -2,7 +2,12 @@
   position: relative;
   aspect-ratio: 1;
   border-radius: 50%;
+  border: 1px solid var(--main-color-border);
   background: linear-gradient(#fff -100%, var(--main-color-bg));
+
+  &:focus-visible {
+    border-color: currentColor;
+  }
 }
 
 .avatar_letter {
@@ -11,4 +16,14 @@
   left: 50%;
   transform: translate(-50%, -50%);
   line-height: 1;
+}
+
+.avatar_img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: inherit;
+}
+
+.avatar:has(.avatar_img) {
+  background: none;
 }

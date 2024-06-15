@@ -45,6 +45,14 @@ button.btn_bd_cl {
   }
 }
 
+button.btn_bd_cr {
+  border: 1px solid currentColor;
+
+  &:hover {
+    border-color: color-mix(in srgb, currentColor 50%, #fff 50%);
+  }
+}
+
 .ripple {
   position: absolute;
   width: var(--ripple-max);

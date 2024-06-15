@@ -1,5 +1,7 @@
 import { useRef } from 'react'
 
+import Avatar from '../Avatar/Avatar'
+
 import { goToHref } from '../../js/utils/href'
 import { loadFromLocalStorage } from '../../js/db/local/localStorage'
 
@@ -36,7 +38,7 @@ export default function Menu() {
           isActive={pathname === MENU_PATHNAMES.notifications}
           onClick={() => goToHref(MENU_PATHNAMES.notifications)}
         />
-        <MenuIcon
+        <AccountMenuIcon
           icon="account_circle"
           isActive={ids.includes(pathnameID)}
           onClick={() => goToHref(`/users/${id}`)}
@@ -53,10 +55,29 @@ function MenuIcon({ icon, isActive, onClick }) {
       onClick={() => {
         if (!isActive) onClick()
       }}
+      tabIndex={isActive ? '-1' : '0'}
     >
       <div className={`con ${isActive ? 'blur_theme_bg active' : ''}`}>
         <span className="material-symbols-outlined">{icon}</span>
       </div>
     </button>
+  )
+}
+
+function AccountMenuIcon({ isActive, onClick }) {
+  return (
+    <>
+      <button
+        className="blur_ha list_y_small d_f_ce scale_trns"
+        onClick={() => {
+          if (!isActive) onClick()
+        }}
+        tabIndex={isActive ? '-1' : '0'}
+      >
+        <div className={`con ${isActive ? 'blur_theme_bg active' : ''}`}>
+          <Avatar style={{ height: '30px', fontSize: '16px' }}></Avatar>
+        </div>
+      </button>
+    </>
   )
 }

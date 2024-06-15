@@ -144,8 +144,10 @@ function GetInfoItems() {
   function copy(e, text) {
     e.preventDefault()
     e.stopPropagation()
-    copyText(text)
-    toast.success('Id copied to clipboard')
+    const copied = copyText(text)
+
+    if (copied.ok) toast.success('Id copied to clipboard')
+    if (!copied.ok) toast.error(copied.msg)
   }
 
   return (
@@ -231,7 +233,11 @@ function AccountPageAccountsList() {
         onClick={switchAccount}
         tabIndex="0"
       >
-        <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
+        <Avatar
+          letter={account?.user.name[0]}
+          id={account?.id}
+          style={{ height: '40px' }}
+        />
         <div className="list_y_small d_f_ai_start">
           <b>{account?.user.name}</b>
           <div className="fz_small">@{account?.user.username}</div>
