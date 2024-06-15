@@ -45,6 +45,10 @@
   flex: 1;
 }
 
+.d_n {
+  display: none;
+}
+
 :root {
   --d-f-gap: 10px;
 }
