@@ -24,7 +24,7 @@ export default function Avatar({
       setImg(storeImg)
     }
     loadData()
-  }, [iImg])
+  }, [iImg, edit])
 
   return (
     <>
