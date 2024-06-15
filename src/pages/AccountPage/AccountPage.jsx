@@ -48,7 +48,7 @@ export default function AccountPage() {
               letter={account?.user.name[0]}
               id={account?.id}
               style={{ fontSize: '50px', height: '100px' }}
-              editable="true"
+              editable={editable}
             />
             {editable && <AccountPageMenu />}
           </div>
