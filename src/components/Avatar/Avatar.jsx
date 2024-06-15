@@ -17,14 +17,14 @@ export default function Avatar({
   const [img, setImg] = useState(iImg)
 
   useEffect(() => {
-    if (img) return
+    if (iImg || iImg === '') return setImg(iImg)
 
     async function loadData() {
       const storeImg = await downloadAvatar(id)
       setImg(storeImg)
     }
     loadData()
-  }, [])
+  }, [iImg])
 
   return (
     <>
