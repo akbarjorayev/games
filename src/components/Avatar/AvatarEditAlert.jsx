@@ -52,7 +52,7 @@ export default function AvatarEditAlert({ onHide, letter, img: iImg }) {
               img={imgs.img}
             ></Avatar>
             <UploadButton />
-            {imgs.img && <RemoveButton />}
+            {imgs.img && <DeleteButton />}
             <SaveButton />
           </div>
         </div>
@@ -97,7 +97,7 @@ function UploadButton() {
   )
 }
 
-function RemoveButton() {
+function DeleteButton() {
   const { imgs, setImgs, alertDisabled } = useContext(AvatarEditAlertContext)
 
   return (
@@ -107,7 +107,7 @@ function RemoveButton() {
         onClick={() => setImgs({ ...imgs, img: '', imgFile: false })}
         disabled={alertDisabled}
       >
-        Remove
+        Delete
       </Button>
     </>
   )
