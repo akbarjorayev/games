@@ -4,6 +4,8 @@ import {
   incrementField,
   loadFromFirestore,
 } from '../js/db/db/firestore'
+import { NOTIFICATIONS_TYPES } from '../pages/NotificationsPage/data/notificationsData'
+import { sendNotification } from './notifications.module'
 
 export async function addFollowing(userID, followingID) {
   await addToArrayFirestore(
@@ -32,6 +34,14 @@ export async function addFollowers(userID, followersID) {
     `${followersID}`
   )
   await incrementField('friends', `${followersID}`, 'followingAmount', 1)
+
+  const account = await loadFromFirestore('accounts', `${followersID}`)
+  await sendNotification(`${userID}`, {
+    title: 'New Follower',
+    description: `You have a new follower from @${account?.user?.username}`,
+    type: NOTIFICATIONS_TYPES.frReqs,
+    from: followersID,
+  })
 }
 
 export async function removeFollowers(userID, followersID) {

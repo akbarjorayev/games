@@ -62,8 +62,7 @@ export default function NotificationsItem({ data }) {
             {date.current.getHours()}:{date.current.getMinutes()}
           </div>
         </div>
-        {(data.type === NOTIFICATIONS_TYPES.frReqs ||
-          data.type === NOTIFICATIONS_TYPES.playReqs) && (
+        {data.type === NOTIFICATIONS_TYPES.playReqs && (
           <>
             <div className="line_x"></div>
             <div className="list_x w_100_child">
