@@ -75,7 +75,13 @@ function AccountMenuIcon({ isActive, onClick }) {
         tabIndex={isActive ? '-1' : '0'}
       >
         <div className={`con ${isActive ? 'blur_theme_bg active' : ''}`}>
-          <Avatar style={{ height: '30px', fontSize: '16px' }}></Avatar>
+          <Avatar
+            style={{
+              height: '30px',
+              fontSize: '16px',
+              color: 'var(--theme-color-not)',
+            }}
+          ></Avatar>
         </div>
       </button>
     </>
