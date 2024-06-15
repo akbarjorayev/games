@@ -46,7 +46,8 @@ export default function AccountPage() {
           <div className="w_100 d_f_ce pos_r">
             <Avatar
               letter={account?.user.name[0]}
-              style={{ fontSize: '50px', width: '100px' }}
+              style={{ fontSize: '50px', height: '100px' }}
+              editable="true"
             />
             {editable && <AccountPageMenu />}
           </div>
