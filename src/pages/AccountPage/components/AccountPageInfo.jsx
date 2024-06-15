@@ -231,7 +231,11 @@ function AccountPageAccountsList() {
         onClick={switchAccount}
         tabIndex="0"
       >
-        <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
+        <Avatar
+          letter={account?.user.name[0]}
+          id={account?.id}
+          style={{ height: '40px' }}
+        />
         <div className="list_y_small d_f_ai_start">
           <b>{account?.user.name}</b>
           <div className="fz_small">@{account?.user.username}</div>
