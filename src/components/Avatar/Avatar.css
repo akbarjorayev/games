@@ -4,6 +4,10 @@
   border-radius: 50%;
   border: 1px solid var(--main-color-border);
   background: linear-gradient(#fff -100%, var(--main-color-bg));
+
+  &:focus-visible {
+    border-color: currentColor;
+  }
 }
 
 .avatar_letter {
