@@ -37,8 +37,8 @@ export async function addFollowers(userID, followersID) {
 
   const account = await loadFromFirestore('accounts', `${followersID}`)
   await sendNotification(`${userID}`, {
-    title: 'New Follower',
-    description: `You have a new follower from @${account?.user?.username}`,
+    title: `New Follower @${account?.user?.username}`,
+    description: `You have a new follower from @${account?.user?.name}`,
     type: NOTIFICATIONS_TYPES.frReqs,
     from: followersID,
   })
