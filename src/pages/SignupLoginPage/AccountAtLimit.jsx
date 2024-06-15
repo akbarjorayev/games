@@ -70,7 +70,11 @@ function GetAccounts({ account }) {
   return (
     <div className="con list_x d_f_jc_sb d_f_ai_ce" disabled={loggedout}>
       <div className="list_x">
-        <Avatar letter={account?.user.name[0]} style={{ height: '40px' }} />
+        <Avatar
+          letter={account?.user.name[0]}
+          id={account?.id}
+          style={{ height: '40px' }}
+        />
         <div className="list_y_small">
           <b>{account?.user.name}</b>
           <div className="fz_small">@{account?.user.username}</div>
