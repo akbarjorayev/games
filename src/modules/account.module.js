@@ -2,7 +2,8 @@ import {
   saveFirestore,
   editFirestore,
   loadFromFirestore,
-  deleteFromFirestore,
+  incrementField,
+  loadFromFirestoreWhere,
 } from '../js/db/db/firestore'
 import {
   loadFromLocalStorage,
@@ -13,7 +14,6 @@ import {
   checkIsAccountFree,
   checkLogginAccount,
   logoutFromAccountById,
-  saveAccountToFirestore,
   saveAccountToLocalStorage,
   saveLoggedAccountToLocalStorage,
 } from './utils/account.module.util'
@@ -36,7 +36,7 @@ export async function createAccount(data) {
   )
 
   if (saved) {
-    await saveAccountToFirestore(data, id)
+    await incrementField('accounts', '_aboutAccounts', 'amount', 1)
     saveAccountToLocalStorage(id)
 
     return { ok: true, message: 'Account created' }
@@ -67,17 +67,16 @@ function getAccountDataToSave(id, data) {
 }
 
 export async function editAccountUsername(id, newUsername) {
-  const account = await loadFromFirestore('accounts', id)
-  const oldUsername = account.user.username
-  const usernameIsTaken = await loadFromFirestore('usernames', newUsername)
+  const usernameIsTaken = await loadFromFirestoreWhere('accounts', [
+    'user.username',
+    '==',
+    newUsername,
+  ])
 
-  if (usernameIsTaken) return { ok: false, message: 'Username is taken' }
-  const usernameData = await loadFromFirestore('usernames', oldUsername)
+  if (usernameIsTaken?.length > 0)
+    return { ok: false, message: 'Username is taken' }
 
-  await saveFirestore('usernames', newUsername, usernameData)
   await editFirestore('accounts', id, { user: { username: newUsername } })
-  await deleteFromFirestore('usernames', oldUsername)
-
   return { ok: true, message: 'Username changed' }
 }
 
@@ -87,12 +86,13 @@ export function switchAccountToId(id) {
   saveToLocalStorage('games', localData)
 }
 
-export function logoutFromAccount(id) {
+export function logoutFromAccount(id, reload = true) {
   const localData = loadFromLocalStorage('games')
   const newLocalData = logoutFromAccountById(id || localData.accounts.active)
 
   saveToLocalStorage('games', newLocalData)
 
+  if (!reload) return
   if (newLocalData.accounts.active)
     goToHref(`/users/${newLocalData.accounts.active}`)
   else goToHref('/')
