@@ -1,27 +1,28 @@
 import { loadFromFirestoreWhere } from '../../../js/db/db/firestore'
 
-const VALUE_TYPES = {
-  username: 'username',
+const PATHS = {
+  id: 'id',
+  username: 'user.username',
 }
 
 export async function searchForAccounts(value) {
   value = value.trim()
-  const valueType = getValueType(value)
-  const accData = await getAccount(valueType, value)
+  const path = getPath(value)
+  const accData = await getAccount(path, value)
 
   return accData
 }
 
-function getValueType(value) {
-  if (/^[0-9]+$/.test(value)) return VALUE_TYPES.account
-  return VALUE_TYPES.username
+function getPath(value) {
+  if (/^[0-9]+$/.test(value)) return PATHS.id
+  return PATHS.username
 }
 
-async function getAccount(type, value) {
+async function getAccount(path, value) {
   const data = await loadFromFirestoreWhere('accounts', [
-    `user.${type}`,
+    path,
     '==',
-    value,
+    path === PATHS.id ? +value : value,
   ])
   return data
 }
