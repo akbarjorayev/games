@@ -5,6 +5,7 @@ import Avatar from './Avatar'
 import Button from '../Button/Button'
 
 import { uploadAvatar } from '../../modules/avatar.module'
+import { deviceIsPhone } from '../../js/utils/device'
 
 import '../Alert/Alert.css'
 
@@ -17,6 +18,7 @@ export default function AvatarEditAlert({ onHide, letter, img: iImg }) {
     imgFile: iImg || false,
   })
   const [alertDisabled, setAlertDisabled] = useState(false)
+  const isPhone = useRef(deviceIsPhone()).current
 
   function handleDrop(e) {
     e.preventDefault()
@@ -34,7 +36,14 @@ export default function AvatarEditAlert({ onHide, letter, img: iImg }) {
   return (
     <>
       <AvatarEditAlertContext.Provider
-        value={{ imgs, setImgs, alertDisabled, setAlertDisabled, onHide }}
+        value={{
+          imgs,
+          setImgs,
+          alertDisabled,
+          setAlertDisabled,
+          isPhone,
+          onHide,
+        }}
       >
         <div
           className="avatar_edit_alert alert_area pos_full_page d_f_ce"
@@ -62,8 +71,11 @@ export default function AvatarEditAlert({ onHide, letter, img: iImg }) {
 }
 
 function UploadButton() {
-  const inputRef = useRef()
-  const { imgs, setImgs, alertDisabled } = useContext(AvatarEditAlertContext)
+  const inputFileRef = useRef()
+  const inputCameraRef = useRef()
+  const { imgs, setImgs, alertDisabled, isPhone } = useContext(
+    AvatarEditAlertContext
+  )
 
   function upload(e) {
     const file = e.target.files[0]
@@ -79,17 +91,36 @@ function UploadButton() {
 
   return (
     <>
-      <Button
-        className="w_100 btn_bd_cl txt_cl bg_h_none"
-        onClick={() => inputRef.current.click()}
-        disabled={alertDisabled}
-      >
-        Upload
-      </Button>
+      <div className="list_x w_100 w_100_child">
+        <Button
+          className="w_100 btn_bd_cl txt_cl bg_h_none"
+          onClick={() => inputFileRef.current.click()}
+          disabled={alertDisabled}
+        >
+          Upload
+        </Button>
+        {isPhone && (
+          <Button
+            className="w_100 btn_bd_cl txt_cl bg_h_none"
+            onClick={() => inputCameraRef.current.click()}
+            disabled={alertDisabled}
+          >
+            Camera
+          </Button>
+        )}
+      </div>
       <input
-        ref={inputRef}
+        ref={inputFileRef}
         type="file"
         accept="image/*"
+        className="d_n"
+        onChange={upload}
+      />
+      <input
+        ref={inputCameraRef}
+        type="file"
+        accept="image/*"
+        capture="camera"
         className="d_n"
         onChange={upload}
       />
