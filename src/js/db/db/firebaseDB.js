@@ -1,9 +1,9 @@
 import { API } from '../../api/api'
 import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
-import { getDatabase } from 'firebase/database'
 import { getFirestore } from 'firebase/firestore'
+import { getDatabase } from 'firebase/database'
 import { getStorage } from 'firebase/storage'
+import { getAuth } from 'firebase/auth'
 
 const app = initializeApp(API.firebase)
 export const firestoreDB = getFirestore(app)
