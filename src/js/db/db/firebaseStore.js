@@ -1,4 +1,9 @@
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from 'firebase/storage'
 import { firebaseStorage } from './firebaseDB'
 
 export async function uploadBytesToStore(path, file) {
@@ -19,6 +24,18 @@ export async function downloadFromStore(path) {
   return getDownloadURL(starsRef)
     .then((url) => {
       return url
+    })
+    .catch(() => {
+      return false
+    })
+}
+
+export async function deleteFromStore(path) {
+  const desertRef = ref(firebaseStorage, path)
+
+  return deleteObject(desertRef)
+    .then(() => {
+      return true
     })
     .catch(() => {
       return false
