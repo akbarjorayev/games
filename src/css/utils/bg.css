@@ -2,6 +2,10 @@
   background: none;
 }
 
+.bg_h_none:hover {
+  background: none !important;
+}
+
 .bg_main {
   background: var(--main-color-bg);
 }
