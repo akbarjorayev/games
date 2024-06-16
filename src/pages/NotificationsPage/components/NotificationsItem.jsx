@@ -19,7 +19,12 @@ export default function NotificationsItem({ data }) {
 
   useEffect(() => {
     async function removeN() {
-      if (remove && data.type === NOTIFICATIONS_TYPES.playReqs) {
+      if (
+        remove &&
+        data.type === NOTIFICATIONS_TYPES.playReqs &&
+        data?.status !== 'accepted' &&
+        data?.status !== 'denied'
+      ) {
         setRemove(false)
         if (!errorShown) {
           toast.error('You cannot delete this notification')
@@ -27,6 +32,7 @@ export default function NotificationsItem({ data }) {
         }
         return
       }
+
       if (remove) {
         const newNs = await removeNotification(data.id)
         setNotifications({ ...notifications, notifications: newNs })
@@ -45,6 +51,7 @@ export default function NotificationsItem({ data }) {
   async function deny() {
     if (data?.type === NOTIFICATIONS_TYPES.playReqs) {
       setRemove(true)
+      data.status = 'denied'
       await endGame(data.gameToken)
     }
   }
@@ -52,6 +59,7 @@ export default function NotificationsItem({ data }) {
   async function accept() {
     if (data?.type === NOTIFICATIONS_TYPES.playReqs) {
       setRemove(true)
+      data.status = 'accepted'
       await acceptGame(data.gameToken)
       goToHref(data.gameLink)
     }
