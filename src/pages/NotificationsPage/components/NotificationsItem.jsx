@@ -1,4 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
+import { ToastContainer, toast } from 'react-toastify'
 
 import Button from '../../../components/Button/Button'
 
@@ -7,14 +9,24 @@ import { removeNotification } from '../../../modules/notifications.module'
 import { NOTIFICATIONS_TYPES } from '../data/notificationsData'
 import { acceptGame, endGame } from '../../../modules/game.module'
 import { goToHref } from '../../../js/utils/href'
+import { toastData } from '../../../components/utils/toast'
 
 export default function NotificationsItem({ data }) {
   const { notifications, setNotifications } = useContext(NotificationsContext)
   const date = useRef(new Date(data.date))
   const [remove, setRemove] = useState(false)
+  const [errorShown, setErrorShown] = useState(false)
 
   useEffect(() => {
     async function removeN() {
+      if (remove && data.type === NOTIFICATIONS_TYPES.playReqs) {
+        setRemove(false)
+        if (!errorShown) {
+          toast.error('You cannot delete this notification')
+          setErrorShown(true)
+        }
+        return
+      }
       if (remove) {
         const newNs = await removeNotification(data.id)
         setNotifications({ ...notifications, notifications: newNs })
@@ -24,7 +36,7 @@ export default function NotificationsItem({ data }) {
       }
     }
     removeN()
-  }, [remove, data, notifications, setNotifications])
+  }, [remove, data, notifications, setNotifications, errorShown])
 
   function swipe(e) {
     if (e.deltaX > 50 && !remove) setRemove(true)
@@ -47,6 +59,15 @@ export default function NotificationsItem({ data }) {
 
   return (
     <>
+      {createPortal(
+        <ToastContainer
+          position={toastData.position}
+          autoClose={toastData.autoClose}
+          theme={toastData.theme}
+          draggable
+        />,
+        document.querySelector('#root')
+      )}
       <div
         className="con blur_theme_bg notification_item list_y"
         onWheel={swipe}
