@@ -59,6 +59,8 @@ export async function deleteGuestNotification(gameToken) {
   if (!guest) return
   const ns = await loadFromFirestore('notifications', `${guest}`)
   const newNs = ns?.notifications?.filter((n) => n.gameToken !== gameToken)
-  await editFirestore('notifications', `${guest}`, { notifications: newNs })
-  await editFirestore('notifications', `${guest}`, { amount: newNs.length })
+  await editFirestore('notifications', `${guest}`, {
+    notifications: newNs,
+    amount: newNs.length,
+  })
 }

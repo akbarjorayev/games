@@ -12,8 +12,10 @@ export async function removeNotification(id) {
   const ns = await loadFromFirestore('notifications', `${lId}`)
   const newNs = ns.notifications.filter((n) => n.id !== id)
 
-  await editFirestore('notifications', `${lId}`, { notifications: newNs })
-  await incrementField('notifications', `${lId}`, 'amount', -1)
+  await editFirestore('notifications', `${lId}`, {
+    notifications: newNs,
+    amount: newNs.length,
+  })
 
   return newNs
 }

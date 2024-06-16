@@ -167,7 +167,10 @@ function SaveButton() {
     setAlertDisabled(true)
     setSaveBtnText(SAVE_BTN_TEXTS.saving)
 
-    const uploaded = await uploadAvatar(imgs.imgFile)
+    const uploaded = await uploadAvatar(
+      imgs.imgFile,
+      window.location.pathname.split('users/')[1]
+    )
     if (uploaded) {
       toast.success('Avatar saved!')
       onHide()

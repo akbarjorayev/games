@@ -5,8 +5,8 @@ import {
 } from '../js/db/db/firebaseStore'
 import { loadFromLocalStorage } from '../js/db/local/localStorage'
 
-export async function uploadAvatar(file) {
-  const id = loadFromLocalStorage('games').accounts.active
+export async function uploadAvatar(file, iID) {
+  const id = iID || loadFromLocalStorage('games').accounts.active
   const path = `users/${id}/avatar`
 
   return file
