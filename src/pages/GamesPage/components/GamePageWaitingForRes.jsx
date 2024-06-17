@@ -7,7 +7,7 @@ import {
   deleteFromSession,
   loadFromSession,
 } from '../../../js/db/local/sessionStorage'
-import { endGame } from '../../../modules/game.module'
+import { rejectGame } from '../../../modules/game.module'
 import { goToHref } from '../../../js/utils/href'
 import { useFirebaseRealtime } from '../../../hooks/useFirebaseRealtime'
 import { useCounter } from '../../../hooks/useCounter'
@@ -27,7 +27,7 @@ export default function GamePageWaitingForRes({ name, link, onHide }) {
     deleteFromSession('gameToken')
     deleteFromSession('gameLink')
 
-    await endGame(gameToken)
+    await rejectGame(gameToken)
     onHide()
   }
 

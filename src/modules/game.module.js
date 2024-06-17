@@ -22,7 +22,7 @@ export async function prepareGame(friendID, gameLink) {
   await prepareReltimeDBForGame(friendID, gameToken)
 }
 
-export async function endGame(gameToken) {
+export async function rejectGame(gameToken) {
   await deleteGuestNotification(gameToken)
   await deleteFromRealtimeDB(`games/playing/${gameToken}`)
 }
