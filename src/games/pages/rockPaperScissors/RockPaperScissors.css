@@ -38,6 +38,14 @@
   line-height: 1;
 }
 
+.end_game_btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  inset-block-start: var(--pd-small);
+  inset-inline-start: var(--pd-small);
+}
+
 :root {
   --rps-account-width: 300px;
 }

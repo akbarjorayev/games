@@ -2,7 +2,12 @@ import {
   deleteFromRealtimeDB,
   editToRealtimeDB,
 } from '../js/db/db/firebaseRealtime'
-import { deleteFromSession, saveToSession } from '../js/db/local/sessionStorage'
+import {
+  deleteFromSession,
+  loadFromSession,
+  saveToSession,
+} from '../js/db/local/sessionStorage'
+import { goToHref } from '../js/utils/href'
 import {
   deleteGuestNotification,
   getGameToken,
@@ -23,6 +28,9 @@ export async function prepareGame(friendID, gameLink) {
 }
 
 export async function rejectGame(gameToken) {
+  deleteFromSession('gameToken')
+  deleteFromSession('gameLink')
+
   await deleteGuestNotification(gameToken)
   await deleteFromRealtimeDB(`games/playing/${gameToken}`)
 }
@@ -33,4 +41,13 @@ export async function acceptGame(gameToken) {
 
   await deleteGuestNotification(gameToken)
   await editToRealtimeDB(`games/playing/${gameToken}`, { playing: true })
+}
+
+export async function endGame(gameToken) {
+  gameToken = gameToken || loadFromSession('gameToken')
+  deleteFromSession('gameToken')
+  deleteFromSession('gameLink')
+
+  await deleteFromRealtimeDB(`games/playing/${gameToken}`)
+  goToHref('/')
 }

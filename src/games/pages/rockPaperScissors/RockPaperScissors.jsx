@@ -1,5 +1,6 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
+import GameOver from '../../components/GameOver'
 import RPSCard from './components/RPSCard'
 import RPSCardMine from './components/RPSCardMine'
 import RPSGetAccount from './components/RPSGetAccount'
@@ -11,6 +12,7 @@ import { useFirestoreAll } from '../../../hooks/useFirestore'
 import { loadFromLocalStorage } from '../../../js/db/local/localStorage'
 import { RockPaperScissorsContext } from './RockPaperScissorsContext'
 import { checkWinner, rpsReplay } from './modules/rockPaperScissors.module'
+import { endGame } from '../../../modules/game.module'
 
 import './RockPaperScissors.css'
 
@@ -25,6 +27,15 @@ export default function RockPaperScissors() {
   const [moves] = useFirebaseRealtime(`games/playing/${gameToken}/moves`)
   const [won] = useFirebaseRealtime(`games/playing/${gameToken}/won`)
   const [move, setMove] = useState('')
+  const [showGameOver, setShowGameOver] = useState(false)
+
+  useEffect(() => {
+    if (!gameData) {
+      const timer = setTimeout(() => setShowGameOver(true), 1000)
+      return () => clearTimeout(timer)
+    }
+  }, [gameData])
+  if (showGameOver) return <GameOver />
 
   if (!gamers || gamers.length < 2) return 'gamers are loading'
   if (gamers.filter((gamer) => gamer).length < 2)
@@ -41,6 +52,7 @@ export default function RockPaperScissors() {
     <>
       <RockPaperScissorsContext.Provider value={{ move, setMove }}>
         <div className="h_100 list_y d_f_jc_sa">
+          <EndGameButton />
           <div className="list_x w_100 d_f_ce">
             <div className="list_y w_100 d_f_ce">
               <RPSGetAccount account={rivalAcc} />
@@ -63,6 +75,17 @@ export default function RockPaperScissors() {
         </div>
       </RockPaperScissorsContext.Provider>
     </>
+  )
+}
+
+function EndGameButton() {
+  return (
+    <Button
+      className="end_game_btn w_max d_f_ce pd_normal bd_50 txt_red"
+      onClick={() => endGame()}
+    >
+      <span className="material-symbols-outlined">arrow_back</span>
+    </Button>
   )
 }
 
