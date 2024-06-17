@@ -1,3 +1,16 @@
+.rps_account {
+  width: min(90%, var(--rps-account-width));
+  border-radius: var(--bd-ra);
+
+  &[won='true'] {
+    background-color: var(--game-won-bg);
+  }
+
+  &[loser='true'] {
+    background-color: var(--game-loser-bg);
+  }
+}
+
 .rps_card {
   --bd-ra: 30px;
 
@@ -13,6 +26,10 @@
 .rps_card_name {
   position: absolute;
   bottom: 0;
-  font-size: .3em;
+  font-size: 0.3em;
   line-height: 1;
+}
+
+:root {
+  --rps-account-width: 300px;
 }
