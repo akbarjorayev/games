@@ -18,7 +18,7 @@ export async function checkWinner(movers, ids) {
   const gameToken = loadFromSession('gameToken')
   const won = findWinner(movers, ids)
 
-  await saveOrEditToRealtimeDB(`games/playing/${gameToken}/won`, +won)
+  await saveOrEditToRealtimeDB(`games/playing/${gameToken}/won`, won)
 }
 
 export async function rpsReplay() {
