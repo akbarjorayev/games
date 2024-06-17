@@ -2,7 +2,7 @@ import {
   deleteFromRealtimeDB,
   editToRealtimeDB,
 } from '../js/db/db/firebaseRealtime'
-import { saveToSession } from '../js/db/local/sessionStorage'
+import { deleteFromSession, saveToSession } from '../js/db/local/sessionStorage'
 import {
   deleteGuestNotification,
   getGameToken,
@@ -12,6 +12,9 @@ import {
 
 export async function prepareGame(friendID, gameLink) {
   const gameToken = await getGameToken()
+  deleteFromSession('gameToken')
+  deleteFromSession('gameLink')
+
   saveToSession('gameToken', gameToken)
   saveToSession('gameLink', gameLink)
 
