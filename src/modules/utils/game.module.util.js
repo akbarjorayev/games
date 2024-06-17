@@ -50,6 +50,7 @@ export async function prepareReltimeDBForGame(friendID, gameToken) {
     playing: false,
     denied: false,
     ended: false,
+    won: false,
   })
 }
 
