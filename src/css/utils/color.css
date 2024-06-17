@@ -32,4 +32,7 @@
   --scrollbar-thumb-bg: #024245;
 
   --game-con-bg: #111a39;
+
+  --game-won-bg: #378d3e;
+  --game-loser-bg: #8d3737;
 }
