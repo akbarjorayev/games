@@ -35,6 +35,11 @@
   justify-content: space-between;
 }
 
+.d_f_jc_sa {
+  display: flex;
+  justify-content: space-around;
+}
+
 .d_f_gap {
   display: flex;
   flex-wrap: wrap;
