@@ -28,6 +28,9 @@ export async function endGame(gameToken) {
 }
 
 export async function acceptGame(gameToken) {
+  deleteFromSession('gameToken')
+  saveToSession('gameToken', gameToken)
+
   await deleteGuestNotification(gameToken)
   await editToRealtimeDB(`games/playing/${gameToken}`, { playing: true })
 }
