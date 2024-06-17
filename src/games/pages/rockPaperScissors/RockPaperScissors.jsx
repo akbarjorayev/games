@@ -41,7 +41,6 @@ export default function RockPaperScissors() {
     <>
       <RockPaperScissorsContext.Provider value={{ move, setMove }}>
         <div className="h_100 list_y d_f_jc_sa">
-          <div></div>
           <div className="list_x w_100 d_f_ce">
             <div className="list_y w_100 d_f_ce">
               <RPSGetAccount account={rivalAcc} />
