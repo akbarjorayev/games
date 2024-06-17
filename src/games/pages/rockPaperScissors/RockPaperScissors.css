@@ -1,0 +1,18 @@
+.rps_card {
+  --bd-ra: 30px;
+
+  position: relative;
+  width: min(90%, 150px);
+  aspect-ratio: 1;
+  border-radius: var(--bd-ra);
+  font-size: 4em;
+  border: 1px dashed var(--main-color-border);
+  overflow: hidden;
+}
+
+.rps_card_name {
+  position: absolute;
+  bottom: 0;
+  font-size: .3em;
+  line-height: 1;
+}
