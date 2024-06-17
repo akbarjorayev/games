@@ -44,11 +44,12 @@ export async function prepareReltimeDBForGame(friendID, gameToken) {
   await saveToRealtimeDB(`games/playing/${gameToken}`, {
     gameToken,
     gamers: {
-      host: userID,
-      guest: friendID,
+      host: `${userID}`,
+      guest: `${friendID}`,
     },
     playing: false,
     denied: false,
+    ended: false,
   })
 }
 
