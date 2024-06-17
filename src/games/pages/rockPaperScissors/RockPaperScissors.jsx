@@ -40,28 +40,43 @@ export default function RockPaperScissors() {
   return (
     <>
       <RockPaperScissorsContext.Provider value={{ move, setMove }}>
-        <div className="h_100 list_y d_f_ce">
-          <RPSGetAccount account={rivalAcc} />
+        <div className="h_100 list_y d_f_jc_sa">
+          <div></div>
           <div className="list_x w_100 d_f_ce">
-            <RPSCard name={rivalAcc?.user.name} id={rivalAcc?.id} />
-            <div className="fz_medium">VS</div>
-            <RPSCard name="You" id={localAcc?.id} />
-          </div>
-          <RPSGetAccount account={localAcc} name="You" />
-          {won && (
-            <Button className="btn_bd txt_cl" onClick={() => rpsReplay()}>
-              Replay
-            </Button>
-          )}
-          {!won && (
-            <div className="list_x w_100 d_f_ce">
-              <RPSCardMine move="🪨" />
-              <RPSCardMine move="📄" />
-              <RPSCardMine move="✂️" />
+            <div className="list_y w_100 d_f_ce">
+              <RPSGetAccount account={rivalAcc} />
+              <RPSCard name={rivalAcc?.user.name} id={rivalAcc?.id} />
             </div>
-          )}
+            <div className="w_100 d_f_ce">
+              {won && <ReplayButton />}
+              {!won && <div className="rps_txt_vs">VS</div>}
+            </div>
+            <div className="list_y w_100 d_f_ce">
+              <RPSGetAccount account={localAcc} name="You" />
+              <RPSCard name="You" id={localAcc?.id} />
+            </div>
+          </div>
+          <div className="list_x w_100 d_f_ce">
+            <RPSCardMine move="🪨" />
+            <RPSCardMine move="📄" />
+            <RPSCardMine move="✂️" />
+          </div>
         </div>
       </RockPaperScissorsContext.Provider>
     </>
+  )
+}
+
+function ReplayButton() {
+  return (
+    <div
+      className="rps_card con_ha d_f_ce list_y_small txt_cl"
+      onClick={() => rpsReplay()}
+    >
+      <span className="material-symbols-outlined fz_small_icon">
+        play_circle
+      </span>
+      <div className="txt_ce rps_txt_replay">Replay</div>
+    </div>
   )
 }

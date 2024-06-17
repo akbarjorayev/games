@@ -11,6 +11,14 @@
   }
 }
 
+.rps_txt_vs {
+  font-size: 8em;
+}
+
+.rps_txt_replay {
+  font-size: 0.5em;
+}
+
 .rps_card {
   --bd-ra: 30px;
 
