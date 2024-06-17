@@ -29,7 +29,9 @@ export async function editToRealtimeDB(path, newData) {
     const snapshot = await loadFromRealtimeDB(path)
 
     if (snapshot) {
-      await update(ref(firebaseRealtimeDB, path), newData)
+      const dbRef = ref(firebaseRealtimeDB, path)
+      await update(dbRef, newData)
+
       return true
     }
     return false
