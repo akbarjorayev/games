@@ -11,7 +11,6 @@ import Alert from '../../../components/Alert/Alert'
 import { loadFromSession } from '../../../js/db/local/sessionStorage'
 import { useFirebaseRealtime } from '../../../hooks/useFirebaseRealtime'
 import { useFirestoreAll } from '../../../hooks/useFirestore'
-import { loadFromLocalStorage } from '../../../js/db/local/localStorage'
 import { checkWinner, rpsReplay } from './modules/rockPaperScissors.module'
 import { endGame } from '../../../modules/game.module'
 
@@ -19,7 +18,7 @@ import './RockPaperScissors.css'
 
 export default function RockPaperScissors() {
   const gameToken = useRef(loadFromSession('gameToken')).current
-  const localID = useRef(loadFromLocalStorage('games').accounts.active).current
+  const gameID = useRef(loadFromSession('gameID')).current
   const [gameData] = useFirebaseRealtime(`games/playing/${gameToken}`)
   const [gamers] = useFirestoreAll('accounts', [
     `${gameData?.gamers?.guest}`,
@@ -41,8 +40,8 @@ export default function RockPaperScissors() {
   if (!gamers || gamers.length < 2) return <GamePreparation />
   if (gamers.filter((gamer) => gamer).length < 2) return <GamePreparation />
 
-  const rivalAcc = gamers.filter((gamer) => `${gamer.id}` !== `${localID}`)[0]
-  const localAcc = gamers.filter((gamer) => `${gamer.id}` === `${localID}`)[0]
+  const rivalAcc = gamers.filter((gamer) => `${gamer.id}` !== `${gameID}`)[0]
+  const localAcc = gamers.filter((gamer) => `${gamer.id}` === `${gameID}`)[0]
 
   if (moves && Object.values(moves)?.length === 2) {
     checkWinner(Object.values(moves), Object.keys(moves))

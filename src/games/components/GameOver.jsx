@@ -7,6 +7,7 @@ export default function GameOver() {
   function goToHome() {
     deleteFromSession('gameToken')
     deleteFromSession('gameLink')
+    deleteFromSession('gameID')
 
     goToHref('/')
   }

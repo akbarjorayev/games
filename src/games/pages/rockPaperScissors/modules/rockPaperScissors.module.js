@@ -3,15 +3,17 @@ import {
   saveOrEditToRealtimeDB,
   saveToRealtimeDB,
 } from '../../../../js/db/db/firebaseRealtime'
-import { loadFromLocalStorage } from '../../../../js/db/local/localStorage'
 import { loadFromSession } from '../../../../js/db/local/sessionStorage'
 import { findWinner } from './utils/rockPaperScissors.module.util'
 
 export async function rpsMove(move) {
   const gameToken = loadFromSession('gameToken')
-  const id = loadFromLocalStorage('games').accounts.active
+  const gameID = loadFromSession('gameID')
 
-  await saveOrEditToRealtimeDB(`games/playing/${gameToken}/moves/${id}`, move)
+  await saveOrEditToRealtimeDB(
+    `games/playing/${gameToken}/moves/${gameID}`,
+    move
+  )
 }
 
 export async function checkWinner(movers, ids) {
