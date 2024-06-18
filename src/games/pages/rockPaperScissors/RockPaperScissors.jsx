@@ -5,6 +5,7 @@ import RPSCard from './components/RPSCard'
 import RPSCardMine from './components/RPSCardMine'
 import RPSGetAccount from './components/RPSGetAccount'
 import Button from '../../../components/Button/Button'
+import Alert from '../../../components/Alert/Alert'
 
 import { loadFromSession } from '../../../js/db/local/sessionStorage'
 import { useFirebaseRealtime } from '../../../hooks/useFirebaseRealtime'
@@ -75,13 +76,33 @@ export default function RockPaperScissors() {
 }
 
 function EndGameButton() {
+  const [showAlert, setShowAlert] = useState(false)
+
   return (
-    <Button
-      className="end_game_btn w_max d_f_ce pd_normal bd_50 txt_red"
-      onClick={() => endGame()}
-    >
-      <span className="material-symbols-outlined">arrow_back</span>
-    </Button>
+    <>
+      <Button
+        className="end_game_btn w_max d_f_ce pd_normal bd_50 txt_red"
+        onClick={() => setShowAlert(true)}
+      >
+        <span className="material-symbols-outlined">arrow_back</span>
+      </Button>
+      {showAlert && (
+        <Alert title="End game" onHide={() => setShowAlert(false)}>
+          <div className="txt_ce">Do you want to end game?</div>
+          <div className="list_x w_100_child">
+            <Button
+              className="btn_bd txt_cl"
+              onClick={() => setShowAlert(false)}
+            >
+              Continue
+            </Button>
+            <Button className="btn_bd txt_red" onClick={() => endGame()}>
+              End
+            </Button>
+          </div>
+        </Alert>
+      )}
+    </>
   )
 }
 
