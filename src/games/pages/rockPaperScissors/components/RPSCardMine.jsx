@@ -1,5 +1,7 @@
 import { useRef } from 'react'
 
+import Button from '../../../../components/Button/Button'
+
 import { rpsMove } from '../modules/rockPaperScissors.module'
 import { useFirebaseRealtime } from '../../../../hooks/useFirebaseRealtime'
 import { loadFromSession } from '../../../../js/db/local/sessionStorage'
@@ -18,13 +20,13 @@ export default function RPSCardMine({ move: rpsCardMove }) {
 
   return (
     <>
-      <button
+      <Button
         className="rps_card d_f_ce con_ha"
         onClick={makeMove}
         disabled={moved}
       >
         {rpsCardMove}
-      </button>
+      </Button>
     </>
   )
 }
