@@ -88,8 +88,8 @@ function EndGameButton() {
         <span className="material-symbols-outlined">arrow_back</span>
       </Button>
       {showAlert && (
-        <Alert title="End game" onHide={() => setShowAlert(false)}>
-          <div className="txt_ce">Do you want to end game?</div>
+        <Alert title="Finish game" onHide={() => setShowAlert(false)}>
+          <div className="txt_ce">Do you want to finish game?</div>
           <div className="list_x w_100_child">
             <Button
               className="btn_bd txt_cl"
