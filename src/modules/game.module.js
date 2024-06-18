@@ -24,7 +24,7 @@ export async function prepareGame(friendID, gameLink) {
   saveToSession('gameLink', gameLink)
 
   await sendPlayReqNotification(friendID, gameLink, gameToken)
-  await prepareReltimeDBForGame(friendID, gameToken)
+  await prepareReltimeDBForGame(friendID, gameToken, gameLink)
 }
 
 export async function rejectGame(gameToken) {
