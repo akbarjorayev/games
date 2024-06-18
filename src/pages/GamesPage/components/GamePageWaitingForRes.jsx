@@ -19,13 +19,14 @@ export default function GamePageWaitingForRes({ name, link, onHide }) {
   const [isDenied] = useFirebaseRealtime(`games/playing/${gameToken}/denied`)
 
   useEffect(() => {
-    if (isPlaying) goToHref(link)
+    if (isPlaying) {
+      deleteFromSession('gameLink')
+      goToHref(link)
+    }
   }, [isPlaying])
 
   async function stopGame() {
     const gameToken = loadFromSession('gameToken')
-    deleteFromSession('gameToken')
-    deleteFromSession('gameLink')
 
     await rejectGame(gameToken)
     onHide()

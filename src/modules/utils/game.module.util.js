@@ -64,6 +64,7 @@ function getGameRealtimeDBData(userID, friendID, gameToken, gameLink) {
   if (gameLink === '/rock-paper-scissors')
     return {
       gameToken,
+      gameLink,
       gamers: {
         host: `${userID}`,
         guest: `${friendID}`,
