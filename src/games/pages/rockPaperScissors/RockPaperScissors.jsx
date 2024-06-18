@@ -4,6 +4,7 @@ import GameOver from '../../components/GameOver'
 import RPSCard from './components/RPSCard'
 import RPSCardMine from './components/RPSCardMine'
 import RPSGetAccount from './components/RPSGetAccount'
+import GamePreparation from '../../components/GamePreparation'
 import Button from '../../../components/Button/Button'
 import Alert from '../../../components/Alert/Alert'
 
@@ -29,16 +30,16 @@ export default function RockPaperScissors() {
   const [showGameOver, setShowGameOver] = useState(false)
 
   useEffect(() => {
-    if (!gameData) {
+    if (!gameData.playing) {
       const timer = setTimeout(() => setShowGameOver(true), 1000)
       return () => clearTimeout(timer)
     }
-  }, [gameData])
+    if (gameData.playing) setShowGameOver(false)
+  }, [gameData.playing])
   if (showGameOver) return <GameOver />
 
-  if (!gamers || gamers.length < 2) return 'gamers are loading'
-  if (gamers.filter((gamer) => gamer).length < 2)
-    return 'real gamers are loading'
+  if (!gamers || gamers.length < 2) return <GamePreparation />
+  if (gamers.filter((gamer) => gamer).length < 2) return <GamePreparation />
 
   const rivalAcc = gamers.filter((gamer) => `${gamer.id}` !== `${localID}`)[0]
   const localAcc = gamers.filter((gamer) => `${gamer.id}` === `${localID}`)[0]
