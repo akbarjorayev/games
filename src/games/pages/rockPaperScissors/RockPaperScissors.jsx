@@ -30,12 +30,12 @@ export default function RockPaperScissors() {
   const [showGameOver, setShowGameOver] = useState(false)
 
   useEffect(() => {
-    if (!gameData.playing) {
+    if (!gameData?.playing) {
       const timer = setTimeout(() => setShowGameOver(true), 1000)
       return () => clearTimeout(timer)
     }
-    if (gameData.playing) setShowGameOver(false)
-  }, [gameData.playing])
+    if (gameData?.playing) setShowGameOver(false)
+  }, [gameData?.playing])
   if (showGameOver) return <GameOver />
 
   if (!gamers || gamers.length < 2) return <GamePreparation />
