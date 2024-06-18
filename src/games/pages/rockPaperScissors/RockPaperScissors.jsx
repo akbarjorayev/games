@@ -10,7 +10,6 @@ import { loadFromSession } from '../../../js/db/local/sessionStorage'
 import { useFirebaseRealtime } from '../../../hooks/useFirebaseRealtime'
 import { useFirestoreAll } from '../../../hooks/useFirestore'
 import { loadFromLocalStorage } from '../../../js/db/local/localStorage'
-import { RockPaperScissorsContext } from './RockPaperScissorsContext'
 import { checkWinner, rpsReplay } from './modules/rockPaperScissors.module'
 import { endGame } from '../../../modules/game.module'
 
@@ -26,7 +25,6 @@ export default function RockPaperScissors() {
   ])
   const [moves] = useFirebaseRealtime(`games/playing/${gameToken}/moves`)
   const [won] = useFirebaseRealtime(`games/playing/${gameToken}/won`)
-  const [move, setMove] = useState('')
   const [showGameOver, setShowGameOver] = useState(false)
 
   useEffect(() => {
@@ -50,30 +48,28 @@ export default function RockPaperScissors() {
 
   return (
     <>
-      <RockPaperScissorsContext.Provider value={{ move, setMove }}>
-        <div className="h_100 list_y d_f_jc_sa">
-          <EndGameButton />
-          <div className="list_x w_100 d_f_ce">
-            <div className="list_y w_100 d_f_ce">
-              <RPSGetAccount account={rivalAcc} />
-              <RPSCard name={rivalAcc?.user.name} id={rivalAcc?.id} />
-            </div>
-            <div className="w_100 d_f_ce">
-              {won && <ReplayButton />}
-              {!won && <div className="rps_txt_vs">VS</div>}
-            </div>
-            <div className="list_y w_100 d_f_ce">
-              <RPSGetAccount account={localAcc} name="You" />
-              <RPSCard name="You" id={localAcc?.id} />
-            </div>
+      <div className="h_100 list_y d_f_jc_sa">
+        <EndGameButton />
+        <div className="list_x w_100 d_f_ce">
+          <div className="list_y w_100 d_f_ce">
+            <RPSGetAccount account={rivalAcc} />
+            <RPSCard name={rivalAcc?.user.name} id={rivalAcc?.id} />
           </div>
-          <div className="list_x w_100 d_f_ce">
-            <RPSCardMine move="🪨" />
-            <RPSCardMine move="📄" />
-            <RPSCardMine move="✂️" />
+          <div className="w_100 d_f_ce">
+            {won && <ReplayButton />}
+            {!won && <div className="rps_txt_vs">VS</div>}
+          </div>
+          <div className="list_y w_100 d_f_ce">
+            <RPSGetAccount account={localAcc} name="You" />
+            <RPSCard name="You" id={localAcc?.id} />
           </div>
         </div>
-      </RockPaperScissorsContext.Provider>
+        <div className="list_x w_100 d_f_ce">
+          <RPSCardMine move="🪨" />
+          <RPSCardMine move="📄" />
+          <RPSCardMine move="✂️" />
+        </div>
+      </div>
     </>
   )
 }
