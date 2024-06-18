@@ -91,7 +91,7 @@ function EndGameButton() {
 
 function ReplayButton() {
   return (
-    <div
+    <Button
       className="rps_card con_ha d_f_ce list_y_small txt_cl"
       onClick={() => rpsReplay()}
     >
@@ -99,6 +99,6 @@ function ReplayButton() {
         play_circle
       </span>
       <div className="txt_ce rps_txt_replay">Replay</div>
-    </div>
+    </Button>
   )
 }

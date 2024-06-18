@@ -21,13 +21,13 @@ export default function RPSCardMine({ move: rpsCardMove }) {
 
   return (
     <>
-      <div
+      <button
         className="rps_card d_f_ce con_ha"
         onClick={makeMove}
         disabled={moved}
       >
         {rpsCardMove}
-      </div>
+      </button>
     </>
   )
 }
