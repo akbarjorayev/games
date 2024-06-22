@@ -6,7 +6,7 @@ import {
 } from 'firebase/storage'
 import { firebaseStorage } from './firebaseDB'
 
-export async function uploadDataToStore(path, message4) {
+export async function uploadString4ToStore(path, message4) {
   const storageRef = ref(firebaseStorage, path)
 
   return uploadString(storageRef, message4, 'data_url')
