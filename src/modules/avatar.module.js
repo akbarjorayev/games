@@ -1,7 +1,7 @@
 import {
   deleteFromStore,
   downloadFromStore,
-  uploadBytesToStore,
+  uploadString4ToStore,
 } from '../js/db/db/firebaseStore'
 import { loadFromLocalStorage } from '../js/db/local/localStorage'
 
@@ -10,7 +10,7 @@ export async function uploadAvatar(file, iID) {
   const path = `users/${id}/avatar`
 
   return file
-    ? await uploadBytesToStore(path, file)
+    ? await uploadString4ToStore(path, file)
     : await deleteFromStore(path)
 }
 
