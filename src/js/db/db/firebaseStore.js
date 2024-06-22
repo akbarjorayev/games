@@ -2,14 +2,14 @@ import {
   deleteObject,
   getDownloadURL,
   ref,
-  uploadBytes,
+  uploadString,
 } from 'firebase/storage'
 import { firebaseStorage } from './firebaseDB'
 
-export async function uploadBytesToStore(path, file) {
+export async function uploadDataToStore(path, message4) {
   const storageRef = ref(firebaseStorage, path)
 
-  return uploadBytes(storageRef, file)
+  return uploadString(storageRef, message4, 'data_url')
     .then(() => {
       return true
     })
