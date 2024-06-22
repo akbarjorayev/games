@@ -17,6 +17,7 @@
 @import url('./utils/cursor.css');
 @import url('./utils/scroll.css');
 @import url('./utils/tabIndex.css');
+@import url('./utils/lineHeight.css');
 
 @import url('./animations/animations.css');
 @import url('./animations/transition.css');

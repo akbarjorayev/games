@@ -7,6 +7,7 @@ import { useFirestore } from '../../../hooks/useFirestore'
 import { loadFromLocalStorage } from '../../../js/db/local/localStorage'
 import { sortFriends } from '../../../modules/friends.module'
 import { prepareGame } from '../../../modules/game.module'
+import { goToHref } from '../../../js/utils/href'
 
 const FRIENDS_STATUS = {
   default: 'default',
@@ -31,6 +32,15 @@ export default function GamePageFriendsAlert({
         value={{ link, onHide, setWaitingForRes, status, setStatus }}
       >
         <Alert title="Choose friend to play with" onHide={onHide}>
+          <div
+            className="con blur_theme_bg pd_small d_f_ce lh_1 bd_cl_d scale_trns cur_pointer"
+            onClick={() => goToHref('/search')}
+          >
+            <span className="material-symbols-outlined fz_small_icon">
+              search
+            </span>
+            <span>Search for friends</span>
+          </div>
           {!friends && <div className="con blur_theme_bg d_f_ce">Loading</div>}
           {friends && (!sortedFriends || sortedFriends?.length === 0) && (
             <div className="con blur_theme_bg d_f_ce">No friends</div>
