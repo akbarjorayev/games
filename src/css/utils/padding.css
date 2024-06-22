@@ -1,3 +1,7 @@
+.pd_normal {
+  padding: var(--pd) !important;
+}
+
 .pd_small {
   padding: var(--pd-small) !important;
 }

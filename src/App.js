@@ -15,6 +15,9 @@ const NotificationsPage = React.lazy(() =>
   import('./pages/NotificationsPage/NotificationsPage')
 )
 const AccountPage = React.lazy(() => import('./pages/AccountPage/AccountPage'))
+const RockPaperScissors = React.lazy(() =>
+  import('./games/pages/rockPaperScissors/RockPaperScissors')
+)
 
 export default function App() {
   checkRunApp()
@@ -30,6 +33,7 @@ export default function App() {
           <Route path="/games" element={<GamePage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
+          <Route path="/rock-paper-scissors" element={<RockPaperScissors />} />
           <Route path="/users/*" element={<AccountPage />} />
         </Routes>
       </BrowserRouter>

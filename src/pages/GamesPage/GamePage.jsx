@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Menu from '../../components/Menu/Menu'
 import GamePageFriendsAlert from './components/GamePageFriendsAlert'
 import GamePageWaitingForRes from './components/GamePageWaitingForRes'
+import GetGameCon from './components/GamePageCon'
 
 import { GAMES } from './data/gameData'
 
@@ -47,31 +48,5 @@ export default function GamePage() {
         />
       )}
     </>
-  )
-}
-
-function GetGameCon({ game, setFriendsAlert }) {
-  function gettingStart() {
-    setFriendsAlert((prev) => ({ ...prev, show: true, link: game.link }))
-  }
-
-  return (
-    <div
-      className="game d_f_fd_c blur_theme_bg blur_ha scale_trns"
-      tabIndex="0"
-      onClick={gettingStart}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter') gettingStart()
-      }}
-    >
-      <div className="game_icon d_f_1">
-        <div className="img d_f_ce">
-          <img src={game.icon} alt={game.name} />
-        </div>
-      </div>
-      <b className="con blur_theme_bg bd_none d_f_ce game_name fz_medium">
-        {game.name}
-      </b>
-    </div>
   )
 }

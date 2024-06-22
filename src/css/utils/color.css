@@ -5,7 +5,8 @@
 
   --bg: #373737;
   --bg-dark: #252525;
-  --bg-hover: #484848;
+  --bg-hover: #373737;
+  --bg-active: #303030;
 
   --border-color: #414141;
 
@@ -29,4 +30,9 @@
 
   --scrollbar-bg: #132424;
   --scrollbar-thumb-bg: #024245;
+
+  --game-con-bg: #111a39;
+
+  --game-won-bg: #378d3e;
+  --game-loser-bg: #8d3737;
 }

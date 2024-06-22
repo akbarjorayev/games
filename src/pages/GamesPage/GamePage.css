@@ -27,6 +27,7 @@
   aspect-ratio: 1;
   border-radius: var(--bd-ra);
   overflow: hidden;
+  background-color: var(--game-con-bg);
 }
 
 .game_icon {
@@ -35,13 +36,11 @@
   height: 1px;
 
   & .img {
-    width: min(100%, var(--game-img-size));
     height: 100%;
     overflow: hidden;
 
     & img {
-      width: min(100%, var(--game-img-size));
-      height: min(100%, var(--game-img-size));
+      width: 100%;
       object-fit: cover;
     }
   }

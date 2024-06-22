@@ -38,18 +38,13 @@ export async function getGameToken() {
   return gameToken
 }
 
-export async function prepareReltimeDBForGame(friendID, gameToken) {
+export async function prepareReltimeDBForGame(friendID, gameToken, gameLink) {
   const userID = loadFromLocalStorage('games').accounts.active
 
-  await saveToRealtimeDB(`games/playing/${gameToken}`, {
-    gameToken,
-    gamers: {
-      host: userID,
-      guest: friendID,
-    },
-    playing: false,
-    denied: false,
-  })
+  await saveToRealtimeDB(
+    `games/playing/${gameToken}`,
+    getGameRealtimeDBData(userID, friendID, gameToken, gameLink)
+  )
 }
 
 export async function deleteGuestNotification(gameToken) {
@@ -63,4 +58,20 @@ export async function deleteGuestNotification(gameToken) {
     notifications: newNs,
     amount: newNs.length,
   })
+}
+
+function getGameRealtimeDBData(userID, friendID, gameToken, gameLink) {
+  if (gameLink === '/rock-paper-scissors')
+    return {
+      gameToken,
+      gameLink,
+      gamers: {
+        host: `${userID}`,
+        guest: `${friendID}`,
+      },
+      playing: false,
+      denied: false,
+      ended: false,
+      won: false,
+    }
 }

@@ -1,0 +1,51 @@
+.rps_account {
+  width: min(90%, var(--rps-account-width));
+  border-radius: var(--bd-ra);
+
+  &[won='true'] {
+    background-color: var(--game-won-bg);
+  }
+
+  &[loser='true'] {
+    background-color: var(--game-loser-bg);
+  }
+}
+
+.rps_txt_vs {
+  font-size: 8em;
+}
+
+.rps_txt_replay {
+  font-size: 0.5em;
+}
+
+.rps_card {
+  --bd-ra: 30px;
+
+  position: relative;
+  width: min(90%, 150px);
+  aspect-ratio: 1;
+  border-radius: var(--bd-ra);
+  font-size: 4em;
+  border: 1px dashed var(--main-color-border);
+  overflow: hidden;
+}
+
+.rps_card_name {
+  position: absolute;
+  bottom: 0;
+  font-size: 0.3em;
+  line-height: 1;
+}
+
+.end_game_btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  inset-block-start: var(--pd-small);
+  inset-inline-start: var(--pd-small);
+}
+
+:root {
+  --rps-account-width: 300px;
+}

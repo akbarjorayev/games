@@ -3,7 +3,7 @@ import { ref, onValue } from 'firebase/database'
 import { firebaseRealtimeDB } from '../js/db/db/firebaseDB'
 
 export function useFirebaseRealtime(path) {
-  const [data, setData] = useState(null)
+  const [data, setData] = useState(false)
 
   useEffect(() => {
     const dataRef = ref(firebaseRealtimeDB, path)

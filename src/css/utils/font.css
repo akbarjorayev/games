@@ -6,6 +6,10 @@
   font-size: 1.2em;
 }
 
+.fz_big {
+  font-size: 2em;
+}
+
 .fz_small_icon {
   font-size: 1.5em !important;
 }

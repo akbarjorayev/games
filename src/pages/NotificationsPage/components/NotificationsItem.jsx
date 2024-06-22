@@ -7,7 +7,7 @@ import Button from '../../../components/Button/Button'
 import { NotificationsContext } from '../NotificationsContext'
 import { removeNotification } from '../../../modules/notifications.module'
 import { NOTIFICATIONS_TYPES } from '../data/notificationsData'
-import { acceptGame, endGame } from '../../../modules/game.module'
+import { acceptGame, rejectGame } from '../../../modules/game.module'
 import { goToHref } from '../../../js/utils/href'
 import { toastData } from '../../../components/utils/toast'
 
@@ -52,7 +52,7 @@ export default function NotificationsItem({ data }) {
     if (data?.type === NOTIFICATIONS_TYPES.playReqs) {
       setRemove(true)
       data.status = 'denied'
-      await endGame(data.gameToken)
+      await rejectGame(data.gameToken)
     }
   }
 
