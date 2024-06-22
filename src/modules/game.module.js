@@ -56,6 +56,6 @@ export async function endGame(gameToken) {
   deleteFromSession('gameLink')
   deleteFromSession('gameID')
 
-  await deleteFromRealtimeDB(`games/playing/${gameToken}`)
-  goToHref('/')
+  const deleted = await deleteFromRealtimeDB(`games/playing/${gameToken}`)
+  if (deleted) goToHref('/')
 }
