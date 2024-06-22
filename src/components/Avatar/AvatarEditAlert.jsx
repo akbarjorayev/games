@@ -6,6 +6,7 @@ import Button from '../Button/Button'
 
 import { uploadAvatar } from '../../modules/avatar.module'
 import { deviceIsPhone } from '../../js/utils/device'
+import { imageCompressor } from '../../js/utils/image'
 
 import '../Alert/Alert.css'
 
@@ -29,8 +30,14 @@ export default function AvatarEditAlert({ onHide, letter, img: iImg }) {
       if (!checkedSize.ok) return toast.error(checkedSize.msg)
 
       const reader = new FileReader()
-      reader.onload = () => {
-        setImgs({ ...imgs, img: reader.result, imgFile: file })
+      reader.onload = async () => {
+        const imgFile = await imageCompressor(file)
+
+        setImgs({
+          ...imgs,
+          img: reader.result,
+          imgFile,
+        })
       }
       reader.readAsDataURL(file)
     }
@@ -89,8 +96,14 @@ function UploadButton() {
 
     const reader = new FileReader()
 
-    reader.onload = () => {
-      setImgs({ ...imgs, img: reader.result, imgFile: file })
+    reader.onload = async () => {
+      const imgFile = await imageCompressor(file)
+
+      setImgs({
+        ...imgs,
+        img: reader.result,
+        imgFile,
+      })
     }
     reader.readAsDataURL(file)
   }
