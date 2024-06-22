@@ -10,6 +10,10 @@
   border-color: transparent !important;
 }
 
+.bd_cl_d {
+  border: 1px dashed var(--main-color-border) !important;
+}
+
 :root {
   --bd-ra: 12px;
   --bd-ra-big: 16px;
