@@ -7,7 +7,7 @@ export async function imageCompressor(
   return new Promise((res, rej) => {
     const reader = new FileReader()
 
-    reader.onload = (event) => {
+    reader.onload = (e) => {
       const img = new Image()
       img.onload = () => {
         const canvas = document.createElement('canvas')
@@ -29,7 +29,7 @@ export async function imageCompressor(
         const dataUrl = canvas.toDataURL(format, quality)
         res(dataUrl)
       }
-      img.src = event.target.result
+      img.src = e.target.result
     }
 
     reader.onerror = (err) => {
