@@ -29,6 +29,18 @@ export default function RockPaperScissors() {
   const [showGameOver, setShowGameOver] = useState(false)
 
   useEffect(() => {
+    async function handleBeforeUnload() {
+      await endGame(gameToken)
+    }
+
+    window.addEventListener('beforeunload', handleBeforeUnload)
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
+  }, [gameToken])
+
+  useEffect(() => {
     if (!gameData?.playing) {
       const timer = setTimeout(() => setShowGameOver(true), 1000)
       return () => clearTimeout(timer)
@@ -96,7 +108,10 @@ function EndGameButton() {
             >
               Continue
             </Button>
-            <Button className="btn_bd txt_red" onClick={() => endGame()}>
+            <Button
+              className="btn_bd txt_red"
+              onClick={async () => await endGame()}
+            >
               End
             </Button>
           </div>
