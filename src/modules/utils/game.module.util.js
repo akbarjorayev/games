@@ -69,10 +69,6 @@ function getGameRealtimeDBData(userID, friendID, gameToken, gameLink) {
         host: `${userID}`,
         guest: `${friendID}`,
       },
-      scores: {
-        [userID]: 0,
-        [friendID]: 0,
-      },
       playing: false,
       denied: false,
       ended: false,
