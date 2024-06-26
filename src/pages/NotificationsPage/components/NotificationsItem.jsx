@@ -10,6 +10,8 @@ import { NOTIFICATIONS_TYPES } from '../data/notificationsData'
 import { acceptGame, rejectGame } from '../../../modules/game.module'
 import { goToHref } from '../../../js/utils/href'
 import { toastData } from '../../../components/utils/toast'
+import { loadFromRealtimeDB } from '../../../js/db/db/firebaseRealtime'
+import { deleteGuestNotification } from '../../../modules/utils/game.module.util'
 
 export default function NotificationsItem({ data }) {
   const { notifications, setNotifications } = useContext(NotificationsContext)
@@ -60,6 +62,16 @@ export default function NotificationsItem({ data }) {
     if (data?.type === NOTIFICATIONS_TYPES.playReqs) {
       setRemove(true)
       data.status = 'accepted'
+
+      const isPlaying = await loadFromRealtimeDB(
+        `games/playing/${data.gameToken}`
+      )
+      if (!isPlaying) {
+        toast.error('Game is over')
+        await deleteGuestNotification(data.gameToken)
+        return
+      }
+
       await acceptGame(data.gameToken)
       goToHref(data.gameLink)
     }
@@ -88,7 +100,8 @@ export default function NotificationsItem({ data }) {
             <div className="fz_small">{data?.description}</div>
           </div>
           <div className="fz_small txt_opa">
-            {date.current.getHours()}:{date.current.getMinutes()}
+            {`${date.current.getHours()}`.padStart(2, '0')}:
+            {`${date.current.getMinutes()}`.padStart(2, '0')}
           </div>
         </div>
         {data.type === NOTIFICATIONS_TYPES.playReqs && (
