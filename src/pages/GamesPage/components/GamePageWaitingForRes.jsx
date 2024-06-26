@@ -11,6 +11,7 @@ import { rejectGame } from '../../../modules/game.module'
 import { goToHref } from '../../../js/utils/href'
 import { useFirebaseRealtime } from '../../../hooks/useFirebaseRealtime'
 import { useCounter } from '../../../hooks/useCounter'
+import { secondsTo } from '../../../js/utils/time'
 
 export default function GamePageWaitingForRes({ name, link, onHide }) {
   const [count] = useCounter()
@@ -45,8 +46,8 @@ export default function GamePageWaitingForRes({ name, link, onHide }) {
     <Alert onHide={stopGame}>
       <div className="list_y">
         <div className="txt_ce">
-          You're waiting for <b>{name}</b> response for {count}{' '}
-          {count > 1 ? 'seconds' : 'second'}
+          You're waiting for <b>{name}</b> response for{' '}
+          <b>{secondsTo(count)}</b>
         </div>
         <Button className="btn_bd txt_red" onClick={stopGame}>
           Stop waiting
