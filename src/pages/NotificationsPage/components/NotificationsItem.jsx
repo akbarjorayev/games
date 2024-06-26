@@ -100,7 +100,8 @@ export default function NotificationsItem({ data }) {
             <div className="fz_small">{data?.description}</div>
           </div>
           <div className="fz_small txt_opa">
-            {date.current.getHours()}:{date.current.getMinutes()}
+            {`${date.current.getHours()}`.padStart(2, '0')}:
+            {`${date.current.getMinutes()}`.padStart(2, '0')}
           </div>
         </div>
         {data.type === NOTIFICATIONS_TYPES.playReqs && (
