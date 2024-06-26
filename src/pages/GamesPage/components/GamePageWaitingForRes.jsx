@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 import Alert from '../../../components/Alert/Alert'
 import Button from '../../../components/Button/Button'
@@ -14,7 +14,7 @@ import { useCounter } from '../../../hooks/useCounter'
 
 export default function GamePageWaitingForRes({ name, link, onHide }) {
   const [count] = useCounter()
-  const gameToken = loadFromSession('gameToken')
+  const gameToken = useRef(loadFromSession('gameToken')).current
   const [isPlaying] = useFirebaseRealtime(`games/playing/${gameToken}/playing`)
   const [isDenied] = useFirebaseRealtime(`games/playing/${gameToken}/denied`)
 
@@ -26,10 +26,8 @@ export default function GamePageWaitingForRes({ name, link, onHide }) {
   }, [isPlaying])
 
   async function stopGame() {
-    const gameToken = loadFromSession('gameToken')
-
-    await rejectGame(gameToken)
     onHide()
+    await rejectGame(gameToken)
   }
 
   if (isDenied === null)
