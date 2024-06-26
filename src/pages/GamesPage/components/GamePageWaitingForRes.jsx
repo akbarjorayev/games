@@ -14,10 +14,10 @@ import { useCounter } from '../../../hooks/useCounter'
 import { secondsTo } from '../../../js/utils/time'
 
 export default function GamePageWaitingForRes({ name, link, onHide }) {
-  const [count] = useCounter()
   const gameToken = useRef(loadFromSession('gameToken')).current
   const [isPlaying] = useFirebaseRealtime(`games/playing/${gameToken}/playing`)
   const [isDenied] = useFirebaseRealtime(`games/playing/${gameToken}/denied`)
+  const [count] = useCounter(isPlaying === null)
 
   useEffect(() => {
     if (isPlaying) {
