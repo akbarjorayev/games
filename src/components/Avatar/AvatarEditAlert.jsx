@@ -7,6 +7,7 @@ import Button from '../Button/Button'
 import { uploadAvatar } from '../../modules/avatar.module'
 import { deviceIsPhone } from '../../js/utils/device'
 import { imageCompressor } from '../../js/utils/image'
+import { pasteImage } from '../../js/utils/paste'
 
 import '../Alert/Alert.css'
 
@@ -20,6 +21,30 @@ export default function AvatarEditAlert({ onHide, letter, img: iImg }) {
   })
   const [alertDisabled, setAlertDisabled] = useState(false)
   const isPhone = useRef(deviceIsPhone()).current
+
+  useEffect(() => {
+    async function paste(e) {
+      const image = await pasteImage(e)
+      if (!image) return toast.error('No image found')
+
+      const imgFile = await imageCompressor(image)
+
+      const reader = new FileReader()
+      reader.onload = async () => {
+        setImgs({
+          ...imgs,
+          img: reader.result,
+          imgFile,
+        })
+      }
+      reader.readAsDataURL(image)
+    }
+
+    window.addEventListener('paste', paste)
+    return () => {
+      window.removeEventListener('paste', paste)
+    }
+  }, [])
 
   function handleDrop(e) {
     e.preventDefault()
