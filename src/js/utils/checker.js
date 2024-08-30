@@ -32,7 +32,7 @@ function checkAds() {
     'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7347223343628043'
   script.crossOrigin = 'anonymous'
 
-  const meta = document.createElement('script')
+  const meta = document.createElement('meta')
   script.name = 'google-adsense-account'
   script.content = 'ca-pub-7347223343628043'
 
