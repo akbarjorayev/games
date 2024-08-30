@@ -33,8 +33,8 @@ function checkAds() {
   script.crossOrigin = 'anonymous'
 
   const meta = document.createElement('meta')
-  script.name = 'google-adsense-account'
-  script.content = 'ca-pub-7347223343628043'
+  meta.name = 'google-adsense-account'
+  meta.content = 'ca-pub-7347223343628043'
 
   document.head.appendChild(script)
   document.head.appendChild(meta)
