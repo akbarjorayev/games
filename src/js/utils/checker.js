@@ -5,6 +5,7 @@ import {
 
 export function checkRunApp() {
   checkInitialLocalStorage()
+  checkAds()
 }
 
 export function checkInitialLocalStorage() {
@@ -22,4 +23,14 @@ export function getInitialLocalStorage() {
   }
 
   return data
+}
+
+function checkAds() {
+  const script = document.createElement('script')
+  script.async = true
+  script.src =
+    'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7347223343628043'
+  script.crossOrigin = 'anonymous'
+
+  document.head.appendChild(script)
 }
